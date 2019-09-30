@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <div class="jumbotron">
+    <b-jumbotron>
       <div class="container">
         <div class="row">
           <div class="col-sm-6 offset-sm-3">
@@ -10,7 +10,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </b-jumbotron>
   </div>
 </template>
 
