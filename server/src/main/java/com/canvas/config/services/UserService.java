@@ -26,7 +26,7 @@ public class UserService{
 		return false;
 	}
 	
-	public User getById(Long id) {
+	public User getById(String id) {
 		return repo.getOne(id);
 	}
 	

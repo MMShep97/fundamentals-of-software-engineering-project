@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +27,15 @@ public class TestController {
 	@GetMapping(value = "/getAll")
 	public List<User> getAll(){
 		return service.listAll();
+	}
+	
+	@GetMapping(value = "/getAll/{id}")
+	public User getById(@PathVariable("id") String id){
+		return service.getById(id);
+	}
+	@PostMapping(value = "/save")
+	public boolean save(@RequestBody User user){
+		return service.save(user);
 	}
 	
 	
