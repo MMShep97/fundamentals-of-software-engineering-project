@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>Hi {{account.user.userType}}{{account.user.firstName}}!</h1>
-        <h3>Users from secure api end point:</h3>
+        <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
+        <h3>List of all known users: </h3>
         <em v-if="users.loading">Loading users...</em>
         <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
         <ul v-if="users.items">

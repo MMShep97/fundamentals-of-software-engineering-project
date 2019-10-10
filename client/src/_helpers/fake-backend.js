@@ -22,6 +22,7 @@ export function configureFakeBackend() {
                         // if login details are valid return user details and fake jwt token
                         let user = filteredUsers[0];
                         let responseJson = {
+                            userType: user.userType,
                             id: user.id,
                             username: user.username,
                             firstName: user.firstName,
