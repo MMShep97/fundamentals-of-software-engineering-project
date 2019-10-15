@@ -28,7 +28,7 @@
                             <em>User</em>
                         </template>
                         <b-dropdown-item to='/user-profile'>Profile</b-dropdown-item>
-                        <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                        <b-dropdown-item to='/logout' v-on:click="logout()">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -37,8 +37,14 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
     export default {
-
+computed: {
+        ...mapState('account', ['status'])
+    },
+methods: {
+    ...mapActions('account', ['login', 'logout']),
+}
     }
 </script>
 

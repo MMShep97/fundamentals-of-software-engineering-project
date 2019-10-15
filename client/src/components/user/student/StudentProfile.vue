@@ -1,18 +1,19 @@
 <template>
 <div>
-    <Accordian>
+    <!-- <Accordian>
         <template v-slot:title>{{courseList.activeCourses.english.title}}</template>
         <template v-slot:text>{{courseList.activeCourses.english.text}}</template>
     </Accordian>
     <Accordian>
         <template v-slot:title>{{courseList.pastCourses.math.title}}</template>
         <template v-slot:text>{{courseList.pastCourses.math.text}}</template>
-    </Accordian>
+    </Accordian> -->
+    Student
 </div>
 </template>
 
 <script>
-    import Accordian from '../utility/Accordian'
+    import Accordian from '../../utility/Accordian'
     import {
         mapState,
         mapActions

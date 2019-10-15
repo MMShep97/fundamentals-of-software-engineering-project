@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Hi {{account.user.firstName}}!</h1>
         <h3>Users from secure api end point:</h3>
         <em v-if="users.loading">Loading users...</em>
         <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
