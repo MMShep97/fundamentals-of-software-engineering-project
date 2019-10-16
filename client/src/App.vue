@@ -1,41 +1,44 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <b-jumbotron>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-6 offset-sm-3">
+    <b-jumbotron class='overlay'>
+      <b-container>
+        <b-row align-h="center">
+          <b-col cols="6">
             <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
-            <router-view></router-view>
-          </div>
-        </div>
-      </div>
+          </b-col>
+        </b-row>
+      </b-container>
+      <router-view></router-view>
     </b-jumbotron>
   </div>
 </template>
 
 <script>
-/*eslint-disable*/
-import { mapState, mapActions } from 'vuex'
+  /*eslint-disable*/
+  import {
+    mapState,
+    mapActions
+  } from 'vuex'
   import Navbar from './components/Navbar.vue'
 
   export default {
     name: 'app',
     computed: {
-        ...mapState({
-            alert: state => state.alert
-        })
+      ...mapState({
+        alert: state => state.alert
+      })
     },
     methods: {
-        ...mapActions({
-            clearAlert: 'alert/clear' 
-        })
+      ...mapActions({
+        clearAlert: 'alert/clear'
+      })
     },
     watch: {
-        $route (to, from){
-            // clear alert on location change
-            this.clearAlert();
-        }
+      $route(to, from) {
+        // clear alert on location change
+        this.clearAlert();
+      }
     },
     components: {
       Navbar,
@@ -51,4 +54,20 @@ import { mapState, mapActions } from 'vuex'
     color: #2c3e50;
   }
 
+  html {
+    background-color: #e9ecef;
+  }
+
+  .overlay {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .b-row {
+    display: inline-block;
+  }
+
+  .b-col {}
 </style>

@@ -1,9 +1,9 @@
 <template>
     <div>
         <b-navbar class="navbar-styling" toggleable="lg" type="dark" variant="dark">
-            <b-navbar-brand to="/" >
-            <img src="" class="d-inline-block align-top" alt="">
-            Educadia
+            <b-navbar-brand to="/">
+                <img src="" class="d-inline-block align-top" alt="">
+                Educadia
             </b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -11,21 +11,21 @@
             <b-collapse is-nav id="nav-collapse">
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-item>
+                    <b-nav-item v-if="!account.status.loggedIn">
                         <b-button to='/login' size="sm" variant='outline-light'>
                             Login
                         </b-button>
                     </b-nav-item>
-                    <b-nav-item>
+                    <b-nav-item v-if="!account.status.loggedIn">
                         <b-button to='/register' size="sm" variant='outline-light'>
                             Register
                         </b-button>
                     </b-nav-item>
-
-                    <b-nav-item-dropdown right>
+                    
+                    <b-nav-item-dropdown v-if="account.status.loggedIn" right>
                         <!-- Using 'button-content' slot -->
                         <template v-slot:button-content>
-                            <em>User</em>
+                            <em>{{account.user.firstName}} {{account.user.lastName}}</em>
                         </template>
                         <b-dropdown-item to='/user-profile'>Profile</b-dropdown-item>
                         <b-dropdown-item to='/logout' v-on:click="logout()">Sign Out</b-dropdown-item>
@@ -37,26 +37,47 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+    import {
+        mapState,
+        mapActions
+    } from 'vuex'
     export default {
-computed: {
-        ...mapState('account', ['status'])
-    },
-methods: {
-    ...mapActions('account', ['login', 'logout']),
-}
+
+        data () {
+            return {
+                
+            }
+        },
+
+        computed: {
+            ...mapState({
+                account: state => state.account,
+                users: state => state.users.all
+            }, 'account', ['status']),
+        },
+        methods: {
+            ...mapActions('account', ['login', 'logout']),
+        }
     }
 </script>
 
 <style scoped>
-.navbar-styling {
-    border-bottom: 2px solid black;
-    box-shadow: 0 10px 6px 0 rgba(0,0,0,.16);
-}
+    .navbar-styling {
+        border-bottom: 2px solid black;
+        box-shadow: 0 10px 6px 0 rgba(0, 0, 0, .16);
+    }
 
-.navbar-brand {
-    letter-spacing: 5px;
-    font-size: 25px;
-    font-family: 'Lobster'
-}
+    .navbar-brand {
+        letter-spacing: 5px;
+        font-size: 25px;
+        font-family: 'Lobster'
+    }
+
+    .dropdown {
+        margin-top: 3px !important;
+    }
+
+    em {
+        font-size: 20px;
+    }
 </style>
