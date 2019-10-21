@@ -1,6 +1,6 @@
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
-    
+
 export function configureFakeBackend() {
     let realFetch = window.fetch;
     window.fetch = function (url, opts) {
@@ -12,6 +12,7 @@ export function configureFakeBackend() {
                 if (url.endsWith('/users/authenticate') && opts.method === 'POST') {
                     // get parameters from post request
                     let params = JSON.parse(opts.body);
+                    let responseJson;
 
                     // find if any user matches login credentials
                     let filteredUsers = users.filter(user => {
@@ -19,17 +20,42 @@ export function configureFakeBackend() {
                     });
 
                     if (filteredUsers.length) {
-                        // if login details are valid return user details and fake jwt token
                         let user = filteredUsers[0];
-                        let responseJson = {
-                            userType: user.userType,
-                            id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
-                            token: 'fake-jwt-token'
-                        };
-                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(responseJson)) });
+                        if (user.userType == 'Administrator') {
+                            responseJson = {
+                                userType: user.userType,
+                                id: user.id,
+                                username: user.username,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                token: 'fake-jwt-token'
+                            };
+                        } else if (user.userType == 'Instructor') {
+                            responseJson = {
+                                userType: user.userType,
+                                id: user.id,
+                                username: user.username,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                activeCourses: user.activeCourses,
+                                token: 'fake-jwt-token'
+                            };
+                        } else {
+                            responseJson = {
+                                userType: user.userType,
+                                id: user.id,
+                                username: user.username,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                token: 'fake-jwt-token'
+                            };
+                        }
+                        // if login details are valid return user details and fake jwt token
+
+                        resolve({
+                            ok: true,
+                            text: () => Promise.resolve(JSON.stringify(responseJson))
+                        });
                     } else {
                         // else return error
                         reject('Username or password is incorrect');
@@ -42,7 +68,10 @@ export function configureFakeBackend() {
                 if (url.endsWith('/users') && opts.method === 'GET') {
                     // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                     if (opts.headers && opts.headers.Authorization === 'Bearer fake-jwt-token') {
-                        resolve({ ok: true, text: () => Promise.resolve(JSON.stringify(users))});
+                        resolve({
+                            ok: true,
+                            text: () => Promise.resolve(JSON.stringify(users))
+                        });
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
@@ -58,11 +87,16 @@ export function configureFakeBackend() {
                         // find user by id in users array
                         let urlParts = url.split('/');
                         let id = parseInt(urlParts[urlParts.length - 1]);
-                        let matchedUsers = users.filter(user => { return user.id === id; });
+                        let matchedUsers = users.filter(user => {
+                            return user.id === id;
+                        });
                         let user = matchedUsers.length ? matchedUsers[0] : null;
 
                         // respond 200 OK with user
-                        resolve({ ok: true, text: () => JSON.stringify(user)});
+                        resolve({
+                            ok: true,
+                            text: () => JSON.stringify(user)
+                        });
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');
@@ -77,7 +111,9 @@ export function configureFakeBackend() {
                     let newUser = JSON.parse(opts.body);
 
                     // validation
-                    let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                    let duplicateUser = users.filter(user => {
+                        return user.username === newUser.username;
+                    }).length;
                     if (duplicateUser) {
                         reject('Username "' + newUser.username + '" is already taken');
                         return;
@@ -89,7 +125,10 @@ export function configureFakeBackend() {
                     localStorage.setItem('users', JSON.stringify(users));
 
                     // respond 200 OK
-                    resolve({ ok: true, text: () => Promise.resolve() });
+                    resolve({
+                        ok: true,
+                        text: () => Promise.resolve()
+                    });
 
                     return;
                 }
@@ -112,7 +151,10 @@ export function configureFakeBackend() {
                         }
 
                         // respond 200 OK
-                        resolve({ ok: true, text: () => Promise.resolve() });
+                        resolve({
+                            ok: true,
+                            text: () => Promise.resolve()
+                        });
                     } else {
                         // return 401 not authorised if token is null or invalid
                         reject('Unauthorised');

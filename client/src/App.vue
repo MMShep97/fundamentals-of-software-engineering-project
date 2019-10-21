@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <Navbar></Navbar>
-    <b-jumbotron class='overlay'>
+    <b-jumbotron class='welcome-overlay'>
       <b-container>
         <b-row align-h="center">
-          <b-col cols="6">
-            <div v-if="alert.message" :class="`alert ${alert.type}`">{{alert.message}}</div>
+          <b-col cols="6" sm="6">
+            <div v-if="alert.message" :class="`alert ${alert.type} center-alert`">{{alert.message}}</div>
           </b-col>
         </b-row>
       </b-container>
@@ -47,27 +47,18 @@
 </script>
 
 <style>
-  #app {
+ html {
+    background-color: #e9ecef;
+  }
+
+#app {
     font-family: 'Cabin', 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
   }
 
-  html {
-    background-color: #e9ecef;
-  }
-
-  .overlay {
-    height: 100vh;
-    width: 100vw;
-    max-width: 100%;
+  .center-alert {
     text-align: center;
   }
-
-  .b-row {
-    display: inline-block;
-  }
-
-  .b-col {}
 </style>

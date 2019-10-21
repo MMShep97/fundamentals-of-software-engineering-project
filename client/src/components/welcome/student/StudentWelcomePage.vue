@@ -1,6 +1,5 @@
 <template>
     <div>
-        Student Welcome
     </div>
 </template>
 

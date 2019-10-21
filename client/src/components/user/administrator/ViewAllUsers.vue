@@ -1,31 +1,31 @@
 <template>
-    <div class="component-container">
-        <b-container>
-            <b-row>
-                <!-- Delete users -->
-                <b-col>
-                    <h3>Users from secure api end point:</h3>
-                    <em v-if="users.loading">Loading users...</em>
-                    <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
-
-                    <ul v-if="users.items">
-                        <li v-for="user in users.items" :key="user.id">
-                            {{user.firstName + ' ' + user.lastName}} ({{user.userType}})
-                            <span v-if="user.deleting"><em> - Deleting...</em></span>
-                            <span v-else-if="user.deleteError" class="text-danger"> - ERROR: {{user.deleteError}}</span>
-                            <span v-else> - <a @click="deleteUser(user.id)" class="text-danger">Delete</a></span>
-                        </li>
-                    </ul>
-                </b-col>
-                <!-- Add Instructors -->
-                <b-col>
-                    <h3>Add Instructors . . .</h3>
-                </b-col>
-            </b-row>
-        </b-container>
-        <p>
-            <router-link to="/login">Logout</router-link>
-        </p>
+    <div class="view-users-container">
+        <b-card class="card-style delete-users-card">
+            <h3>Showing current registered users...</h3>
+            <em v-if="users.loading">Loading users...</em>
+            <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span>
+            
+            <b-container>
+                        <div v-if="users.items">
+                            <b-row>
+                                <b-col><em>Name</em></b-col>
+                                <b-col><em>User Type</em></b-col>
+                                <b-col><em>Action</em></b-col>
+                            </b-row>
+                            <b-row v-for="user in users.items" :key="user.id">
+                                <b-col>{{user.firstName + ' ' + user.lastName}}</b-col>
+                                <b-col>{{user.userType}}</b-col>
+                                <b-col>
+                                <span v-if="user.deleting"><em> Deleting...</em></span>
+                                <span v-else-if="user.deleteError" class="text-danger"> - ERROR: {{user.deleteError}}</span>
+                                <b-col v-else-if="user.id != account.user.id"><a @click="deleteUser(user.id)" class="text-danger">Delete</a></b-col>
+                                <b-col v-else><em>You - no action</em></b-col>
+                                </b-col>
+                            </b-row>
+                        </div>
+            </b-container>
+        </b-card>
+        
     </div>
 </template>
 
@@ -59,7 +59,7 @@
         list-style: none;
     }
 
-    .component-container {
-        margin-top: 50px;
+    .card-style {
+        background-color: ghostwhite;
     }
 </style>

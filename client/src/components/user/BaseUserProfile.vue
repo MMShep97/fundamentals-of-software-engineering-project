@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
         <div v-if="account.user.userType == 'Student'">
             <StudentProfile></StudentProfile>
         </div>

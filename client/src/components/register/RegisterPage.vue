@@ -75,7 +75,8 @@
                     firstName: '',
                     lastName: '',
                     username: '',
-                    password: ''
+                    password: '',
+                    activeClasses: ['Math', 'Science', 'Chemistry', 'English'],
                 },
                 submitted: false
             }

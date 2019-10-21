@@ -1,6 +1,5 @@
 <template>
     <div>
-        Admin Welcome
     </div>
 </template>
 

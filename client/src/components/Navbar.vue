@@ -12,22 +12,23 @@
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item v-if="!account.status.loggedIn">
-                        <b-button to='/login' size="sm" variant='outline-light'>
+                        <b-button v-b-tooltip.hover title="Login!" to='/login' size="sm" variant='outline-light'>
                             Login
                         </b-button>
                     </b-nav-item>
                     <b-nav-item v-if="!account.status.loggedIn">
-                        <b-button to='/register' size="sm" variant='outline-light'>
+                        <b-button v-b-tooltip.hover title="Register!" to='/register' size="sm" variant='outline-light'>
                             Register
                         </b-button>
                     </b-nav-item>
-                    
+
                     <b-nav-item-dropdown v-if="account.status.loggedIn" right>
                         <!-- Using 'button-content' slot -->
                         <template v-slot:button-content>
                             <em>{{account.user.firstName}} {{account.user.lastName}}</em>
                         </template>
                         <b-dropdown-item to='/user-profile'>Profile</b-dropdown-item>
+                        <b-dropdown-item to='/settings'>Settings</b-dropdown-item>
                         <b-dropdown-item to='/logout' v-on:click="logout()">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
@@ -43,9 +44,9 @@
     } from 'vuex'
     export default {
 
-        data () {
+        data() {
             return {
-                
+
             }
         },
 
@@ -70,14 +71,22 @@
     .navbar-brand {
         letter-spacing: 5px;
         font-size: 25px;
-        font-family: 'Lobster'
+        font-family: 'Lobster';
+        animation: glow 6s ease-in-out infinite alternate;
     }
 
-    .dropdown {
-        margin-top: 3px !important;
+    @keyframes glow {
+        from {
+        }
+
+        to {
+            text-shadow: 0 0 5px #fff, 0 0 5px rgb(228, 219, 219), 0 0 10px #a88b8b, 0 0 15px #644d4d, 0 0 20px #1a1950, 0 0 22px #3a2e2e, 0 0 24px #050404;
+        }
     }
 
     em {
         font-size: 20px;
+        display: inline-block;
+        margin-right: 5px;
     }
 </style>

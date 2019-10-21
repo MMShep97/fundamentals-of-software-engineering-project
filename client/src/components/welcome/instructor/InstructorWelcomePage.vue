@@ -1,6 +1,5 @@
 <template>
     <div>
-        Instructor Welcome
     </div>
 </template>
 
