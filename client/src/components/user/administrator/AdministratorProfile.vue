@@ -9,8 +9,9 @@
                 </b-col>
                 <!-- Add Instructors -->
                 <b-col sm="12" md="5">
+                    <h5 class="task-header">Add Instructors</h5>
                     <b-card class="card-style add-instructor-card">
-                        <h3>Add Instructors . . .</h3>
+                        
                     </b-card>
                 </b-col>
             </b-row>

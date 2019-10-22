@@ -2,7 +2,7 @@
     <div>
         <b-navbar class="navbar-styling" toggleable="lg" type="dark" variant="dark">
             <b-navbar-brand to="/">
-                <img src="" class="d-inline-block align-top" alt="">
+                <img src='../assets/graduation_cap.png' class="d-inline-block" alt="" width="auto" height="35px">
                 Educadia
             </b-navbar-brand>
 

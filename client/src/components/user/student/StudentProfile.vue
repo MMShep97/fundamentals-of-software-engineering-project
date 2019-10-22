@@ -7,7 +7,8 @@
         <b-container>
             <b-row>
                 <b-col sm="12" md="4">
-                    <b-card title="My Courses">
+                    <h5 class="task-header">My Courses</h5>
+                    <b-card>
                         <b-col>Science</b-col>
                         <b-col>English</b-col>
                         <b-col>Math</b-col>
@@ -15,13 +16,32 @@
                     </b-card>
                 </b-col>
                 <b-col sm="12" md="8">
-                    <b-card title="Currently Selected Course">
-                        <b-tabs pills vertical end>
-                            <b-tab title="View Grades">1</b-tab>
-                            <b-tab title="Take Exams">2</b-tab>
-                            <b-tab title="3">
+                    <h5 class="task-header">Currently Selected Course</h5>
+                    <b-card no-body>
+                        <b-tabs content-class="mt-1" card pills justified align="center">
+                            <b-tab no-body title="Home">
+                                <b-card-text>Test 1</b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="Announcements">
+                                <b-card-text></b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="Assignments">
+                                <b-card-text></b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="Grades">
+                                <b-card-text></b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="People">
+                                <b-card-text></b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="Modules">
+                                <b-card-text></b-card-text>
+                            </b-tab>
+                            <b-tab no-body title="Feedback">
+                                <b-card-text></b-card-text>
                             </b-tab>
                         </b-tabs>
+
                     </b-card>
                 </b-col>
             </b-row>

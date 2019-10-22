@@ -61,4 +61,24 @@
   .center-alert {
     text-align: center;
   }
+
+  .line-separator {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-top: 4px solid #b71540af;
+    background-color: #b71540af;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+  .task-header {
+        padding-top: 3px;
+        margin: 0 0;
+        background-color: #b71540af;
+
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
 </style>

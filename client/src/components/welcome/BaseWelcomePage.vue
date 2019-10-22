@@ -10,8 +10,12 @@
                             <b-button to="/register" variant="primary" id="create-account-button">
                             Create your account today!
                             </b-button>
-                            <b-tooltip target="create-account-button" placement="bottom">Already have an account? Login <router-link to='/register'>here!</router-link></b-tooltip>
+                            <b-tooltip target="create-account-button" placement="bottom">Already have an account? Login <router-link to='/login'>here!</router-link></b-tooltip>
                         </b-jumbotron>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col md="12">            <div class="line-separator"></div>
                     </b-col>
                 </b-row>
                 <b-row align-v="center" class="quote quotes quote-container">
@@ -50,7 +54,7 @@
         <div v-else-if="account.status.loggedIn">
             <img class="welcome-image" src='../../assets/graduation_cap.png'>
             <b-jumbotron>
-                <template v-slot:header>Welcome, {{account.user.userType}} {{account.user.firstName}}!</template>
+                <template v-slot:header class='jumbo-header'>Welcome, {{account.user.userType}} {{account.user.firstName}}!</template>
                 <template v-slot:lead>Try checking out your <router-link to="/user-profile">profile</router-link> for important information!</template>
             </b-jumbotron>
             <div v-if="account.user.userType == 'Student'">
@@ -62,6 +66,7 @@
             <div v-else-if="account.user.userType == 'Administrator'">
                 <AdministratorWelcomePage></AdministratorWelcomePage>
             </div>
+            <div class="line-separator"></div>
         </div>
     </div>
 </template>
