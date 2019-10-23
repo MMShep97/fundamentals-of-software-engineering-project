@@ -11,21 +11,75 @@
             <b-row align-h="center" align-v="start" class="row-margin">
                 <b-col md="4">
                     <h4>Select from your current classes:</h4>
-                    <b-form-select v-model="selected" :options="options" class="mb-3" value-field="class"
-                        text-field="name" disabled-field="notEnabled"></b-form-select>
-                    <div class="">Current Course: <strong>{{ selected }}</strong></div>
+                    <b-form-select v-model="currentCourse" :options="currentCourseOptions" class="mb-3"
+                        value-field="class" text-field="name" disabled-field="notEnabled"></b-form-select>
+                    <div class="">Current Course: <strong>{{ currentCourse }}</strong></div>
                 </b-col>
             </b-row>
-            <b-row v-if="selected">
+            <b-row v-if="currentCourse">
                 <b-col md="6" sm="12">
                     <h5 class="task-header">Subjects</h5>
                     <b-card no-body>
                         <b-tabs content-class="mt-1" card pills justified align="center">
                             <b-tab no-body title="Add Subject">
-                                <b-card-text>Test 1</b-card-text>
+                                <b-row>
+                                    <b-col>
+                                        <form>
+                                            <b-form-group>
+                                                <label htmlFor="createCourse.courseName">Course Name:</label>
+                                                <input type="text" v-model="createCourse.courseName" name="createCourse.courseName"
+                                                    class="form-control"
+                                                    :class="{ 'is-invalid': submitted && errors.has('lastName') }" />
+                                                <div v-if="submitted && errors.has('createCourse.courseName')"
+                                                    class="invalid-feedback">
+                                                    {{ errors.first('createCourse.courseName') }}</div>
+                                            </b-form-group>
+                                            <b-form-group>
+                                                <label htmlFor="createCourse.courseDescription">Course Description:</label>
+                                                <input type="text" v-model="createCourse.courseDescription"
+                                                    name="createCourse.courseDescription"
+                                                    class="form-control" 
+                                                    :class="{ 'is-invalid': errors.has('createCourse.courseDescription') }" />
+                                                <div v-if="submitted && errors.has('createCourse.courseDescription')"
+                                                    class="invalid-feedback">
+                                                    {{ errors.first('createCourse.courseDescription') }}</div>
+                                            </b-form-group>
+                                            <b-form-group>
+                                                <label>Course Files:</label>
+                                                <b-form-file
+                                                multiple
+                                                v-model="createCourse.courseFiles"
+                                                :file-name-formatter="formatNames"
+                                                drop-placeholder="Drop file here"
+                                                    class="form-control" 
+                                                    :class="{ 'is-invalid': errors.has('createdCourseDescription') }">
+                                                </b-form-file>
+                                                <div v-if="submitted && errors.has('createdCourseDescription')"
+                                                    class="invalid-feedback">
+                                                    {{ errors.first('createdCourseDescription') }}</div>
+                                            </b-form-group>
+                                            <b-button>Submit</b-button>
+                                        </form>
+                                    </b-col>
+                                </b-row>
                             </b-tab>
-                            <b-tab no-body title="Delete Subject">2</b-tab>
+                            <b-tab no-body title="Delete Subject">
+                                <b-card-text>
+                                    <b-row>
+                                        <b-col>
+
+                                        </b-col>
+                                    </b-row>
+                                </b-card-text>
+                            </b-tab>
                             <b-tab no-body title="Deprecate Subject">
+                                <b-card-text>
+                                    <b-row>
+                                        <b-col>
+
+                                        </b-col>
+                                    </b-row>
+                                </b-card-text>
                             </b-tab>
                         </b-tabs>
 
@@ -58,8 +112,16 @@
     export default {
         data() {
             return {
-                selected: '',
-                options: [{
+                createCourse: {
+                    courseName: '',
+                    courseDescription: '',
+                    courseFiles: [
+
+                    ],
+                },
+
+                currentCourse: '',
+                currentCourseOptions: [{
                         class: 'math',
                         name: 'Math'
                     },
@@ -86,7 +148,15 @@
             ...mapActions('users', {
                 getAllUsers: 'getAll',
                 deleteUser: 'delete'
-            })
+            }),
+
+            formatNames(files) {
+        if (files.length === 1) {
+          return files[0].name
+        } else {
+          return `${files.length} files selected`
+        }
+      }
         }
 
     }
@@ -106,7 +176,7 @@
         font-weight: bold;
     }
 
-    
+
 
     .card-style {
         background-color: ghostwhite;
