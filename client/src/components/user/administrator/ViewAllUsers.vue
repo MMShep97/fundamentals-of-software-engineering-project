@@ -11,6 +11,8 @@
                         <b-col><em>User Type</em></b-col>
                         <b-col><em>Action</em></b-col>
                     </b-row>
+                    <b-row>
+                        <b-col><div class="line-separator"></div></b-col></b-row>
                     <b-row v-for="user in users.items" :key="user.id">
                         <b-col>{{user.firstName + ' ' + user.lastName}}</b-col>
                         <b-col>{{user.userType}}</b-col>

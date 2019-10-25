@@ -1,7 +1,7 @@
 <template>
     <div class="base-welcome-container">
         <div v-if="!account.status.loggedIn">
-            <b-container>
+            <b-container fluid>
                 <b-row align-v="center">
                     <b-col cols="12">
                         <img class="welcome-image" src='../../assets/graduation_cap.png'>

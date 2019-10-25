@@ -4,7 +4,7 @@
 
 
         <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
-        <b-container>
+        <b-container fluid>
             <b-row>
                 <b-col sm="12" md="4">
                     <h5 class="task-header">My Courses</h5>
@@ -26,7 +26,9 @@
                                 <b-card-text></b-card-text>
                             </b-tab>
                             <b-tab no-body title="Assignments">
-                                <b-card-text></b-card-text>
+                                <b-card-text>
+                                    <TakeExam></TakeExam>
+                                </b-card-text>
                             </b-tab>
                             <b-tab no-body title="Grades">
                                 <b-card-text></b-card-text>
@@ -72,6 +74,7 @@
 
 <script>
     import Accordian from '../../utility/Accordian'
+    import TakeExam from './TakeExam'
     import {
         mapState,
         mapActions
@@ -80,6 +83,7 @@
     export default {
         components: {
             Accordian,
+            TakeExam,
         },
         data() {
             return {
