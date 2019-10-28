@@ -33,7 +33,6 @@ const actions = {
             .then(
                 user => {
                     commit('registerSuccess', user);
-                    router.push('/login');
                     setTimeout(() => {
                         // display success message after route change completes
                         dispatch('alert/success', 'Registration successful', { root: true });
@@ -68,10 +67,10 @@ const mutations = {
         state.status = { registering: true };
     },
     registerSuccess(state, user) {
-        state.status = {};
+        state.status = { registerSucess: true };
     },
     registerFailure(state, error) {
-        state.status = {};
+        state.status = { registerSuccess: false };
     }
 };
 

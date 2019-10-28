@@ -15,7 +15,7 @@
                 </b-col>
             </b-row>
             <b-row v-if="currentCourseSelected.name">
-                <b-col lg="4" md="12" sm="12">
+                <b-col lg="5" md="12" sm="12">
                     <h5 class="task-header">Subjects</h5>
                     <b-card no-body>
                         <b-tabs content-class="mt-1" card pills justified align="center">
@@ -69,14 +69,14 @@
                                     <b-row v-for="course in currentCourseOptions" :key="course.id" align-v="center"
                                         align-h="center">
 
-                                        <b-col xl="9" lg="6" md="6" sm="6" cols="6">
+                                        <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                                             <b-list-group>
                                                 <b-list-group-item href='#' variant="dark">
                                                     {{course.name}}
                                                 </b-list-group-item>
                                             </b-list-group>
                                         </b-col>
-                                        <b-col xl="3" lg="6" md="6" sm="6" cols="6">
+                                        <b-col xl="4" lg="6" md="6" sm="6" cols="6">
                                             <b-list-group>
                                                 <b-list-group-item href="#" class="text-danger" variant="danger">
                                                     Delete
@@ -90,14 +90,14 @@
                                 <b-card-text>
                                     <b-row v-for="course in currentCourseOptions" :key="course.id" align-v="center">
 
-                                        <b-col xl="9" lg="6" md="6" sm="6" cols="6">
+                                        <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                                             <b-list-group>
                                                 <b-list-group-item href='#' variant="dark">
                                                     {{course.name}}
                                                 </b-list-group-item>
                                             </b-list-group>
                                         </b-col>
-                                        <b-col xl="3" lg="6" md="6" sm="6" cols="6">
+                                        <b-col xl="4" lg="6" md="6" sm="6" cols="6">
                                             <b-list-group>
                                                 <b-list-group-item href="#" class="text-warning" variant="warning">
                                                     Deprecate
@@ -112,7 +112,7 @@
                     </b-card>
 
                 </b-col>
-                <b-col lg="8" md="12" sm="12">
+                <b-col lg="7" md="12" sm="12">
                     <h5 class="task-header">Current Course</h5>
                     <b-card no-body class="card-style grades-card">
                         <b-tabs content-class="mt-1" card pills justified align="center">
