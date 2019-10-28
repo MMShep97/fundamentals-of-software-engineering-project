@@ -43,6 +43,11 @@ const actions = {
                     dispatch('alert/error', error, { root: true });
                 }
             );
+    },
+
+    adminAddsUser({dispatch, commiti }, user) {
+        commit('registerRequest', user);
+        commit('regist')
     }
 };
 

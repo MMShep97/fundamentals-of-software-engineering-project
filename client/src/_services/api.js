@@ -45,7 +45,7 @@ export default {
         }),
 
     //(R)ead - GET
-    getAllUsers: () => instance.get('allUsers', {
+    getUsers: () => instance.get('getAll', {
         transformResponse: [function (data) {
             return data ? JSON.parse(data)._embedded.todos : data;
         }]

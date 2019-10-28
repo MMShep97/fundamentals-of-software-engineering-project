@@ -1,5 +1,6 @@
 <template>
     <div class="base-welcome-container">
+        {{allUsers}}
         <div v-if="!account.status.loggedIn">
             <b-container fluid>
                 <b-row align-v="center">
@@ -75,12 +76,20 @@
     import StudentWelcomePage from './student/StudentWelcomePage'
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
+    import { getUsers } from '../../_services/api'
+
     import {
         mapState,
         mapActions
     } from 'vuex'
 
     export default {
+        data () {
+            return {
+                allUsers: null,
+            }
+        },
+
         components: {
             StudentWelcomePage,
             InstructorWelcomePage,
@@ -96,11 +105,17 @@
         created() {
             this.getAllUsers();
         },
+
+        mounted() {
+            axios
+      .get('http://localhost:9000/getAll')
+      .then(response => (this.allUsers = response))
+  },
         methods: {
             ...mapActions('users', {
                 getAllUsers: 'getAll',
                 deleteUser: 'delete'
-            })
+            }),
         }
     };
 </script>

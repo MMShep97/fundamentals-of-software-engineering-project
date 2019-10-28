@@ -11,7 +11,7 @@
                 <b-col lg="5" md="12" sm="12">
                     <h5 class="task-header">&plus; Add Users</h5>
                     <b-card class="card-style add-instructor-card">
-                        <RegisterForm></RegisterForm>
+                        <RegisterFormAdminAddsUser></RegisterFormAdminAddsUser>
                     </b-card>
                 </b-col>
             </b-row>
@@ -24,7 +24,7 @@
 
 <script>
     import ViewAllUsers from './ViewAllUsers'
-    import RegisterForm from '../../register/RegisterForm'
+    import RegisterFormAdminAddsUser from '../../register/RegisterFormAdminAddsUser'
     import {
         mapState,
         mapActions
@@ -33,7 +33,7 @@
     export default {
         components: {
             ViewAllUsers,
-            RegisterForm,
+            RegisterFormAdminAddsUser,
         },
 
         computed: {
