@@ -22,3 +22,8 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+1. Start mysql server and create database w/ sql script at root of project
+
+2. Go into the server directory -> find application.java -> hit run (install debugger for java in vscode as an example)
+
+3. Go into the client directory -> npm run serve (make sure you have node !!)
