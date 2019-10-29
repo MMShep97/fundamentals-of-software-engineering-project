@@ -77,6 +77,7 @@
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
     import { getUsers } from '../../_services/api'
+    import axios from 'axios'
 
     import {
         mapState,
@@ -104,12 +105,11 @@
         },
         created() {
             this.getAllUsers();
+            axios.get('http://localhost:9000/getAll').then(response => (this.allUsers = response.data))
         },
 
         mounted() {
-            axios
-      .get('http://localhost:9000/getAll')
-      .then(response => (this.allUsers = response))
+            
   },
         methods: {
             ...mapActions('users', {
