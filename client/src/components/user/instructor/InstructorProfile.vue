@@ -4,7 +4,6 @@
             <b-row align-h="center" align-v="start" class="row-margin">
                 <b-col>
                     <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
-
                 </b-col>
             </b-row>
             <b-row align-h="center" align-v="start" class="row-margin">
@@ -14,7 +13,7 @@
                         value-field="class" text-field="name" disabled-field="notEnabled"></b-form-select>
                 </b-col>
             </b-row>
-            <b-row v-if="currentCourseSelected.name">
+            <b-row v-show="currentCourseSelected.name">
                 <b-col lg="5" md="12" sm="12">
                     <h5 class="task-header">Subjects</h5>
                     <b-card no-body>
