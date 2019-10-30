@@ -81,4 +81,13 @@
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
     }
+
+    .tab-content>.active {
+        display: block;
+        padding: 5px 5px;
+    }
+
+    .row {
+        padding: 5px 0;
+    }
 </style>

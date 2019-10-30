@@ -6,7 +6,6 @@ import LoginPage from '../components/login/LoginPage'
 import RegisterPage from '../components/register/RegisterPage'
 
 import BaseUserProfile from '../components/user/BaseUserProfile'
-import AddStudentCourse from '../components/user/student/AddStudentCourse'
 
 Vue.use(Router);
 
@@ -16,10 +15,7 @@ export const router = new Router({
     { path: '/', component: BaseWelcomePage },
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
-    { path: '/user-profile', component: BaseUserProfile, 
-      children: [
-        { path: 'add-student-course', component: AddStudentCourse}
-      ] },
+    { path: '/user-profile', component: BaseUserProfile, },
 
     // otherwise redirect to home
     { path: '*', redirect: '/' }

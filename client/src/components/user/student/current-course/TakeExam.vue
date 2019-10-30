@@ -2,14 +2,14 @@
     <div class="take-exam-container">
         <h2 class="text-center">Quiz</h2>
         <form>
-            <Question v-for="question in questions" :question="question.text" :options="question.options">
+            <Question v-for="question in questions" :question="question.text" :options="question.options" :key="question.text">
             </Question>
         </form>
     </div>
 </template>
 
 <script>
-import Question from '../instructor/Question'
+import Question from '../../instructor/Question'
     export default {
         components: {
             Question,
