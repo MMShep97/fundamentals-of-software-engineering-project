@@ -1,6 +1,9 @@
 <template>
     <div class="base-welcome-container">
         {{allUsers}}
+        <div v-for="user in allUsers" :key="user.name">
+            {{user.name}}
+        </div>
         <div v-if="!account.status.loggedIn">
             <b-container fluid>
                 <b-row align-v="center">
@@ -77,6 +80,7 @@
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
     import { getUsers } from '../../_services/api'
+    import axios from 'axios'
 
     import {
         mapState,
@@ -104,12 +108,11 @@
         },
         created() {
             this.getAllUsers();
+            axios.get('http://localhost:9000/getAll').then(response => (this.allUsers = response.data))
         },
 
         mounted() {
-            axios
-      .get('http://localhost:9000/getAll')
-      .then(response => (this.allUsers = response))
+            
   },
         methods: {
             ...mapActions('users', {
