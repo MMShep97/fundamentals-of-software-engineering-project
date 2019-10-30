@@ -14,11 +14,15 @@ public class User {
 	
 
 	@NotNull
-	@Column(name = "username")
-	private String username;
+	@Column(name = "FirstName")
+	private String firstname;
+	
+	@NotNull
+	@Column(name = "LastName")
+	private String LastName;
 	
 	@Id
-	@Column(name = "email_id")
+	@Column(name = "StudentID")
 	private String email_id;
 	
 	@NotNull
@@ -29,19 +33,19 @@ public class User {
 		super();
 	}
 	
-	public User(@NotNull String username, String email_id , String password) {
+	public User(@NotNull String firstname, String email_id , String password) {
 		super();
-		this.username = username;
+		this.firstname = firstname;
 		this.email_id = email_id;
 		this.password = password;
 	}
 
 	public String getName() {
-		return username;
+		return firstname;
 	}
 
-	public void setName(String name) {
-		this.username = name;
+	public void setName(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getEmail_id() {
@@ -58,6 +62,5 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	
 }
