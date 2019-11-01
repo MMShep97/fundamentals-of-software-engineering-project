@@ -6,6 +6,7 @@ import LoginPage from '../components/login/LoginPage'
 import RegisterPage from '../components/register/RegisterPage'
 
 import BaseUserProfile from '../components/user/BaseUserProfile'
+import SettingsPage from '../components/user/settings/SettingsPage'
 
 Vue.use(Router);
 
@@ -16,6 +17,7 @@ export const router = new Router({
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
     { path: '/user-profile', component: BaseUserProfile, },
+    { path: '/settings', component: SettingsPage },
 
     // otherwise redirect to home
     { path: '*', redirect: '/' }

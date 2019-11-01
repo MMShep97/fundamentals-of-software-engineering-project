@@ -74,7 +74,7 @@
 }
 
   .task-header {
-        padding-top: 3px;
+        padding: 4px 0;
         margin: 0 0;
         background-color: #b71540af;
 
