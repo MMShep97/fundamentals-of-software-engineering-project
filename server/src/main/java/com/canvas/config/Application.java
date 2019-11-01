@@ -1,8 +1,11 @@
 package com.canvas.config;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.core.Ordered;
@@ -18,8 +21,6 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-<<<<<<< HEAD
-=======
 	@Bean
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
         return entityManagerFactory.createEntityManager();
@@ -40,5 +41,4 @@ public class Application {
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
         return bean;  
     }
->>>>>>> 12273140aee4d3c6718b9ba78d57a7fc9fde1b31
 }
