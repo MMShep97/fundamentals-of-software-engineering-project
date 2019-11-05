@@ -31,22 +31,22 @@ public class Account {
    @Column(name ="Password")
    private String password;
    
-   @OneToOne(mappedBy = "account" ,cascade = CascadeType.ALL)
-   private Student student;
+//   @OneToOne(mappedBy = "account")
+//   private Student student;
    
    public Account() {
 	   super();
    }
    
 	
-	public Account(Long accountId, String category, String username, String password, Student student) {
+	public Account(Long accountId, String category, String username, String password) {
 		super();
 		this.accountId = accountId;
 		this.category = category;
 		this.username = username;
 		this.password = password;
-		this.student = student;
-		this.student.setAccount(this);
+//		this.student = student;
+//		this.student.setAccount(this);
 	   }
 	
 	public Long getAccountId() {
@@ -80,14 +80,14 @@ public class Account {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Student getStudent() {
-		return student;
-	}
-	
-	
-	public void setStudent(Student student) {
-		this.student = student;
-	}
+//	public Student getStudent() {
+//		return student;
+//	}
+//	
+//	
+//	public void setStudent(Student student) {
+//		this.student = student;
+//	}
 
 	
 }

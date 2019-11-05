@@ -25,11 +25,11 @@ public class AccountController {
 		return service.listAll();
 	}
 	
-	@GetMapping(value = "get/{accountId}")
-	public Account getById(@PathVariable("accountId") Long accountId){
-		
-		return service.getById(accountId);
-	}
+//	@GetMapping(value = "get/{accountId}")
+//	public Account getById(@PathVariable("accountId") Long accountId){
+//		
+//		return service.getById(accountId);
+//	}
 	@PostMapping(value = "save")
 	public boolean saveAccount(@RequestBody Account account){
 		return service.save(account);
@@ -39,7 +39,11 @@ public class AccountController {
 	public void delete(@PathVariable("username") Long accountId){
 		service.delete(accountId);
 	}
-	
+	@GetMapping(value = "get/{username}")
+	public Account getByUsername(@PathVariable("username") String username){
+		
+		return service.getByUsername(username);
+	}
 	
 
 }

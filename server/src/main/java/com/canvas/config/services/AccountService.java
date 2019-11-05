@@ -33,4 +33,9 @@ public class AccountService {
 	public void delete(Long accountId) {
 		repo.deleteById(accountId);
 	}
+	
+	public Account getByUsername(String username) {
+		Account account = repo.findAll().stream().filter(u -> u.getUsername().equalsIgnoreCase(username)).findFirst().get();
+		return account;
+	}
 }
