@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
+
 @Component
 @Table(name = "user")
 @Entity

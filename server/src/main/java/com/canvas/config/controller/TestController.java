@@ -1,7 +1,6 @@
 package com.canvas.config.controller;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,11 +30,11 @@ public class TestController {
 		return service.listAll();
 	}
 	
-	@GetMapping(value = "/get/{email_id}")
+	/*@GetMapping(value = "/get/{email_id}")
 	public User getById(@PathVariable("email_id") String email_id){
 		
-		return service.getById(email_id);
-	}
+	return service.getById(email_id);
+	}*/
 	@PostMapping(value = "/save")
 	public boolean save(@RequestBody User user){
 		return service.save(user);

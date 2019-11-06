@@ -31,10 +31,10 @@ public class UserService{
 		return false;
 	}
 	
-	public User getById(String email_id) {
-		User user  = repo.findAll().stream().filter(u -> u.getEmail_id().equalsIgnoreCase(email_id)).findFirst().get();
-		return  user;
-	}
+	//public User getById(String email_id) {
+		//User user  = repo.findAll().stream().filter(u -> u.getEmail_id().equalsIgnoreCase(email_id)).findFirst().get();
+		//return  user;
+	//}
 	
 	public void delete(String email_id) {
 		repo.deleteById(email_id);
