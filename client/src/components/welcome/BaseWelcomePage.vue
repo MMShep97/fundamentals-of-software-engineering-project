@@ -1,6 +1,7 @@
 <template>
     <div class="base-welcome-container">
         {{allUsers}}
+        {{allAccounts}}
         <div v-for="user in allUsers" :key="user.name">
             {{user.name}}
         </div>
@@ -79,8 +80,7 @@
     import StudentWelcomePage from './student/StudentWelcomePage'
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
-    import { getUsers } from '../../_services/api'
-    import axios from 'axios'
+    import accountCalls from '../../_services/api/accountCalls'
 
     import {
         mapState,
@@ -91,6 +91,7 @@
         data () {
             return {
                 allUsers: null,
+                allAccounts: null,
             }
         },
 
@@ -108,7 +109,7 @@
         },
         created() {
             this.getAllUsers();
-            axios.get('http://localhost:9000/getAll').then(response => (this.allUsers = response.data))
+            accountCalls.getAccounts();
         },
 
         mounted() {
