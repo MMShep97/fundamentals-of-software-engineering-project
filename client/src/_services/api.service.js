@@ -1,7 +1,4 @@
 import axios from 'axios'
-import {
-    account
-} from '../../_store/account.module';
 
 const SERVER_URL = 'http://localhost:9000';
 
@@ -12,12 +9,12 @@ const instance = axios.create({
 
 const accountCalls = {
     //(C)reate - POST
-    createNewAccount: (accountId, category, username, password) =>
-        instance.post('accounts', {
-            AccountID: accountId,
-            Category: category,
-            Username: username,
-            Password: password
+    createNewAccount: (user) =>
+        instance.post('account/save', {
+            AccountID: user.accountId,
+            Category: user.category,
+            Username: user.username,
+            Password: user.password
         }),
     createNewInstructor: (instructorId, firstName, lastName, accountId) =>
         instance.post('instructors', {
@@ -52,8 +49,7 @@ const accountCalls = {
     }),
 
     getAccounts: () => {
-        console.log(instance);
-        instance.get('/accounts/getAll')
+        return instance.get('account/getAll')
     },
 
     // (U)pdate - PUT
@@ -67,4 +63,4 @@ const accountCalls = {
     deleteQuiz: (id) => instance.delete('quizzes/' + id),
 }
 
-export default accountCalls;
+export {accountCalls};

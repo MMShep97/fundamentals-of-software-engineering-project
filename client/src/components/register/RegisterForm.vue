@@ -63,13 +63,14 @@ export default {
     
     data() {
             return {
+                
                 user: {
-                    userType: '',
+                    category: '',
                     firstName: '',
                     lastName: '',
                     username: '',
                     password: '',
-                    activeClasses: ['Math', 'Science', 'Chemistry', 'English'],
+                    
                 },
                 submitted: false
             }

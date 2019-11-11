@@ -80,7 +80,7 @@
     import StudentWelcomePage from './student/StudentWelcomePage'
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
-    import accountCalls from '../../_services/api/accountCalls'
+    import {accountCalls} from '../../_services/api.service'
 
     import {
         mapState,
@@ -108,8 +108,7 @@
             })
         },
         created() {
-            this.getAllUsers();
-            accountCalls.getAccounts();
+            accountCalls.getAccounts().then(response => (this.allAccounts = response.data))
         },
 
         mounted() {
@@ -117,7 +116,6 @@
   },
         methods: {
             ...mapActions('users', {
-                getAllUsers: 'getAll',
                 deleteUser: 'delete'
             }),
         }
