@@ -40,5 +40,6 @@ foreign key (quiz_id) references quiz(quiz_id) on update cascade on delete casca
 drop table EDU.course;
 use EDU;
 select * from student;
+select * from instructor;
 select * from account;
-insert into student values('agcom' , 'a' , 's' , 'as' , 'a');
+insert into instructor values('agcom' , 'a' , 's' , 'as' , 'a');

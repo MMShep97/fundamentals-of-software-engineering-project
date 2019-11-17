@@ -1,69 +1,85 @@
-//package com.canvas.config.model;
-//
-//import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.Id;
-//import javax.persistence.Table;
-//import javax.validation.constraints.NotNull;
-//
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//@Entity
-//@Table(name="Instructor")
-//public class Instructor {
-//
-//	@NotNull
-//	@Id
-//	@Column(name="InstructorID")
-//	private Integer InstructorId;
-//	
-//	@Column(name="FirstName")
-//	private String  FirstName;
-//	
-//	@Column(name="LastName")
-//	private String  LastName;
-//	
-//	@Column(name="AccountID")
-//	private Long  AccountId;
-//	
-//	
-//	public Instructor() {
-//		super();
-//	}
-//	
-//	public Instructor(Integer instructorId, String firstName, String lastName, Long accountId) {
-//		super();
-//		InstructorId = instructorId;
-//		FirstName = firstName;
-//		LastName = lastName;
-//		AccountId = accountId;
-//	}
-//	public Integer getInstructorId() {
-//		return InstructorId;
-//	}
-//	public void setInstructorId(Integer instructorId) {
-//		InstructorId = instructorId;
-//	}
-//	public String getFirstName() {
-//		return FirstName;
-//	}
-//	public void setFirstName(String firstName) {
-//		FirstName = firstName;
-//	}
-//	public String getLastName() {
-//		return LastName;
-//	}
-//	public void setLastName(String lastName) {
-//		LastName = lastName;
-//	}
-//	public Long getAccountId() {
-//		return AccountId;
-//	}
-//	public void setAccountId(Long accountId) {
-//		AccountId = accountId;
-//	}
-// 	
-//	
-//	
-//}
+package com.canvas.config.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name="instructor")
+public class Instructor {
+
+	@NotNull
+	@Id
+	@Column(name="instructor_id")
+	private String InstructorId;
+	
+	@Column(name = "username")
+	private String username;
+	
+	@Column(name ="password")
+	private String password;
+	
+	@Column(name="first_name")
+	private String  FirstName;
+	
+	@Column(name="last_name")
+	private String  LastName;
+	
+	public Instructor() {
+		super();
+	}
+
+	public Instructor(String instructorId, String username, String password, String firstName,
+			String lastName) {
+		super();
+		InstructorId = instructorId;
+		this.username = username;
+		this.password = password;
+		FirstName = firstName;
+		LastName = lastName;
+	}
+
+	public String getInstructorId() {
+		return InstructorId;
+	}
+
+	public void setInstructorId(String instructorId) {
+		InstructorId = instructorId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return FirstName;
+	}
+
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
+	}
+
+	public String getLastName() {
+		return LastName;
+	}
+
+	public void setLastName(String lastName) {
+		LastName = lastName;
+	}
+	
+	
+}
