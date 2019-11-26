@@ -1,8 +1,12 @@
 package com.canvas.config.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -26,6 +30,10 @@ public class Instructor {
 	
 	@Column(name="last_name")
 	private String  LastName;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor_id")
+    private List<Course> courses;
+	
 	
 	public Instructor() {
 		super();
@@ -80,6 +88,14 @@ public class Instructor {
 	public void setLastName(String lastName) {
 		LastName = lastName;
 	}
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
 	
 	
 }

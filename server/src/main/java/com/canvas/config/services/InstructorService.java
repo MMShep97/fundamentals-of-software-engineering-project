@@ -37,9 +37,8 @@ public class InstructorService {
 		return false;
 	}
 	
-	//delete a student by his student id
-	public void delete(String studentId) {
-		repo.deleteById(studentId);
+	public void delete(String instructorId) {
+		repo.deleteById(instructorId);
 	}
 
 	
