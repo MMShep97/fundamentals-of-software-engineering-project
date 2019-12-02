@@ -1,4 +1,4 @@
-import { userService } from '../_services';
+import { userService } from '../_services/user.service';
 import { router } from '../_helpers';
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -45,7 +45,7 @@ const actions = {
             );
     },
 
-    adminAddsUser({dispatch, commiti }, user) {
+    adminAddsUser({dispatch, commit }, user) {
         commit('registerRequest', user);
         commit('regist')
     }
