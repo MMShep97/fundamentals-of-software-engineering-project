@@ -1,17 +1,17 @@
 import config from '../../vue.config';
 import { authHeader } from '../_helpers';
+import { accountCalls } from '../_services/api.service'
 
 export const userService = {
     login,
     logout,
     register,
-    getAll,
     getById,
     update,
     delete: _delete
 };
 
-function login(username, password) {
+async function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -37,6 +37,7 @@ function logout() {
 }
 
 function register(user) {
+    //accountCalls.createNewAccount(user);
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -46,14 +47,9 @@ function register(user) {
     return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
 
-function getAll() {
-    const requestOptions = {
-        method: 'GET',
-        headers: authHeader()
-    };
-
-    return fetch(`${config.apiUrl}/users`, requestOptions).then(handleResponse);
-}
+// function getAll() {
+//     accountCalls.getAccounts();
+// }
 
 
 function getById(id) {

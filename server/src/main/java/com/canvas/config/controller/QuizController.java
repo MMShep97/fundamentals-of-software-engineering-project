@@ -9,37 +9,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.canvas.config.model.Student;
-import com.canvas.config.services.StudentService;
+import com.canvas.config.model.Quiz;
+import com.canvas.config.services.QuizService;
 
-@RequestMapping(value = "student")
+@RequestMapping(value="quiz")
 @RestController
-public class StudentController {
-	
+public class QuizController {
+
 	@Autowired
-	StudentService service;
+	QuizService service;
 	
 	@GetMapping(value = "getAll")
-	public List<Student> getAll(){
-		System.out.println(service.listAll());
-		return service.listAll();
+	public List<Quiz> getAll(){
+		return service.getAll();
 	}
 	
-	@GetMapping(value = "get/{studentId}")
-	public Student getById(@PathVariable("studentId") String studentId){
-		System.out.println("the student id is " + studentId);
-		return service.getById(studentId);
+	@GetMapping(value = "get/{quizId}")
+	public Quiz getById(@PathVariable("quizId") String quizId){
+		return service.getById(quizId);
 	}
 	@PostMapping(value = "save")
-	public boolean saveStudent(@RequestBody Student student){
-		return service.save(student);
+	public boolean saveStudent(@RequestBody Quiz quiz){
+		return service.save(quiz);
 	}
-	@DeleteMapping(value = "delete/")
-	public boolean deleteStudent(@RequestBody Student student) {
-		if(student == null)
+	@DeleteMapping(value = "delete")
+	public boolean deleteQuiz(@RequestBody Quiz quiz) {
+		if(quiz == null)
 			return false;
 		try{
-			service.delete(student.getStudentId());
+			service.delete(quiz.getQuizId());
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return false;
@@ -47,5 +45,4 @@ public class StudentController {
 		return true;
 		
 	}
-
 }

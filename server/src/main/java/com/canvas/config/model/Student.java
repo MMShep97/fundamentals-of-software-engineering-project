@@ -1,81 +1,71 @@
 package com.canvas.config.model;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import org.springframework.stereotype.Component;
 
-@Component
+
 @Entity
-@Table(name = "Student")
+@Table(name = "student")
 public class Student {
-	//	StudentID int primary key not null,
-//	FirstName varchar(50),
-//	LastName varchar(50),
-//	AccountID int not null,
-//	CourseID int,
-//	QuizID int,
-//	CertificateID int,
-//	foreign key (AccountID) references Account(AccountID) on update cascade on delete cascade,
-//	foreign key (CourseID) references Course(CourseID) on update cascade on delete cascade,
-//	foreign key (QuizID) references Quiz(QuizID) on update cascade on delete cascade,
-//	foreign key (CertificateID) references Certificate(CertificateID) on update cascade on delete cascade
-//	);
+	
 	@NotNull
-	@GeneratedValue
 	@Id
-	@Column(name = "StudentID")
-	private Long studentId;
+	@Column(name = "student_id")
+	private String studentId;
 	@NotNull
-	@Column(name = "First")
+	@Column(name = "first")
 	private String firstName;
 	@NotNull
-	@Column(name = "Last")
+	@Column(name = "last")
 	private String lastName;
 	@NotNull
-	@OneToOne
-	@JoinColumn(name = "AccountID")
-	private Account account;
-//	@NotNull
-//	@Column(name = "AccountID")
-//	private Long accountId;
+	@Column(name = "password")
+	private String password;
+	@NotNull
+	@Column(name = "username")
+	private String username;
 	
-	@NotNull
-	@Column(name = "CourseID")
-	private int courseId;
-	@NotNull
-	@Column(name = "QuizID")
-	private int quizId;
-	@NotNull
-	@Column(name = "CertificateID")
-	private int certificateId;
+	@ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+        name = "studentCourse", 
+        joinColumns = @JoinColumn(name = "student_id") , 
+        inverseJoinColumns =  @JoinColumn(name = "course_id"))
+    Set<Course> courses = new HashSet<>();
 	
-	public Student() {
-		super();
-	}
-		
-	public Student(@NotNull Long studentId, @NotNull String firstName, @NotNull String lastName,
-			@NotNull int courseId, @NotNull int quizId, @NotNull int certificateId, @NotNull Account account) {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student_id")
+    private List<Grade> grades;
+	
+	
+	public Student(String studentId,String firstName,String lastName,
+			 String password, String username) {
 		super();
 		this.studentId = studentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.account = account;
-		this.courseId = courseId;
-		this.quizId = quizId;
-		this.certificateId = certificateId;
-		//this.account.setStudent(this);
-		
+		this.password = password;
+		this.username = username;
 	}
-	public Long getStudentId() {
+
+	public Student() {
+		super();
+	}
+		
+	public String getStudentId() {
 		return studentId;
 	}
-	public void setStudentId(Long studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	public String getFirstName() {
@@ -90,38 +80,41 @@ public class Student {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
-	public int getCourseId() {
-		return courseId;
+	public String getPassword() {
+		return password;
 	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public int getQuizId() {
-		return quizId;
-	}
-	public void setQuizId(int quizId) {
-		this.quizId = quizId;
-	}
-	public int getCertificateId() {
-		return certificateId;
-	}
-	public void setCertificateId(int certificateId) {
-		this.certificateId = certificateId;
-	}
-	public Account getAccount() {
-		return account;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-//	public void setAccount(Account account) {
-//		this.account = account;
-//	}
-//	public Account getAccount() {
-//		return account;
-//	}
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
+				+ password + ", username=" + username + "]";
+	}
 	
 
 }

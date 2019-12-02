@@ -1,6 +1,7 @@
 package com.canvas.config.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,37 +10,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.canvas.config.model.Student;
-import com.canvas.config.services.StudentService;
 
-@RequestMapping(value = "student")
+import com.canvas.config.model.Instructor;
+import com.canvas.config.services.InstructorService;
+
+@RequestMapping(value="instructor")
 @RestController
-public class StudentController {
-	
+public class InstructorController {
+
 	@Autowired
-	StudentService service;
+	InstructorService service;
 	
 	@GetMapping(value = "getAll")
-	public List<Student> getAll(){
-		System.out.println(service.listAll());
-		return service.listAll();
+	public List<Instructor> getAll(){
+		return service.getAll();
 	}
 	
-	@GetMapping(value = "get/{studentId}")
-	public Student getById(@PathVariable("studentId") String studentId){
-		System.out.println("the student id is " + studentId);
-		return service.getById(studentId);
+	@GetMapping(value = "get/{instructorId}")
+	public Instructor getById(@PathVariable("instructorId") String instructorId){
+		return service.getById(instructorId);
 	}
 	@PostMapping(value = "save")
-	public boolean saveStudent(@RequestBody Student student){
-		return service.save(student);
+	public boolean saveStudent(@RequestBody Instructor instructor){
+		return service.save(instructor);
 	}
 	@DeleteMapping(value = "delete/")
-	public boolean deleteStudent(@RequestBody Student student) {
-		if(student == null)
+	public boolean deleteStudent(@RequestBody Instructor instructor) {
+		if(instructor == null)
 			return false;
 		try{
-			service.delete(student.getStudentId());
+			service.delete(instructor.getInstructorId());
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return false;
@@ -47,5 +47,4 @@ public class StudentController {
 		return true;
 		
 	}
-
 }

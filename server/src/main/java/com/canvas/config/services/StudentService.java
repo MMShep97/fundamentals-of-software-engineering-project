@@ -3,8 +3,6 @@ package com.canvas.config.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.canvas.config.model.Account;
 import com.canvas.config.model.Student;
 import com.canvas.config.repo.StudentRepository;
 
@@ -14,13 +12,9 @@ public class StudentService {
 	@Autowired
 	StudentRepository repo;
 	
-//	private Student student;
-	
-	private List<Student> listStudents;
-	
 	public List<Student> listAll(){
-		listStudents = repo.findAll();
-		return listStudents;
+		System.out.println(repo.findAll());
+		return repo.findAll();
 		
 	}
 	
@@ -32,22 +26,16 @@ public class StudentService {
 		return false;
 	}
 	
-	// searching in a list of students by their account id.
-//	public Student getByAccountId(Account account) {
-//		if(listStudents ==  null)
-//		this.listAll();
-//		student = repo.findAll().stream().filter(s -> s.getAccount() == account).findFirst().get();
-//		return student;
-//	}
-	
 	//get a student by Student Id
-	public Student getById(Long studentId) {
-		Student student  = repo.findAll().stream().filter(s -> s.getStudentId() == studentId).findFirst().get();
+	public Student getById(String studentId) {
+		List<Student> students = this.listAll();
+		Student student = students.stream().filter(s -> s.getStudentId().equalsIgnoreCase(studentId)).findFirst().get();
+		System.out.println("in here "+ student);
 		return  student;
 	}
 	
 	//delete a student by his student id
-	public void delete(int studentId) {
+	public void delete(String studentId) {
 		repo.deleteById(studentId);
 	}
 }
