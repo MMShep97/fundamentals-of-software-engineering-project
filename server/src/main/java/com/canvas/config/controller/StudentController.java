@@ -21,7 +21,7 @@ public class StudentController {
 	
 	@GetMapping(value = "getAll")
 	public List<Student> getAll(){
-		System.out.println(service.listAll() + "hello this is the output");
+		System.out.println(service.listAll());
 		return service.listAll();
 	}
 	

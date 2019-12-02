@@ -1,31 +1,35 @@
 package com.canvas.config.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 
 @Table(name = "course")
 @Entity
-public class Course {
+public class Course{
 	@NotNull
-	@GeneratedValue
 	@Id
 	@Column(name ="course_id")
-	private int courseId;
+	private String courseId;
 	
 	@Column(name ="course_name")
 	private String courseName;
 	
 	@Column(name = "instructor_id")
 	private String instructor_id;
+	
+	@ManyToMany(mappedBy = "courses")
+	private Set<Student> students = new HashSet<>();
 
+	
 	public Course() {
 		super();
 	}
@@ -37,7 +41,7 @@ public class Course {
 		
 	}
 
-	public int getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 
@@ -55,6 +59,13 @@ public class Course {
 
 	public void setInstructorId(String instructor_id) {
 		this.instructor_id = instructor_id;
+	}
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
 	}
 	
 }

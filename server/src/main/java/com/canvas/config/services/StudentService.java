@@ -29,7 +29,6 @@ public class StudentService {
 	//get a student by Student Id
 	public Student getById(String studentId) {
 		List<Student> students = this.listAll();
-		//Student student  = repo.findAll().stream().filter(s -> s.getStudentId() == studentId).findFirst().get();
 		Student student = students.stream().filter(s -> s.getStudentId().equalsIgnoreCase(studentId)).findFirst().get();
 		System.out.println("in here "+ student);
 		return  student;

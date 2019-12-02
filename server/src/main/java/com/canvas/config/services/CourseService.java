@@ -23,7 +23,7 @@ public class CourseService {
 		return list;
 	}
 
-	public Course getById(Integer id) {
+	public Course getById(String id) {
 		course = repo.findById(id).get();
 		if(course == null)
 			return null;
@@ -37,11 +37,11 @@ public class CourseService {
 		return false;
 	}
 	
-	public void updateCourse(Integer id, Course course ) {
+	public void updateCourse(String id, Course course ) {
 		repo.save(course);
 	}
 	
-	public void delete(Integer id) {
+	public void delete(String id) {
 		repo.deleteById(id);
 	}
 }

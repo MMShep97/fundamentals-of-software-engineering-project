@@ -36,6 +36,13 @@ foreign key (course_id) references course(course_id) on update cascade on delete
 foreign key (student_id) references student(student_id) on update cascade on delete cascade,
 foreign key (quiz_id) references quiz(quiz_id) on update cascade on delete cascade
 );
+create table EDU.studentCourse(
+course_id varchar(100),
+student_id varchar(100),
+foreign key (course_id) references course(Course_id) on update cascade on delete cascade,
+foreign key (student_id) references student(student_id) on update cascade on delete cascade,
+primary key(course_id, student_id)
+);
 
 drop table EDU.course;
 use EDU;
