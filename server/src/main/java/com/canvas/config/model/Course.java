@@ -31,6 +31,17 @@ public class Course{
 	@OneToMany(mappedBy="course_id")
     private Set<Quiz> quiz;
 	
+	@OneToMany(mappedBy="course_id")
+    private Set<Grade> grades;
+	
+	public Set<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(Set<Grade> grades) {
+		this.grades = grades;
+	}
+
 	public Course() {
 		super();
 	}

@@ -1,14 +1,17 @@
 package com.canvas.config.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -41,14 +44,10 @@ public class Student {
         inverseJoinColumns =  @JoinColumn(name = "course_id"))
     Set<Course> courses = new HashSet<>();
 	
-	public Set<Course> getCourses() {
-		return courses;
-	}
-
-	public void setCourses(Set<Course> courses) {
-		this.courses = courses;
-	}
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student_id")
+    private List<Grade> grades;
+	
+	
 	public Student(String studentId,String firstName,String lastName,
 			 String password, String username) {
 		super();
@@ -93,6 +92,21 @@ public class Student {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
+	}
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
 	}
 
 

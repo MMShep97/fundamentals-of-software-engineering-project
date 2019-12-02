@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.canvas.config.model.Quiz;
 import com.canvas.config.repo.QuizRepository;
 @Service
@@ -25,16 +24,16 @@ public class QuizService {
 		return instructorCurrent;
 	}
 	
-	public boolean save(Quiz instructor) {
+	public boolean save(Quiz quiz) {
 		
-		if(repo.save(instructor) != null) {
+		if(repo.save(quiz) != null) {
 			return true;
 		}
 		return false;
 	}
 	
-	public void delete(String instructorId) {
-		repo.deleteById(instructorId);
+	public void delete(String quizId) {
+		repo.deleteById(quizId);
 	}
 
 

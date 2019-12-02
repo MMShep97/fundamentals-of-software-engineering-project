@@ -38,6 +38,8 @@ public class Instructor {
 	@OneToMany(mappedBy="instructor_id")
     private Set<Quiz> quiz;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor_id")
+	private List<Grade> grades;
 	
 	public Instructor() {
 		super();
@@ -105,6 +107,14 @@ public class Instructor {
 
 	public void setQuiz(Set<Quiz> quiz) {
 		this.quiz = quiz;
+	}
+
+	public List<Grade> getGrades() {
+		return grades;
+	}
+
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
 	}
 
 	
