@@ -80,7 +80,7 @@
     import StudentWelcomePage from './student/StudentWelcomePage'
     import InstructorWelcomePage from './instructor/InstructorWelcomePage'
     import AdministratorWelcomePage from './administrator/AdministratorWelcomePage'
-    import {accountCalls} from '../../_services/api.service'
+    import {api} from '../../_services/api.service'
 
     import {
         mapState,
@@ -90,7 +90,7 @@
     export default {
         data () {
             return {
-                allUsers: null,
+                allStudents: null,
                 allAccounts: null,
             }
         },
@@ -108,7 +108,7 @@
             })
         },
         created() {
-            accountCalls.getAccounts().then(response => (this.allAccounts = response.data))
+            api.getStudents().then(response => (this.allStudents = response.data))
         },
 
         mounted() {

@@ -55,6 +55,7 @@
 
 <script>
 import { router } from '../../_helpers/router';
+import { api } from '../../_services/api.service'
 import {
         mapState,
         mapActions
