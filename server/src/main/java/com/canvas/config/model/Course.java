@@ -2,12 +2,11 @@ package com.canvas.config.model;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +27,9 @@ public class Course{
 	
 	@ManyToMany(mappedBy = "courses")
 	private Set<Student> students = new HashSet<>();
-
+	
+	@OneToMany(mappedBy="course_id")
+    private Set<Quiz> quiz;
 	
 	public Course() {
 		super();
@@ -67,5 +68,13 @@ public class Course{
 	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
+	public Set<Quiz> getQuiz() {
+		return quiz;
+	}
+
+	public void setQuiz(Set<Quiz> quiz) {
+		this.quiz = quiz;
+	}
+
 	
 }
