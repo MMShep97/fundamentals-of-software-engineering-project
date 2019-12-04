@@ -1,25 +1,25 @@
 package com.canvas.config.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Student implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@NotNull
 	@Id
 	@Column(name = "student_id")
@@ -36,13 +36,8 @@ public class Student {
 	@NotNull
 	@Column(name = "username")
 	private String username;
-	
-	@ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "studentCourse", 
-        joinColumns = @JoinColumn(name = "student_id") , 
-        inverseJoinColumns =  @JoinColumn(name = "course_id"))
-    Set<Course> courses = new HashSet<>();
+	@Transient
+    List<Course> courses;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "student_id")
     private List<Grade> grades;
@@ -62,6 +57,9 @@ public class Student {
 		super();
 	}
 		
+	public void addCourses(Course course) {
+		courses.add(course);
+	}
 	public String getStudentId() {
 		return studentId;
 	}
@@ -100,21 +98,21 @@ public class Student {
 	public void setGrades(List<Grade> grades) {
 		this.grades = grades;
 	}
-
-	public Set<Course> getCourses() {
+	public List<Course> getCourses() {
 		return courses;
 	}
 
-	public void setCourses(Set<Course> courses) {
+	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
-				+ password + ", username=" + username + "]";
+				+ password + ", username=" + username + ", courses=" + courses + ", grades=" + grades + "]";
 	}
+
+
 	
 
 }

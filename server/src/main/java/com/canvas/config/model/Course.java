@@ -1,19 +1,25 @@
 package com.canvas.config.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 
 @Table(name = "course")
 @Entity
-public class Course{
+public class Course implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@NotNull
 	@Id
 	@Column(name ="course_id")
@@ -25,9 +31,9 @@ public class Course{
 	@Column(name = "instructor_id")
 	private String instructor_id;
 	
-	@ManyToMany(mappedBy = "courses")
-	private Set<Student> students = new HashSet<>();
-	
+	@Transient
+	private List<Student> students;
+    
 	@OneToMany(mappedBy="course_id")
     private Set<Quiz> quiz;
 	
@@ -72,11 +78,11 @@ public class Course{
 	public void setInstructorId(String instructor_id) {
 		this.instructor_id = instructor_id;
 	}
-	public Set<Student> getStudents() {
+	public List<Student> getStudents() {
 		return students;
 	}
 
-	public void setStudents(Set<Student> students) {
+	public void setStudents(List<Student> students) {
 		this.students = students;
 	}
 	public Set<Quiz> getQuiz() {

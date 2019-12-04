@@ -2,7 +2,6 @@ package com.canvas.config.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -10,11 +9,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "grade")
 public class Grade {
-	@NotNull
-	@Id
-	@GeneratedValue
-	@Column
-	private int id;
 	@NotNull
 	@Column
 	private String quiz_id;
@@ -30,7 +24,10 @@ public class Grade {
 	@NotNull
 	@Column
 	private Double grade_points;
-	
+	@Id
+	@NotNull
+	@Column
+	private Integer id;
 	public Grade() {
 		
 	}
@@ -43,9 +40,7 @@ public class Grade {
 		this.student_id = student_id;
 		this.grade_points = grade_points;
 	}
-	public Integer getId() {
-		return id;
-	}
+	
 	public String getQuiz_id() {
 		return quiz_id;
 	}

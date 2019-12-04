@@ -1,9 +1,12 @@
 package com.canvas.config.services;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.canvas.config.model.Course;
 import com.canvas.config.model.Student;
+import com.canvas.config.repo.CourseRepository;
 import com.canvas.config.repo.StudentRepository;
 
 @Service
@@ -11,9 +14,22 @@ public class StudentService {
 
 	@Autowired
 	StudentRepository repo;
+	@Autowired
+	CourseRepository courseRepository;
+	@Autowired
+	EntityManager em;
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<Course> findCourse(String student_id){
+		List<Course> courses = em.createNativeQuery("SELECT c.course_id ,course_name, instructor_id FROM course c INNER JOIN student_course s ON c.course_id = s.course_id WHERE s.student_id =:student_id")
+		.setParameter("student_id", student_id)
+		.getResultList();
+		return courses;
+	}
 	
 	public List<Student> listAll(){
-		System.out.println(repo.findAll());
+		
 		return repo.findAll();
 		
 	}
@@ -30,6 +46,7 @@ public class StudentService {
 	public Student getById(String studentId) {
 		List<Student> students = this.listAll();
 		Student student = students.stream().filter(s -> s.getStudentId().equalsIgnoreCase(studentId)).findFirst().get();
+		student.setCourses(this.findCourse(studentId));
 		System.out.println("in here "+ student);
 		return  student;
 	}
@@ -37,5 +54,21 @@ public class StudentService {
 	//delete a student by his student id
 	public void delete(String studentId) {
 		repo.deleteById(studentId);
+	}
+	
+	/*
+	 * Updating a student with a student object
+	 * */
+	public boolean update(Student student) {
+		Student before = this.getById(student.getStudentId());
+		if(student.getFirstName() == null || student.getLastName() == null|| student.getPassword() == null || student.getUsername() == null )
+			return false;
+		before.setFirstName(student.getFirstName());
+		before.setCourses(student.getCourses());
+		before.setLastName(student.getLastName());
+		before.setPassword(student.getPassword());
+		before.setUsername(student.getUsername());
+		repo.save(before);
+		return true;
 	}
 }

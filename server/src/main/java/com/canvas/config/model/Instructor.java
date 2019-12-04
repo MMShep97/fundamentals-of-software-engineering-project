@@ -1,8 +1,6 @@
 package com.canvas.config.model;
 
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,9 +32,6 @@ public class Instructor {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor_id")
     private List<Course> courses;
-	
-	@OneToMany(mappedBy="instructor_id")
-    private Set<Quiz> quiz;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "instructor_id")
 	private List<Grade> grades;
@@ -101,13 +96,13 @@ public class Instructor {
 	public void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
-	public Set<Quiz> getQuiz() {
-		return quiz;
-	}
-
-	public void setQuiz(Set<Quiz> quiz) {
-		this.quiz = quiz;
-	}
+//	public Set<Quiz> getQuiz() {
+//		return quiz;
+//	}
+//
+//	public void setQuiz(Set<Quiz> quiz) {
+//		this.quiz = quiz;
+//	}
 
 	public List<Grade> getGrades() {
 		return grades;

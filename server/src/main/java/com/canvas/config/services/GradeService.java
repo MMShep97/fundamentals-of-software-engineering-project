@@ -2,6 +2,8 @@ package com.canvas.config.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +13,12 @@ import com.canvas.config.repo.GradeRepository;
 @Service
 public class GradeService {
 
+	
 	@Autowired
 	GradeRepository repo;
 	
 	List<Grade> grades = new ArrayList<>();
+	
 	public List<Grade> getAll(){
 		grades = repo.findAll();
 		if(grades == null)
@@ -22,11 +26,11 @@ public class GradeService {
 		return grades;
 	}
 	
-	public Grade getById(Double id) {
-		Grade currentGrade = this.getAll().stream().filter(s -> s.getId().equals(id)).findFirst().get();
-		return currentGrade;
-	}
-	
+//	public Grade getById(Double id) {
+//		Grade currentGrade = this.getAll().stream().filter(s -> s.getId().equals(id)).findFirst().get();
+//		return currentGrade;
+//	}
+//	
 	public boolean save(Grade grade) {
 		if(repo.save(grade) != null) {
 			return true;
@@ -45,5 +49,26 @@ public class GradeService {
 		}else {
 			return false;
 		}
+	}
+	/*
+	 * search with quiz id
+	 * */
+	public List<Grade> getByQuizId(String quizId){
+		List<Grade> listAll = this.getAll().stream().filter(s -> s.getQuiz_id().equals(quizId)).collect(Collectors.toList());
+		return listAll;
+	}
+	/*
+	 * search with course_id
+	 * */
+	public List<Grade> getByCourseId(String course_id){
+		List<Grade> listAll = this.getAll().stream().filter(s -> s.getCourse_id().equals(course_id)).collect(Collectors.toList());
+		return listAll;
+	}
+	/*
+	 * search with student_id
+	 * */
+	public List<Grade> getByStudentId(String student_id){
+		List<Grade> listAll = this.getAll().stream().filter(s -> s.getStudent_id().equals(student_id)).collect(Collectors.toList());
+		return listAll;
 	}
 }

@@ -28,9 +28,10 @@ public class GradeController {
 		return service.save(grade);
 	}
 	
-	@GetMapping("get/{id}")
-	public Grade getGrades(@PathVariable("id") Double id  ) {
-		 return service.getById(id);
+	@GetMapping("get/course_id/{course_id}")
+	public List<Grade> getGradesByQuiz(@PathVariable("id") String course_id) {
+		List<Grade> listAll = service.getByCourseId(course_id);
+		return listAll;
 	}
 	
 	

@@ -22,9 +22,7 @@ public class Quiz {
 	@NotNull
 	@Column(name ="quiz_date")
 	private String quiz_date;
-	@NotNull
-	@Column(name ="instructor_id")
-    private String instructor_id;
+	
 	@NotNull
     @Column(name="course_id")
     private String course_id;
@@ -64,16 +62,6 @@ public class Quiz {
 	public void setQuiz_date(String quiz_date) {
 		this.quiz_date = quiz_date;
 	}
-	public String getInstructor_id() {
-		return instructor_id;
-	}
-
-
-	public void setInstructor_id(String instructor_id) {
-		this.instructor_id = instructor_id;
-	}
-
-
 	public String getCourse_id() {
 		return course_id;
 	}
