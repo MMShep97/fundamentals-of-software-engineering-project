@@ -25,7 +25,7 @@ const api = {
         },
 
         getStudentById: (id) => {
-            return instance.get(`student/${id}`)
+            return instance.get(`student/get/${id}`)
         },
 
         getInstructors: () => {
@@ -33,7 +33,7 @@ const api = {
         },
 
         getInstructorById: (id) => {
-            return instance.get(`instructor/${id}`)
+            return instance.get(`instructor/get/${id}`)
         },
 
         // (U)pdate - PUT
@@ -54,6 +54,65 @@ const api = {
                 user
             })
         }
+    },
+
+    course: {
+        createCourse: (course) => {
+            instance.post('course/save', { course })
+        },
+        
+        getCourses: () => {
+            instance.get('course/getcourse')
+        },
+
+        getCourseById: (id) => {
+            instance.get(`course/get/${id}`)
+        },
+
+        updateCourseById: (course, id) => {
+            instance.put(`course/course/${id}`, { course })
+        },
+
+        deleteCourseById: (id) => {
+            instance.delete(`course/delete/${id}`)
+        },
+
+        // grades
+        getGrades: () => {
+            instance.get('grade/getAll')
+        },
+
+        getGradesById: (id) => {
+            instance.get(`grade/get/${id}`)
+        }, 
+
+        createGrade: (grade) => {
+            instance.post('grade/save', { grade })
+        },
+
+        deleteCourse: (id) => {
+            instance.delete(`grade/delete/${id}`)
+        },
+
+        // quiz
+        getQuizzes: () => {
+            instance.get('quiz/getAll')
+        },
+
+        getQuizById: (id) => {
+            instance.get(`quiz/get/${id}`)
+        },
+
+        createQuiz: (quiz) => {
+            instance.post('quiz/save', { quiz })
+        },
+
+        deleteQuiz: (quiz) => {
+            instance.delete('quiz/delete', { quiz })
+        },
+
+
+
     }
 }
 
