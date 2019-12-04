@@ -7,20 +7,20 @@ const state = user
     : { status: {}, user: null };
 
 const actions = {
-    login({ dispatch, commit }, { username, password }) {
+    async login({ dispatch, commit }, { username, password }) {
         commit('loginRequest', { username });
     
-        userService.login(username, password)
-            .then(
-                user => {
+        let outcome = await userService.login(username, password)
+            
+                    if (outcome == true) {
                     commit('loginSuccess', user);
                     router.push('/');
-                },
-                error => {
-                    commit('loginFailure', error);
-                    dispatch('alert/error', error, { root: true });
-                }
-            );
+                    }
+
+                    else {
+                        commit('loginFailure', error);
+                        dispatch('alert/error', error, { root: true });
+                    }
     },
     logout({ commit }) {
         userService.logout();

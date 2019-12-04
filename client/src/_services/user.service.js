@@ -1,6 +1,6 @@
 import config from '../../vue.config';
 import { authHeader } from '../_helpers';
-import { accountCalls } from '../_services/api.service'
+import { api } from '../_services/api.service'
 
 export const userService = {
     login,
@@ -12,23 +12,27 @@ export const userService = {
 };
 
 async function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
+        //get user object by the supplied username
+        //check to see if the password supplied matches the user objects password
 
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // login successful if there's a jwt token in the response
-            if (user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('user', JSON.stringify(user));
-            }
+        let user;
+        let outcome = false;
+        
+        let student = api.user.getStudentByUsername(username)
+        let instructor = api.user.getInstructorByUsername(username)
+        //let administrator = api.user.getAdministratorByUsername(username)
 
-            return user;
-        });
+        if (student != null) user = student;
+        if (instructor != null) user = instructor;
+        // if (administrator != null) user = administrator;
+        if (user == null) return outcome;
+
+        user.password == password ? outcome = true: outcome = false
+        if (outcome == true) {
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+
+        return outcome;
 }
 
 function logout() {
@@ -37,20 +41,15 @@ function logout() {
 }
 
 function register(user) {
-    //accountCalls.createNewAccount(user);
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    
+    console.log(user)
+    let userType = user.category;
+    console.log("userType: " + userType)
+    if (userType == 'Student') { return api.user.createNewStudent(user) }
+    else if (userType == 'Instructor') { return api.user.createNewInstructor(user)}
+    // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
+    // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
-
-// function getAll() {
-//     accountCalls.getAccounts();
-// }
-
 
 function getById(id) {
     const requestOptions = {
@@ -98,3 +97,16 @@ function handleResponse(response) {
         return data;
     });
 }
+
+// function handleResponse(response) {
+//     let responseStatus = response.status; 
+    
+    
+//             if (responseStatus === 401) {
+//                 // auto logout if 401 response returned from api
+//                 logout();
+//                 location.reload(true);
+//                 return Promise.reject(error);
+//             }
+//             return data;
+// }

@@ -7,17 +7,58 @@ const instance = axios.create({
     timeout: 1000
 });
 
+//user
+//{user}id
+//username
+//password
+//firstName
+//lastName
 const api = {
     user: { //(C)reate - POST
         createNewStudent: (user) =>
-            instance.post('student/save', {
-                user
+            instance.post('/student/save', {
+                studentId: user.email,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
             }),
 
         createNewInstructor: (user) =>
-            instance.post('instructor/save', {
-                user
-            }),
+        instance.post('/instructor/save', {
+            instructorId: user.id,
+            username: user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName
+        })
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+        }),
+
+        createNewAdministrator: (user) =>
+        instance.post('/administrator/save', {
+            administratorId: user.id,
+            username: user.username,
+            password: user.password,
+            firstName: user.firstName,
+            lastName: user.lastName
+        })
+        .then(function (response) {
+            console.log(response)
+        })
+        .catch(function (error) {
+            console.log(error)
+        }),
 
         //(R)ead - GET
         getStudents: () => {
@@ -28,6 +69,10 @@ const api = {
             return instance.get(`student/get/${id}`)
         },
 
+        getStudentByUsername: (username) => {
+            return instance.get(`student/get/${username}`)
+        },
+
         getInstructors: () => {
             return instance.get('instructor/getAll')
         },
@@ -36,11 +81,49 @@ const api = {
             return instance.get(`instructor/get/${id}`)
         },
 
+        getInstructorByUsername: (username) => {
+            return instance.get(`instructor/get/${username}`)
+        },
+
+        getAdministrators: () => {
+            return instance.get('administrator/getAll')
+        },
+
+        getAdministratorById: (id) => {
+            return instance.get(`administrator/get/${id}`)
+        },
+
+        getAdministratorByUsername: (username) => {
+            return instance.get(`administrator/get/${username}`)
+        },
+
         // (U)pdate - PUT
         updateCourse: (id, text, completed) => instance.put('courses' + id, {
             title: text,
             completed: completed
         }),
+
+        updateStudent: (user) => {
+            instance.put('student/update', {
+
+            
+            }
+            )
+        },
+
+        updateInstructor: (user) => {
+            instance.put('instructor/update', {
+
+            }
+            )
+        },
+
+        updateAdministrator: (user) => {
+            instance.put('administrator/update', {
+
+            }
+            )
+        },
 
         // (D)elete - DELETE
         deleteStudent: (user) => {
@@ -51,6 +134,12 @@ const api = {
 
         deleteInstructor: (user) => {
             instance.delete('instructor/delete/', {
+                user
+            })
+        },
+
+        deleteAdministrator: (user) => {
+            instance.delete('administrator/delete', {
                 user
             })
         }

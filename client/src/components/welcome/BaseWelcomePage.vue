@@ -1,9 +1,8 @@
 <template>
     <div class="base-welcome-container">
-        {{allUsers}}test
-        {{allAccounts}}
-        <div v-for="user in allUsers" :key="user.name">
-            {{user.name}}
+        
+        <div v-for="user in allStudents" :key="user.studentId">
+            ID: {{user.studentId}} {{user.password}}test
         </div>
         <div v-if="!account.status.loggedIn">
             <b-container fluid>
@@ -108,7 +107,16 @@
             })
         },
         created() {
-            api.getStudents().then(response => (this.allStudents = response.data))
+            // let user = {
+            //     id: 7,
+            //     username: 'sdfsdf',
+            //     password: 'sdfsf',
+            //     firstName: 'dfdf',
+            //     lastName: 'df'
+            // }
+
+            // api.user.createNewStudent(user)
+            api.user.getStudents().then(response => (this.allStudents = response.data))
         },
 
         mounted() {
