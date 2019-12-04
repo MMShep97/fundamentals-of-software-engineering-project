@@ -1,6 +1,6 @@
 <template>
     <div class="base-welcome-container">
-        {{allUsers}}
+        {{allUsers}}test
         {{allAccounts}}
         <div v-for="user in allUsers" :key="user.name">
             {{user.name}}
