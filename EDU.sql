@@ -13,7 +13,10 @@ foreign key (instructor_id) references instructor(instructor_id) on update casca
 create table EDU.course_taken(
 course_id varchar(100),
 instructor_id varchar(120),
-student_id varchar(120));
+student_id varchar(120),
+foreign key (instructor_id) references instructor(instructor_id) on update cascade on delete cascade,
+foreign key (course_id) references course(course_id) on update cascade on delete cascade,
+foreign key (student_id) references student(student_id) on update cascade on delete cascade);
 create table EDU.quiz(
 quiz_id varchar(100) primary key not null,
 course_id varchar(100),
@@ -44,9 +47,32 @@ foreign key (student_id) references student(student_id) on update cascade on del
 primary key(course_id, student_id)
 );
 
+
 drop table EDU.course;
 use EDU;
 select * from student;
 select * from instructor;
+select * from course;
+select * from quiz;
+select * from grade;
+insert into course values('cs120' , 'agco' , 'database');
 select * from account;
 insert into instructor values('agcom' , 'a' , 's' , 'as' , 'a');
+insert into quiz values('quiz1' , 'cs12' , 'database1' , '10' , '10-11-12', 'agco');
+insert into grade values('quiz1' ,'cs12' , 'agco' , 'agcom', 10 , 1);  
+delete from grade where id = '1';    
+insert into student_course values('cs12' , '12xyz');
+select * from student_course;
+SELECT
+        c.course_id,
+        course_name,
+        instructor_id
+    FROM
+        course c 
+    INNER JOIN
+        student_course s 
+            ON c.course_id = s.course_id 
+    WHERE
+        s.student_id = "12xyz";
+        
+insert into student_course values('cs120','12xyz' );

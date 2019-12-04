@@ -19,7 +19,9 @@ public class StudentService {
 	@Autowired
 	EntityManager em;
 	
-	
+	/*
+	 * Getting list of courses for students from the database
+	 * */
 	@SuppressWarnings("unchecked")
 	public List<Course> findCourse(String student_id){
 		List<Course> courses = em.createNativeQuery("SELECT c.course_id ,course_name, instructor_id FROM course c INNER JOIN student_course s ON c.course_id = s.course_id WHERE s.student_id =:student_id")
@@ -28,8 +30,13 @@ public class StudentService {
 		return courses;
 	}
 	
+	/**Getting grades for students
+	 * @param : It takes in the student id with which we can find the grades of the student*/
+	/*
+	 * Using repo to list all the students.
+	 * */
+	
 	public List<Student> listAll(){
-		
 		return repo.findAll();
 		
 	}
