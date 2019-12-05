@@ -2,11 +2,11 @@
 #   include:
     #Node / JS
 - language: node_js
-node_js: 
+node_js:
   - "stable"
 before_script:
   - cd client
-install: 
+install:
   - npm install
 
     #   # Java
