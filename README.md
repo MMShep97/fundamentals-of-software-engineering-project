@@ -1,5 +1,7 @@
 # fundamentals-of-software-engineering-project
 
+Travis CI Build Status
+
 [![Build Status](https://travis-ci.org/MMShep97/fundamentals-of-software-engineering-project.svg?branch=master)](https://travis-ci.org/MMShep97/fundamentals-of-software-engineering-project)
 
 ### Our story board is located [here...](https://github.com/MMShep97/fundamentals-of-software-engineering-project/projects/1)
