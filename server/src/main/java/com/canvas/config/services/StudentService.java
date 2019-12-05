@@ -3,13 +3,18 @@ package com.canvas.config.services;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import com.canvas.config.model.Course;
 import com.canvas.config.model.Student;
 import com.canvas.config.repo.CourseRepository;
 import com.canvas.config.repo.StudentRepository;
 
 @Service
+@Configuration
+@EnableTransactionManagement
 public class StudentService {
 
 	@Autowired

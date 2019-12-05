@@ -3,11 +3,16 @@ package com.canvas.config.services;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import com.canvas.config.model.Instructor;
 import com.canvas.config.repo.InstructorRepository;
 
 @Service
+@Configuration
+@EnableTransactionManagement
 public class InstructorService {
 
 	@Autowired

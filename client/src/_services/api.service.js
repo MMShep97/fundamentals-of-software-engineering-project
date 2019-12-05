@@ -31,34 +31,34 @@ const api = {
             }),
 
         createNewInstructor: (user) =>
-        instance.post('/instructor/save', {
-            instructorId: user.id,
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName
-        })
-        .then(function (response) {
-            console.log(response)
-        })
-        .catch(function (error) {
-            console.log(error)
-        }),
+            instance.post('/instructor/save', {
+                instructorId: user.id,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            }),
 
         createNewAdministrator: (user) =>
-        instance.post('/administrator/save', {
-            administratorId: user.id,
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName
-        })
-        .then(function (response) {
-            console.log(response)
-        })
-        .catch(function (error) {
-            console.log(error)
-        }),
+            instance.post('/administrator/save', {
+                administratorId: user.id,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+            .then(function (response) {
+                console.log(response)
+            })
+            .catch(function (error) {
+                console.log(error)
+            }),
 
         //(R)ead - GET
         getStudents: () => {
@@ -99,30 +99,42 @@ const api = {
 
         // (U)pdate - PUT
         updateCourse: (id, text, completed) => instance.put('courses' + id, {
-            title: text,
-            completed: completed
+            courseId: course.id,
+            courseName: course.name,
+            instructor_id: course.instructorId,
+            students: course.students,
+            quiz: course.quizzes,
+            grades: course.grades,
         }),
 
         updateStudent: (user) => {
             instance.put('student/update', {
-
-            
-            }
-            )
+                studentId: user.email,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
         },
 
         updateInstructor: (user) => {
             instance.put('instructor/update', {
-
-            }
-            )
+                instructorId: user.id,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
         },
 
         updateAdministrator: (user) => {
             instance.put('administrator/update', {
-
-            }
-            )
+                administratorId: user.id,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
         },
 
         // (D)elete - DELETE
@@ -147,9 +159,16 @@ const api = {
 
     course: {
         createCourse: (course) => {
-            instance.post('course/save', { course })
+            instance.post('course/save', {
+                courseId: course.id,
+                courseName: course.name,
+                instructor_id: course.instructorId,
+                students: course.students,
+                quiz: course.quizzes,
+                grades: course.grades,
+            })
         },
-        
+
         getCourses: () => {
             instance.get('course/getcourse')
         },
@@ -159,7 +178,14 @@ const api = {
         },
 
         updateCourseById: (course, id) => {
-            instance.put(`course/course/${id}`, { course })
+            instance.put(`course/course/${id}`, {
+                courseId: course.id,
+                courseName: course.name,
+                instructor_id: course.instructorId,
+                students: course.students,
+                quiz: course.quizzes,
+                grades: course.grades,
+            })
         },
 
         deleteCourseById: (id) => {
@@ -173,10 +199,16 @@ const api = {
 
         getGradesById: (id) => {
             instance.get(`grade/get/${id}`)
-        }, 
+        },
 
         createGrade: (grade) => {
-            instance.post('grade/save', { grade })
+            instance.post('grade/save', {
+                quiz_id = grade.quizId,
+                course_id: grade.courseId,
+                instructor_id: grade.instructorId,
+                student_id: grade.studentId,
+                grade_points: grade.gradePoints,
+            })
         },
 
         deleteCourse: (id) => {
@@ -193,11 +225,20 @@ const api = {
         },
 
         createQuiz: (quiz) => {
-            instance.post('quiz/save', { quiz })
+            instance.post('quiz/save', {
+                quizId: quiz.id,
+                quiz_name: quiz.name,
+                quiz_point: quiz.points,
+                quiz_date: quiz.date,
+                course_id: quiz.courseId,
+                
+            })
         },
 
         deleteQuiz: (quiz) => {
-            instance.delete('quiz/delete', { quiz })
+            instance.delete('quiz/delete', {
+                quiz
+            })
         },
 
 
