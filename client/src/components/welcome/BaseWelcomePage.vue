@@ -2,7 +2,7 @@
     <div class="base-welcome-container">
         
         <div v-for="user in allStudents" :key="user.studentId">
-            ID: {{user.studentId}} {{user.password}} Username: {{user.username}} userType: {{user.category}}
+            ID: {{user.studentId}} {{user.password}} Username: {{user.username}} userType: {{user.category}}t
         </div>
         <div v-if="!account.status.loggedIn">
             <b-container fluid>
