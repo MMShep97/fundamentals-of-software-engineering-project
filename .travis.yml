@@ -1,5 +1,6 @@
 matrix:
   include:
+    #Node / JS
     - language: node_js
     node_js: "stable"
     before_script:
@@ -7,6 +8,7 @@ matrix:
     install: 
       - npm install
 
+      # Java
     - language: java
     before_script:
       - cd client
