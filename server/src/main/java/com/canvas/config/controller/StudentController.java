@@ -25,11 +25,18 @@ public class StudentController {
 		return service.listAll();
 	}
 	
-	@GetMapping(value = "get/{studentId}")
+	@GetMapping(value = "id/{studentId}")
 	public Student getById(@PathVariable("studentId") String studentId){
 		Student student = service.getById(studentId);
 		return student;
 	}
+
+	@GetMapping(value = "username/{userName}")
+	public Student getByUsername(@PathVariable("userName") String userName) {
+		Student student = service.getByUsername(userName);
+		return student;
+	}
+
 	@PostMapping(value = "save")
 	public boolean saveStudent(@RequestBody Student student){
 		return service.save(student);

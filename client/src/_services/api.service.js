@@ -66,11 +66,11 @@ const api = {
         },
 
         getStudentById: (id) => {
-            return instance.get(`student/get/${id}`)
+            return instance.get(`student/id/${id}`)
         },
 
         getStudentByUsername: (username) => {
-            return instance.get(`student/get/${username}`)
+            return instance.get(`student/username/${username}`)
         },
 
         getInstructors: () => {
@@ -78,11 +78,11 @@ const api = {
         },
 
         getInstructorById: (id) => {
-            return instance.get(`instructor/get/${id}`)
+            return instance.get(`instructor/id/${id}`)
         },
 
         getInstructorByUsername: (username) => {
-            return instance.get(`instructor/get/${username}`)
+            return instance.get(`instructor/username/${username}`)
         },
 
         getAdministrators: () => {
@@ -90,11 +90,11 @@ const api = {
         },
 
         getAdministratorById: (id) => {
-            return instance.get(`administrator/get/${id}`)
+            return instance.get(`administrator/id/${id}`)
         },
 
         getAdministratorByUsername: (username) => {
-            return instance.get(`administrator/get/${username}`)
+            return instance.get(`administrator/username/${username}`)
         },
 
         // (U)pdate - PUT

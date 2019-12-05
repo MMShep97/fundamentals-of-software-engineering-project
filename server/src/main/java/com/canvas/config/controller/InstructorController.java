@@ -25,10 +25,17 @@ public class InstructorController {
 		return service.getAll();
 	}
 	
-	@GetMapping(value = "get/{instructorId}")
+	@GetMapping(value = "id/{instructorId}")
 	public Instructor getById(@PathVariable("instructorId") String instructorId){
 		return service.getById(instructorId);
 	}
+
+	@GetMapping(value = "username/{userName}")
+	public Instructor getByUsername(@PathVariable("userName") String userName) {
+		Instructor instructor = service.getByUsername(userName);
+		return instructor;
+	}
+
 	@PostMapping(value = "save")
 	public boolean saveStudent(@RequestBody Instructor instructor){
 		return service.save(instructor);

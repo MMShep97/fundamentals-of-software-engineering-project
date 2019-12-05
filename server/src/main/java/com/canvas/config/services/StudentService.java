@@ -57,6 +57,13 @@ public class StudentService {
 		System.out.println("in here "+ student);
 		return  student;
 	}
+
+	public Student getByUsername(String userName) {
+		List<Student> students = this.listAll();
+		Student student = students.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).findFirst().get();
+		student.setCourses(this.findCourse(userName));
+		return student;
+	}
 	
 	//delete a student by his student id
 	public void delete(String studentId) {

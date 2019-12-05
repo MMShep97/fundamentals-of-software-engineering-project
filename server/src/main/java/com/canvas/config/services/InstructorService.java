@@ -30,6 +30,11 @@ public class InstructorService {
 		Instructor instructorCurrent = this.getAll().stream().filter(s -> s.getInstructorId().equals(instructorId)).findFirst().get();
 		return instructorCurrent;
 	}
+
+	public Instructor getByUsername(String userName) {
+		Instructor instructorCurrent = this.getAll().stream().filter(s -> s.getUsername().equals(userName)).findFirst().get();
+		return instructorCurrent;
+	}
 	/*
 	 * saving a user or persisting a user in the database.
 	 * */
