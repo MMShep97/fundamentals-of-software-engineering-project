@@ -14,32 +14,36 @@
                                 <b-container>
                                     <b-row align-h="center">
                                         <b-col md="6">
-                                            <b-form>
+                                            <form @submit.prevent="handleUpdateSubmit('firstName')">
                                                 <b-form-group>
-                                                    <label for="">Firstname</label>
-                                                    <b-form-input></b-form-input>
+                                                    <label for="firstName">First Name</label>
+                                                    <input type="text" v-model="account.user.firstName"
+                                                        v-validate="''" name="firstName" class="form-control"
+                                                        :class="{ 'is-invalid': submitted.firstName && errors.has('firstName'), 'is-valid': submitted.firstName && !errors.has('firstName') }" />
+                                                    <div v-if="submitted.firstName && errors.has('firstName')"
+                                                        class="invalid-feedback">
+                                                        {{ errors.first('firstName') }}</div>
                                                 </b-form-group>
                                                 <b-form-group>
-                                                    <button class="btn btn-primary"
-                                                        :disabled="status.registering">Submit</button>
-                                                    <img v-show="status.registering" class="loading-icon"
-                                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                    <button class="btn btn-primary">Submit</button>
                                                 </b-form-group>
-                                            </b-form>
+                                            </form>
                                         </b-col>
                                     </b-row>
                                     <b-row align-h="center">
                                         <b-col md="6">
-                                            <b-form>
+                                            <b-form @submit.prevent="handleUpdateSubmit('lastName')">
                                                 <b-form-group>
-                                                    <label for="">Lastname</label>
-                                                    <b-form-input></b-form-input>
+                                                    <label for="lastName">Last Name</label>
+                                                    <input type="text" v-model="account.user.lastName"
+                                                        v-validate="''" name="lastName" class="form-control"
+                                                        :class="{ 'is-invalid': submitted.lastName && errors.has('lastName'), 'is-valid': submitted.lastName && !errors.has('lastName') }" />
+                                                    <div v-if="submitted.lastName && errors.has('lastName')"
+                                                        class="invalid-feedback">
+                                                        {{ errors.first('lastName') }}</div>
                                                 </b-form-group>
                                                 <b-form-group>
-                                                    <button class="btn btn-primary"
-                                                        :disabled="status.registering">Submit</button>
-                                                    <img v-show="status.registering" class="loading-icon"
-                                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                    <button class="btn btn-primary">Submit</button>
                                                 </b-form-group>
                                             </b-form>
                                         </b-col>
@@ -56,17 +60,19 @@
                                 <b-container>
                                     <b-row align-h="center">
                                         <b-col md="6">
-                                            <b-form>
-                                                <b-form-group>
-                                                    <label for="">Update Username</label>
-                                                    <b-form-input></b-form-input>
-                                                </b-form-group>
-                                                <b-form-group>
-                                                    <button class="btn btn-primary"
-                                                        :disabled="status.registering">Submit</button>
-                                                    <img v-show="status.registering" class="loading-icon"
-                                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                                                </b-form-group>
+                                            <b-form @submit.prevent="handleUpdateSubmit('username')">
+                                            <b-form-group>
+                                                <label for="username">Update Username</label>
+                                                <input type="text" v-model="account.user.username"
+                                                    v-validate="''" name="firstName" class="form-control"
+                                                    :class="{ 'is-invalid': submitted.username && errors.has('username'), 'is-valid': submitted.username && !errors.has('username') }" />
+                                                <div v-if="submitted.username && errors.has('username')"
+                                                    class="invalid-feedback">
+                                                    {{ errors.first('username') }}</div>
+                                            </b-form-group>
+                                            <b-form-group>
+                                                <button class="btn btn-primary">Submit</button>
+                                            </b-form-group>
                                             </b-form>
                                         </b-col>
                                     </b-row>
@@ -81,23 +87,21 @@
                                 <b-container>
                                     <b-row align-h="center">
                                         <b-col md="6">
-                                            <b-form @submit.prevent="handleUpdatePasswordSubmit">
+                                            <b-form @submit.prevent="handleUpdateSubmit('password')">
                                                 <b-form-group>
                                                     <label htmlFor="password">Password</label>
-                                                    <input type="password" v-model="user.password"
-                                                        v-validate="{ required: true, min: 6 }" name="password"
+                                                    <input type="password" v-model="account.user.password"
+                                                        v-validate="" name="password"
                                                         class="form-control"
-                                                        :class="{ 'is-invalid': submitted && errors.has('password') }" />
-                                                    <div v-if="submitted && errors.has('password')"
+                                                        :class="{ 'is-invalid': submitted.password && errors.has('password'), 'is-valid': submitted.password && !errors.has('password') }" />
+                                                    <div v-if="submitted.password && errors.has('password')"
                                                         class="invalid-feedback">
                                                         {{ errors.first('password') }}
                                                     </div>
                                                 </b-form-group>
                                                 <b-form-group>
-                                                    <button class="btn btn-primary"
-                                                        :disabled="status.registering">Submit</button>
-                                                    <img v-show="status.registering" class="loading-icon"
-                                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                    <button class="btn btn-primary">Submit</button>
+
                                                 </b-form-group>
                                             </b-form>
                                         </b-col>
@@ -114,14 +118,14 @@
                                     <b-row align-h="center">
                                         <b-col md="6">
                                             <b-form>
-                                                <div><label for=""> This is a big decision.</label></div>
-                                                <div><label for=""> Are you sure you want to delete you account?</label>
-                                                </div>
+
                                                 <b-form-group>
-                                                    <button class="btn btn-danger"
-                                                        :disabled="status.registering">Delete</button>
-                                                    <img v-show="status.registering" class="loading-icon"
-                                                        src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                                    <div><label for=""> This is a big decision.</label></div>
+                                                    <div><label for=""> Are you sure you want to delete you
+                                                            account?</label></div>
+                                                </b-form-group>
+                                                <b-form-group>
+                                                    <button :click="handleDeleteAccountSubmit()" class="btn btn-danger">Delete Account</button>
                                                 </b-form-group>
                                             </b-form>
                                         </b-col>
@@ -148,95 +152,106 @@
     export default {
         data() {
             return {
-                user: {
-                    userType: '',
-                    firstName: '',
-                    lastName: '',
-                    username: '',
-                    password: '',
-                    activeClasses: ['Math', 'Science', 'Chemistry', 'English'],
-                },
-                submitted: false
+
+                submitted: {
+                    firstName: false,
+                    lastName: false,
+                    username: false,
+                    password: false,
+                    deleteAccount: false,
+                }
             }
         },
         computed: {
-            ...mapState('account', ['status']),
+            ...mapState({
+                account: state => state.account,
+            }),
+
+            created() {
+
+            }
+
+
         },
         methods: {
-            ...mapActions('account', ['register']),
-            handleUpdateFirstnameSubmit(e) {
-                this.submitted = true;
+            ...mapActions('account', ['logout']),
+            handleUpdateSubmit(variableToUpdate) {
+                this.submitted[variableToUpdate] = true
                 this.$validator.validate().then(valid => {
                     if (valid) {
-                        if (this.account.user == 'Student') {
-                            api.user.update
-                        } else if (this.account.user == 'Instructor') {
-                            api.user.update
-                        } else if (this.account.user == 'Administrator') {
-                            api.user.update
+                        if (this.account.user.category == 'Student') {
+                            api.user.updateStudent(this.account.user)
+                            console.log('success')
+                        } else if (this.account.user.category == 'Instructor') {
+                            api.user.updateInstructor(this.account.user)
+                        } else if (this.account.user.category == 'Administrator') {
+                            api.user.updateAdministrator(this.account.user)
                         }
+                        let user = JSON.parse(localStorage.getItem('user'));
+                        user[variableToUpdate] = this.account.user[variableToUpdate]
+                        localStorage.setItem('user', JSON.stringify(user));
                     }
                 });
             },
 
-            handleUpdateLastnameSubmit(e) {
-                this.submitted = true;
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        if (this.account.user == 'Student') {
-                            api.user.update
-                        } else if (this.account.user == 'Instructor') {
-                            api.user.update
-                        } else if (this.account.user == 'Administrator') {
-                            api.user.update
-                        }
-                    }
-                });
-            },
+            // handleUpdateLastnameSubmit(e) {
+            //     this.submitted = true;
+            //     this.$validator.validate().then(valid => {
+            //         if (valid) {
+            //             if (this.account.user.category == 'Student') {
+            //                 api.user.updateStudent(this.account.user)
+            //                 console.log('success')
+            //             } else if (this.account.user.category == 'Instructor') {
+            //                 api.user.updateInstructor(this.account.user)
+            //             } else if (this.account.user.category == 'Administrator') {
+            //                 api.user.updateAdministrator(this.account.user)
+            //             }
+            //         }
+            //     });
+            // },
 
-            handleUpdateUsernameSubmit(e) {
-                this.submitted = true;
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        if (this.account.user == 'Student') {
-                            api.user.update
-                        } else if (this.account.user == 'Instructor') {
-                            api.user.update
-                        } else if (this.account.user == 'Administrator') {
-                            api.user.update
-                        }
-                    }
-                });
-            },
+            // handleUpdateUsernameSubmit(e) {
+            //     this.submitted = true;
+            //     this.$validator.validate().then(valid => {
+            //         if (valid) {
+            //             if (this.account.user.category == 'Student') {
+            //                 api.user.updateStudent(this.account.user)
+            //                 console.log('success')
+            //             } else if (this.account.user.category == 'Instructor') {
+            //                 api.user.updateInstructor(this.account.user)
+            //             } else if (this.account.user.category == 'Administrator') {
+            //                 api.user.updateAdministrator(this.account.user)
+            //             }
+            //         }
+            //     });
+            // },
 
-            handleUpdatePasswordSubmit(e) {
-                this.submitted = true;
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        if (this.account.user == 'Student') {
-                            api.user.update
-                        } else if (this.account.user == 'Instructor') {
-                            api.user.update
-                        } else if (this.account.user == 'Administrator') {
-                            api.user.update
-                        }
-                    }
-                });
-            },
+            // handleUpdatePasswordSubmit(e) {
+            //     this.submitted = true;
+            //     this.$validator.validate().then(valid => {
+            //         if (valid) {
+            //             if (this.account.user.category == 'Student') {
+            //                 api.user.updateStudent(this.account.user)
+            //                 console.log('success')
+            //             } else if (this.account.user.category == 'Instructor') {
+            //                 api.user.updateInstructor(this.account.user)
+            //             } else if (this.account.user.category == 'Administrator') {
+            //                 api.user.updateAdministrator(this.account.user)
+            //             }
+            //         }
+            //     });
+            // },
 
-            handleDeleteAccountSubmit(e) {
-                this.submitted = true;
-                this.$validator.validate().then(valid => {
-                    if (valid) {
-                        if (this.account.user == 'Student') {
-                            api.user.update
-                        } else if (this.account.user == 'Instructor') {
-                            api.user.update
-                        } else if (this.account.user == 'Administrator') {
-                            api.user.update
+            async handleDeleteAccountSubmit() {
+                this.submitted.deleteAccount = true;
+                        if (this.account.user.category == 'Student') {
+                            await api.user.deleteStudent(this.account.user)
+                        } else if (this.account.user.category == 'Instructor') {
+                            await api.user.deleteInstructor(this.account.user)
+                        } else if (this.account.user.category == 'Administrator') {
+                            await api.user.deleteAdministrator(this.account.user)
                         }
-                    }
-                });
+                        // this.logout()
             },
 
 

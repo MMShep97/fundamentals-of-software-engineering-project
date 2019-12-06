@@ -3,8 +3,8 @@
         <b-tabs content-class="mt-1" card pills justified align="center">
             <b-tab no-body title="View Courses">
                 <b-card-text>
-                    <b-col v-for="course in courseList.activeCourses" :key="course.id">
-                        {{course.title}}
+                    <b-col v-for="course in account.user.courses" :key="course.studentId">
+                        {{course.courseName}}
                     </b-col>
                 </b-card-text>
             </b-tab>
@@ -18,12 +18,12 @@
                 <template v-slot:title>
                     &minus; Delete Course
                 </template>
-                <b-row v-for="course in courseList.activeCourses" :key="course.id" align-v="center" align-h="center">
+                <b-row v-for="course in account.user.courses" :key="course.id" align-v="center" align-h="center">
 
                     <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                         <b-list-group>
                             <b-list-group-item href='#' variant="dark">
-                                {{course.title}}
+                                {{course.courseName}}
                             </b-list-group-item>
                         </b-list-group>
                     </b-col>
@@ -78,7 +78,15 @@
                 }
             }
         },
+computed: {
+            ...mapState({
+                account: state => state.account,
+            }),
 
+            
+        },
+
+        
 
     }
 </script>
