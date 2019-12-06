@@ -10,6 +10,7 @@ course_id varchar(100) primary key not null,
 instructor_id varchar(120),
 course_name varchar(150),
 foreign key (instructor_id) references instructor(instructor_id) on update cascade on delete cascade);
+
 create table EDU.course_taken(
 course_id varchar(100),
 instructor_id varchar(120),
@@ -17,6 +18,7 @@ student_id varchar(120),
 foreign key (instructor_id) references instructor(instructor_id) on update cascade on delete cascade,
 foreign key (course_id) references course(course_id) on update cascade on delete cascade,
 foreign key (student_id) references student(student_id) on update cascade on delete cascade);
+
 create table EDU.quiz(
 quiz_id varchar(100) primary key not null,
 course_id varchar(100),
@@ -59,7 +61,7 @@ insert into course values('cs120' , 'agco' , 'database');
 select * from account;
 insert into instructor values('agcom' , 'a' , 's' , 'as' , 'a');
 insert into quiz values('quiz1' , 'cs12' , 'database1' , '10' , '10-11-12', 'agco');
-insert into grade values('quiz1' ,'cs12' , 'agco' , 'agcom', 10 , 1);  
+insert into grade values('quiz1' ,'cs12' , 'agco' , 4, 4 ,'12xyz' );  
 delete from grade where id = '1';    
 insert into student_course values('cs12' , '12xyz');
 select * from student_course;
@@ -76,3 +78,6 @@ SELECT
         s.student_id = "12xyz";
         
 insert into student_course values('cs120','12xyz' );
+Alter table grade DROP COLUMN student_id;
+ALTER TABLE grade
+ADD FOREIGN KEY (student_id) REFERENCES student_course(student_id);

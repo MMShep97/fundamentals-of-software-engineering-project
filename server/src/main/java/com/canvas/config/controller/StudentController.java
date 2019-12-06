@@ -34,6 +34,7 @@ public class StudentController {
 	@GetMapping(value = "username/{userName}")
 	public Student getByUsername(@PathVariable("userName") String userName) {
 		Student student = service.getByUsername(userName);
+		System.out.println(userName+" inside controller");
 		return student;
 	}
 

@@ -57,6 +57,7 @@
                     password
                 } = this;
                 if (username && password) {
+                    console.log(username+"username and password"+ password)
                     this.login({
                         username,
                         password

@@ -203,7 +203,7 @@ const api = {
 
         createGrade: (grade) => {
             instance.post('grade/save', {
-                quiz_id = grade.quizId,
+                quiz_id: grade.quizId,
                 course_id: grade.courseId,
                 instructor_id: grade.instructorId,
                 student_id: grade.studentId,

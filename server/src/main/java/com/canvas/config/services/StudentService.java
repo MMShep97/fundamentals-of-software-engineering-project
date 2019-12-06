@@ -65,8 +65,10 @@ public class StudentService {
 
 	public Student getByUsername(String userName) {
 		List<Student> students = this.listAll();
+		System.out.println(" before adding courses");
 		Student student = students.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).findFirst().get();
 		student.setCourses(this.findCourse(userName));
+		System.out.println(student +" after adding courses");
 		return student;
 	}
 	
