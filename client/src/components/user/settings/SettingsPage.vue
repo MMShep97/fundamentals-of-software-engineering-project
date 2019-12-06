@@ -81,10 +81,17 @@
                                 <b-container>
                                     <b-row align-h="center">
                                         <b-col md="6">
-                                            <b-form>
+                                            <b-form @submit.prevent="handleUpdatePasswordSubmit">
                                                 <b-form-group>
-                                                    <label for="">Password</label>
-                                                    <b-form-input></b-form-input>
+                                                    <label htmlFor="password">Password</label>
+                                                    <input type="password" v-model="user.password"
+                                                        v-validate="{ required: true, min: 6 }" name="password"
+                                                        class="form-control"
+                                                        :class="{ 'is-invalid': submitted && errors.has('password') }" />
+                                                    <div v-if="submitted && errors.has('password')"
+                                                        class="invalid-feedback">
+                                                        {{ errors.first('password') }}
+                                                    </div>
                                                 </b-form-group>
                                                 <b-form-group>
                                                     <button class="btn btn-primary"
@@ -135,6 +142,9 @@
         mapState,
         mapActions
     } from 'vuex'
+    import {
+        api
+    } from '../../../_services/api.service'
     export default {
         data() {
             return {
@@ -154,15 +164,82 @@
         },
         methods: {
             ...mapActions('account', ['register']),
-            handleSubmit(e) {
+            handleUpdateFirstnameSubmit(e) {
                 this.submitted = true;
                 this.$validator.validate().then(valid => {
                     if (valid) {
-                        this.register(this.user);
-                        router.push('/login');
+                        if (this.account.user == 'Student') {
+                            api.user.update
+                        } else if (this.account.user == 'Instructor') {
+                            api.user.update
+                        } else if (this.account.user == 'Administrator') {
+                            api.user.update
+                        }
                     }
                 });
-            }
+            },
+
+            handleUpdateLastnameSubmit(e) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        if (this.account.user == 'Student') {
+                            api.user.update
+                        } else if (this.account.user == 'Instructor') {
+                            api.user.update
+                        } else if (this.account.user == 'Administrator') {
+                            api.user.update
+                        }
+                    }
+                });
+            },
+
+            handleUpdateUsernameSubmit(e) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        if (this.account.user == 'Student') {
+                            api.user.update
+                        } else if (this.account.user == 'Instructor') {
+                            api.user.update
+                        } else if (this.account.user == 'Administrator') {
+                            api.user.update
+                        }
+                    }
+                });
+            },
+
+            handleUpdatePasswordSubmit(e) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        if (this.account.user == 'Student') {
+                            api.user.update
+                        } else if (this.account.user == 'Instructor') {
+                            api.user.update
+                        } else if (this.account.user == 'Administrator') {
+                            api.user.update
+                        }
+                    }
+                });
+            },
+
+            handleDeleteAccountSubmit(e) {
+                this.submitted = true;
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        if (this.account.user == 'Student') {
+                            api.user.update
+                        } else if (this.account.user == 'Instructor') {
+                            api.user.update
+                        } else if (this.account.user == 'Administrator') {
+                            api.user.update
+                        }
+                    }
+                });
+            },
+
+
         }
     }
 </script>

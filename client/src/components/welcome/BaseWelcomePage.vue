@@ -2,7 +2,7 @@
     <div class="base-welcome-container">
         
         <div v-for="user in allStudents" :key="user.studentId">
-       sdf     ID: {{user.studentId}} {{user.password}} Username: {{user.username}} userType: {{user.category}}sd
+       sdf     ID: {{user.studentId}} {{user.password}} Username: {{user.username}}
         </div>
         <div v-if="!account.status.loggedIn">
             <b-container fluid>
@@ -58,16 +58,16 @@
         <div v-else-if="account.status.loggedIn">
             <img class="welcome-image" src='../../assets/graduation_cap.png'>
             <b-jumbotron>
-                <template v-slot:header class='jumbo-header'>Welcome, {{account.user.userType}} {{account.user.firstName}}!</template>
+                <template v-slot:header class='jumbo-header'>Welcome, {{account.user.category}} {{account.user.firstName}}!</template>
                 <template v-slot:lead>Try checking out your <router-link to="/user-profile">profile</router-link> for important information!</template>
             </b-jumbotron>
-            <div v-if="account.user.userType == 'Student'">
+            <div v-if="account.user.category == 'Student'">
                 <StudentWelcomePage></StudentWelcomePage>
             </div>
-            <div v-else-if="account.user.userType == 'Instructor'">
+            <div v-else-if="account.user.category == 'Instructor'">
                 <InstructorWelcomePage></InstructorWelcomePage>
             </div>
-            <div v-else-if="account.user.userType == 'Administrator'">
+            <div v-else-if="account.user.category == 'Administrator'">
                 <AdministratorWelcomePage></AdministratorWelcomePage>
             </div>
             <div class="line-separator"></div>
@@ -90,7 +90,6 @@
         data () {
             return {
                 allStudents: null,
-                allAccounts: null,
             }
         },
 
@@ -103,19 +102,9 @@
         computed: {
             ...mapState({
                 account: state => state.account,
-                users: state => state.users.all
             })
         },
         created() {
-            // let user = {
-            //     id: 7,
-            //     username: 'sdfsdf',
-            //     password: 'sdfsf',
-            //     firstName: 'dfdf',
-            //     lastName: 'df'
-            // }
-
-            // api.user.createNewStudent(user)
             api.user.getStudents().then(response => (this.allStudents = response.data))
         },
 
@@ -123,9 +112,6 @@
             
   },
         methods: {
-            ...mapActions('users', {
-                deleteUser: 'delete'
-            }),
         }
     };
 </script>

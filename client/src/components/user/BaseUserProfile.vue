@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div v-if="account.user.userType == 'Student'">
+        <div v-if="account.user.category == 'Student'">
             <StudentProfile></StudentProfile>
         </div>
-        <div v-else-if="account.user.userType == 'Instructor'">
+        <div v-else-if="account.user.category == 'Instructor'">
             <InstructorProfile></InstructorProfile>
         </div>
-        <div v-else-if="account.user.userType == 'Administrator'">
+        <div v-else-if="account.user.category == 'Administrator'">
             <AdministratorProfile></AdministratorProfile>
         </div>
     </div>
@@ -33,17 +33,11 @@
         computed: {
             ...mapState({
                 account: state => state.account,
-                users: state => state.users.all
             })
         },
         created() {
-            this.getAllUsers();
         },
         methods: {
-            ...mapActions('users', {
-                getAllUsers: 'getAll',
-                deleteUser: 'delete'
-            })
         }
     }
 </script>

@@ -71,6 +71,14 @@ const api = {
 
         getStudentByUsername: async (username) => {
             return instance.get(`student/username/${username}`)
+            .then(function (response) {
+                console.log(response)
+                return response;
+
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
         },
 
         getInstructors: () => {
@@ -231,7 +239,7 @@ const api = {
                 quiz_point: quiz.points,
                 quiz_date: quiz.date,
                 course_id: quiz.courseId,
-                
+
             })
         },
 

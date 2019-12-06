@@ -15,6 +15,10 @@ const actions = {
             );
     },
 
+    updatefirstName({commit }) {
+        commit('')
+    },
+
     delete({ commit }, id) {
         commit('deleteRequest', id);
 

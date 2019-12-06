@@ -7,20 +7,22 @@ const state = user
     : { status: {}, user: null };
 
 const actions = {
-    async login({ dispatch, commit }, { username, password }) {
+    login({ dispatch, commit }, { username, password }) {
         commit('loginRequest', { username });
     
-        let outcome = await userService.login(username, password)
-            
-                    if (outcome == true) {
-                    commit('loginSuccess', user);
-                    router.push('/');
-                    }
+        userService.login(username, password).then(outcome => {
+            if (outcome == true) {
+                commit('loginSuccess', user);
+                router.push('/');
+                }
 
-                    else {
-                        commit('loginFailure', 'Username or Password is incorrect');
-                        dispatch('alert/error', 'Username or Password is incorrect', { root: true });
-                    }
+                else {
+                    commit('loginFailure', 'Username or Password is incorrect');
+                    dispatch('alert/error', 'Username or Password is incorrect', { root: true });
+                }
+        })
+            
+                    
     },
     logout({ commit }) {
         userService.logout();

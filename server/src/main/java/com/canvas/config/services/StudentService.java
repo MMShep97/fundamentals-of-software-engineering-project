@@ -82,13 +82,12 @@ public class StudentService {
 	 * */
 	public boolean update(Student student) {
 		Student before = this.getById(student.getStudentId());
-		if(student.getFirstName() == null || student.getLastName() == null|| student.getPassword() == null || student.getUsername() == null )
-			return false;
-		before.setFirstName(student.getFirstName());
-		before.setCourses(student.getCourses());
-		before.setLastName(student.getLastName());
-		before.setPassword(student.getPassword());
-		before.setUsername(student.getUsername());
+		
+		if (student.getFirstName() != null) before.setFirstName(student.getFirstName());
+		if (student.getCourses() != null) before.setCourses(student.getCourses());
+		if (student.getLastName() != null) before.setLastName(student.getLastName());
+		if (student.getPassword() != null) before.setPassword(student.getPassword());
+		if (student.getUsername() != null) before.setUsername(student.getUsername());
 		repo.save(before);
 		return true;
 	}

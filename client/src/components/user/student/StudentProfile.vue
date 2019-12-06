@@ -1,6 +1,6 @@
 <template>
     <div class="student-profile-container">
-        <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
+        <h1>Hi {{account.user.category}} {{account.user.firstName}}!</h1>
         <b-container fluid>
             <b-row align-h="center" class="row-margin">
                 <b-col md="4" class="select-course-col">
@@ -66,17 +66,11 @@
         computed: {
             ...mapState({
                 account: state => state.account,
-                users: state => state.users.all
             })
         },
         created() {
-            this.getAllUsers();
         },
         methods: {
-            ...mapActions('users', {
-                getAllUsers: 'getAll',
-                deleteUser: 'delete'
-            })
         },
     }
 </script>

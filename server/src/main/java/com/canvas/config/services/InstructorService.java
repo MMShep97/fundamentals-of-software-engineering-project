@@ -60,13 +60,12 @@ public class InstructorService {
 	 * */
 	public boolean update(Instructor instructor) {
 		Instructor before = this.getById(instructor.getInstructorId());
-		if(instructor.getFirstName() == null || instructor.getLastName() == null|| instructor.getPassword() == null || instructor.getUsername() == null )
-			return false;
-		before.setFirstName(instructor.getFirstName());
-		before.setCourses(instructor.getCourses());
-		before.setLastName(instructor.getLastName());
-		before.setPassword(instructor.getPassword());
-		before.setUsername(instructor.getUsername());
+		
+			if (instructor.getFirstName() != null) before.setFirstName(instructor.getFirstName());
+			if (instructor.getCourses() != null) before.setCourses(instructor.getCourses());
+			if (instructor.getLastName() != null) before.setLastName(instructor.getLastName());
+			if (instructor.getPassword() != null) before.setPassword(instructor.getPassword());
+			if (instructor.getUsername() != null) before.setUsername(instructor.getUsername());
 		repo.save(before);
 		return true;
 	}
