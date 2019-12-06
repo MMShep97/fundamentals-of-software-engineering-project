@@ -18,8 +18,8 @@ const actions = {
                     }
 
                     else {
-                        commit('loginFailure', error);
-                        dispatch('alert/error', error, { root: true });
+                        commit('loginFailure', 'Username or Password is incorrect');
+                        dispatch('alert/error', 'Username or Password is incorrect', { root: true });
                     }
     },
     logout({ commit }) {

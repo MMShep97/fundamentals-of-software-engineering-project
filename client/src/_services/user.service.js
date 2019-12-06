@@ -18,20 +18,21 @@ async function login(username, password) {
         let user;
         let outcome = false;
         
-        let student = api.user.getStudentByUsername(username)
-        let instructor = api.user.getInstructorByUsername(username)
-        //let administrator = api.user.getAdministratorByUsername(username)
+        let student = await api.user.getStudentByUsername(username)
+        let instructor;
+        //let instructor = await api.user.getInstructorByUsername(username)
+        //let administrator = await api.user.getAdministratorByUsername(username)
 
-        if (student != null) user = student;
-        if (instructor != null) user = instructor;
-        // if (administrator != null) user = administrator;
+        if (student != null) user = student.data;
+        if (instructor != null) user = instructor.data;
+        // if (administrator != null) user = administrator.data;
+
         if (user == null) return outcome;
 
         user.password == password ? outcome = true: outcome = false
         if (outcome == true) {
             localStorage.setItem('user', JSON.stringify(user));
         }
-
         return outcome;
 }
 

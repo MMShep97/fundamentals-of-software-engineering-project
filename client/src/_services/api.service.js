@@ -69,7 +69,7 @@ const api = {
             return instance.get(`student/id/${id}`)
         },
 
-        getStudentByUsername: (username) => {
+        getStudentByUsername: async (username) => {
             return instance.get(`student/username/${username}`)
         },
 
