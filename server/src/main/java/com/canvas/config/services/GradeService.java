@@ -50,7 +50,8 @@ public class GradeService {
 			return false;
 		}
 	}
-	/*
+	/***
+	 * 
 	 * search with quiz id
 	 * */
 	public List<Grade> getByQuizId(String quizId){

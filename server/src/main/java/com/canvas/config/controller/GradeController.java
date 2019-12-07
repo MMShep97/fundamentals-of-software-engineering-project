@@ -33,13 +33,6 @@ public class GradeController {
 		List<Grade> listAll = service.getByCourseId(course_id);
 		return listAll;
 	}
-	
-	
-//	@PutMapping(value="/course/{id}")
-//	public void udpdateCourse(@RequestBody Course course, @PathVariable String CourseId) {
-//		service.updateCourse(CourseId, course);	
-//	}
-	
 	@DeleteMapping(value="delete/{id}")
 	public void deleteCourse(@PathVariable Integer id) {
 		service.delete(id);
