@@ -40,6 +40,13 @@ import TakeExam from './TakeExam'
 export default {
     components: {
         TakeExam,
+    },
+
+    data () {
+        return {
+            course: ['boop'],
+            announcements: ['boop']
+        }
     }
 }
 </script>

@@ -27,21 +27,19 @@ async function login(username, password) {
             user = student.data;
             user.category = 'Student'
         }
-        if (instructor != null) {
+        else if (instructor != null) {
             user = instructor.data;
             user.category = 'Instructor'
         }
-        // if (administrator != null) user = administrator.data;
+        // else if (administrator != null) user = administrator.data;
 
-        if (user == null) return outcome;
+        else return outcome;
 
-        console.log(outcome);
-        console.log(user);
         user.password == password ? outcome = true: outcome = false
         if (outcome == true) {
             localStorage.setItem('user', JSON.stringify(user));
         }
-        return outcome;
+        return {user, outcome};
 }
 
 function logout() {
@@ -49,13 +47,13 @@ function logout() {
     localStorage.removeItem('user');
 }
 
-function register(user) {
+async function register(user) {
     
     console.log(user)
     let userType = user.category;
     console.log("userType: " + userType)
-    if (userType == 'Student') { return api.user.createNewStudent(user) }
-    else if (userType == 'Instructor') { return api.user.createNewInstructor(user)}
+    if (userType == 'Student') { return await api.user.createNewStudent(user) }
+    else if (userType == 'Instructor') { return await api.user.createNewInstructor(user) }
     // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
     // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
@@ -90,19 +88,16 @@ function _delete(id) {
 }
 
 function handleResponse(response) {
-    return response.text().then(text => {
+    return response.data.then(text => {
         const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
+            if (response.status == 401 || response.status == 500) {
                 // auto logout if 401 response returned from api
                 logout();
                 location.reload(true);
-            }
 
-            const error = (data && data.message) || response.statusText;
+            const error = response.status
             return Promise.reject(error);
-        }
-
+            }
         return data;
     });
 }

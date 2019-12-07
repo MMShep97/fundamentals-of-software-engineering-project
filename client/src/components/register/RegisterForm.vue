@@ -29,7 +29,7 @@
 
         <b-form-group>
             <label for="email">Email (e.g. John.Smoth@gmail.com)</label>
-            <input type="email" v-model="user.email" v-validate="'required|email'" name="email" class="form-control"
+            <input type="email" v-model="user.studentId" v-validate="'required|email'" name="email" class="form-control"
                 :class="{ 'is-invalid': submitted && errors.has('email') }" />
             <div v-if="submitted && errors.has('email')" class="invalid-feedback">
                 {{ errors.first('email') }}
@@ -64,9 +64,6 @@
 <script>
     import Validator from 'vee-validate'
     import {
-        router
-    } from '../../_helpers/router';
-    import {
         api
     } from '../../_services/api.service'
     import {
@@ -80,7 +77,7 @@
 
                 user: {
                     category: '',
-                    email: '',
+                    studentId: '',
                     username: '',
                     password: '',
                     firstName: '',
@@ -104,7 +101,6 @@
                 this.$validator.validate().then(valid => {
                     if (valid) {
                         this.register(this.user);
-                        router.push('/login');
                     }
                 });
             }

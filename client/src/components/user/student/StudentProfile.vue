@@ -5,7 +5,7 @@
             <b-row align-h="center" class="row-margin">
                 <b-col md="4" class="select-course-col">
                     <h4>Select from your current classes:</h4>
-                    <b-form-select v-model="currentCourseSelected.title" :options="courseList.activeCourses"
+                    <b-form-select v-model="account.user.courses.currentCourseSelected" :options="account.user.courses"
                         class="mb-3" value-field="title" text-field="title" disabled-field="notEnabled"></b-form-select>
                 </b-col>
             </b-row>
@@ -38,9 +38,7 @@
         },
         data() {
             return {
-                currentCourseSelected: {
-                    title: '',
-                },
+                account: null,
                 courseList: {
                     activeCourses: [{
                             id: 1,
@@ -64,11 +62,14 @@
         },
 
         computed: {
-            ...mapState({
-                account: state => state.account,
-            })
+            
         },
-        created() {
+
+        async created() {
+            if (this.$store.state.account === null) {
+                await this.$store.dispatch('null')
+            }
+            this.account = this.$store.getters.state.account
         },
         methods: {
         },

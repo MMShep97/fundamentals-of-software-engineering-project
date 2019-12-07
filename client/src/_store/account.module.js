@@ -1,5 +1,6 @@
 import { userService } from '../_services/user.service';
 import { router } from '../_helpers';
+import { api } from '../_services/api.service';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const state = user
@@ -7,22 +8,20 @@ const state = user
     : { status: {}, user: null };
 
 const actions = {
-    login({ dispatch, commit }, { username, password }) {
+    async login({ dispatch, commit }, { username, password }) {
         commit('loginRequest', { username });
     
-        userService.login(username, password).then(outcome => {
+        let {user, outcome } = await userService.login(username, password)
+
             if (outcome == true) {
                 commit('loginSuccess', user);
-                router.push('/');
+                router.push('/')
                 }
 
                 else {
                     commit('loginFailure', 'Username or Password is incorrect');
                     dispatch('alert/error', 'Username or Password is incorrect', { root: true });
                 }
-        })
-            
-                    
     },
     logout({ commit }) {
         userService.logout();
@@ -39,6 +38,7 @@ const actions = {
                         // display success message after route change completes
                         dispatch('alert/success', 'Registration successful', { root: true });
                     })
+                    router.push('/login');
                 },
                 error => {
                     commit('registerFailure', error);
