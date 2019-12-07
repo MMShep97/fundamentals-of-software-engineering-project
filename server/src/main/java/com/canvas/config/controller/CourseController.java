@@ -19,29 +19,65 @@ public class CourseController {
 	@Autowired
 	private	CourseService courseServ;
   
+	/***
+	 * 
+	 * @return
+	 */
 	@GetMapping(value= "getcourse")  
 	public List<Course> getAllcourses(){
 		return courseServ.getCourses();
 	}  
-	 
+	 /****
+	  * 
+	  * @param course
+	  * @return
+	  */
 	@PostMapping(value="save")
 	public boolean saveCourse(@RequestBody Course course) {
-		return courseServ.save(course);
+		if(course == null || course.getCourseId() == null || course.getCourseName() == null || course.getInstructorId() == null)
+			return false;
+		boolean result = courseServ.save(course);
+		return result;
 	}
-	
+	/***
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("get/{id}")
 	public Course getCoursebyID(@PathVariable("id") String id){
+		if(id == null)
+			return null;
+		
 		 return courseServ.getById(id);
 	}
 	
-	
+	/***
+	 * 
+	 * @param course
+	 * @return
+	 */
 	@PutMapping(value="/course/{id}")
-	public void udpdateCourse(@RequestBody Course course) {
-	courseServ.updateCourse(course);	
+	public boolean udpdateCourse(@RequestBody Course course) {
+		if(course == null || course.getCourseId() == null || course.getCourseName() == null || course.getInstructorId() == null)
+			return false;
+	boolean result = courseServ.updateCourse(course);	
+	if(result == false)
+		return false;
+	return true;
 	}
-	
+	/***
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(value="delete/{id}")
-	public void deleteCourse(@PathVariable String id) {
-		courseServ.delete(id);
+	public boolean deleteCourse(@PathVariable String id) {
+		if(id == null)
+			return false;
+		boolean result = courseServ.delete(id);
+		if(result == false)
+			return false;
+		return true;
 	}
 }

@@ -79,10 +79,9 @@ public class CourseService {
 	 * @return it returns boolean true if the course is saved successfully and 
 	 */
 	public boolean updateCourse(Course course ) {
-		if(course.getCourseId() == null || course.getCourseName() == null || course.getInstructorId() == null)
+		if(repo.existsById(course.getCourseId()) == false)
 			return false;
 		Course before = repo.findById(course.getCourseId()).get();
-		
 		before.setCourseName(course.getCourseName());
 		before.setInstructorId(course.getInstructorId());
 		Course after = repo.save(before);
@@ -92,11 +91,15 @@ public class CourseService {
 		
 	}
 	/**
-	 * 
+	 * This function takes in the course_id and deletes from that course id
+	 * in the course table , that entity.
 	 * @param courseid
-	 * @return void
+	 * @return boolean
 	 * */
-	public void delete(String course_id) {
+	public boolean delete(String course_id) {
 		repo.deleteById(course_id);
+		if(repo.existsById(course_id) == true)
+			return false;
+		return true;
 	}
 }
