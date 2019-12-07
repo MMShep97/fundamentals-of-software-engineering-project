@@ -24,6 +24,7 @@ public class StudentService {
 	@Autowired
 	EntityManager em;
 	
+	
 	/*
 	 * Getting list of courses for students from the database
 	 * */
@@ -36,9 +37,9 @@ public class StudentService {
 	}
 	
 	/**Getting grades for students
-	 * @param : It takes in the student id with which we can find the grades of the student*/
-	/*
-	 * Using repo to list all the students.
+	 * @param : It takes in the student id with which we can find the grades of the student
+	 * @return: It returns a list of students
+	 * Using repository to list all the students.
 	 * */
 	
 	public List<Student> listAll(){
@@ -46,41 +47,66 @@ public class StudentService {
 		
 	}
 	
-	//saving a student 
+	/***
+	 * This method saves the student if it doesn't exist 
+	 * @param student
+	 * @return true if the student is saved
+	 */
 	public boolean save(Student student) {
+		if(repo.existsById(student.getStudentId()) == false)
+			return false;
 		 if(repo.save(student) != null) {
 			 return true;
 		 }
 		return false;
 	}
 	
-	//get a student by Student Id
+	/***
+	 * This method is used to get a student by id
+	 * @param studentId
+	 * @return
+	 */
 	public Student getById(String studentId) {
-		List<Student> students = this.listAll();
-		Student student = students.stream().filter(s -> s.getStudentId().equalsIgnoreCase(studentId)).findFirst().get();
+		
+		Student student = repo.getOne(studentId);
 		student.setCourses(this.findCourse(studentId));
-		System.out.println("in here "+ student);
+		
 		return  student;
 	}
-
+	/**
+	 * @param user name 
+	 * @return student object is returned if the student the student is found.  
+	 * */
 	public Student getByUsername(String userName) {
 		List<Student> students = this.listAll();
-		System.out.println(" before adding courses");
+		
 		Student student = students.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).findFirst().get();
 		student.setCourses(this.findCourse(userName));
-		System.out.println(student +" after adding courses");
+		
 		return student;
 	}
 	
-	//delete a student by his student id
-	public void delete(String studentId) {
+	/***
+	 * delete a student by his student id
+	 * @param studentId
+	 * @return it returns true if the student is not found and false if the student is found again.
+	 */
+	public boolean delete(String studentId) {
 		repo.deleteById(studentId);
+			if(repo.existsById(studentId))
+				return false;
+			return true;
 	}
 	
-	/*
+	/**
 	 * Updating a student with a student object
+	 * @param student object
+	 * @return boolean true if the student is updated
 	 * */
 	public boolean update(Student student) {
+			if(repo.existsById(student.getStudentId()) ==  false)
+				return false;
+				
 		Student before = this.getById(student.getStudentId());
 		
 		if (student.getFirstName() != null) before.setFirstName(student.getFirstName());

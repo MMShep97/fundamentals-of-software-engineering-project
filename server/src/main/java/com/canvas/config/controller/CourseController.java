@@ -36,8 +36,8 @@ public class CourseController {
 	
 	
 	@PutMapping(value="/course/{id}")
-	public void udpdateCourse(@RequestBody Course course, @PathVariable String CourseId) {
-	courseServ.updateCourse(CourseId, course);	
+	public void udpdateCourse(@RequestBody Course course) {
+	courseServ.updateCourse(course);	
 	}
 	
 	@DeleteMapping(value="delete/{id}")
