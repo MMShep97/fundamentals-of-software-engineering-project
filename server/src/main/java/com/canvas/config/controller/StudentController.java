@@ -37,8 +37,9 @@ public class StudentController {
 	 * @param studentId
 	 * @return
 	 */
-	@GetMapping(value = "id/{studentId}")
-	public Student getById(@PathVariable("studentId") String studentId){
+	@GetMapping(value = "id/{email:.+}/")
+	public Student getById(@PathVariable("email") String studentId){
+		System.out.println("student id is  "+ studentId);
 		Student student = service.getById(studentId);
 		return student;
 	}

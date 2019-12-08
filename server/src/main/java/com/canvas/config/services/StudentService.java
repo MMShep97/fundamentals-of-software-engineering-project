@@ -71,9 +71,7 @@ public class StudentService {
 	public Student getById(String studentId) {
 		
 		Student student = repo.findById(studentId).get();
-		System.out.println(student);
 		student.setCourses(this.findCourse(studentId));
-		System.out.println(student);
 		return  student;
 	}
 	/**
