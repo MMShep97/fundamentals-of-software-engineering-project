@@ -1,6 +1,10 @@
 import config from '../../vue.config';
-import { authHeader } from '../_helpers';
-import { api } from '../_services/api.service'
+import {
+    authHeader
+} from '../_helpers';
+import {
+    api
+} from '../_services/api.service'
 
 export const userService = {
     login,
@@ -12,34 +16,43 @@ export const userService = {
 };
 
 async function login(username, password) {
-        //get user object by the supplied username
-        //check to see if the password supplied matches the user objects password
 
         let user;
-        let outcome = false;
+        let foundUser = false;
+        let valid = false;
 
-        let student = await api.user.getStudentByUsername(username)
-        let instructor;
-        //let instructor = await api.user.getInstructorByUsername(username)
+        await api.user.getStudentByUsername(username).then(resolve => {
+            foundUser = true;
+            console.log('nice')
+            console.log(resolve)
+            user = resolve.data;
+            user.category = 'Student'
+            
+        }, 
+        reject => {
+            valid = false;
+        })
+
+        if (foundUser == false) {
+        await api.user.getInstructorByUsername(username).then(resolve => {
+            foundUser = true;
+            console.log('nice')
+            user = resolve.data;
+            user.category = 'Instructor'
+        },
+        reject => {
+            valid = false;
+        })
+    }
         //let administrator = await api.user.getAdministratorByUsername(username)
 
-        if (student != null) {
-            user = student.data;
-            user.category = 'Student'
-        }
-        else if (instructor != null) {
-            user = instructor.data;
-            user.category = 'Instructor'
-        }
         // else if (administrator != null) user = administrator.data;
-
-        else return outcome;
-
-        user.password == password ? outcome = true: outcome = false
-        if (outcome == true) {
-            localStorage.setItem('user', JSON.stringify(user));
-        }
-        return {user, outcome};
+        if (foundUser == false) return { user: null, valid}
+        else {
+            user.password == password ? valid = true: valid = false
+            if (valid == true) localStorage.setItem('user', JSON.stringify(user));
+            return {user, valid};
+    }
 }
 
 function logout() {
@@ -48,14 +61,36 @@ function logout() {
 }
 
 async function register(user) {
-    
-    console.log(user)
+    let outcome = false;
     let userType = user.category;
+
+    console.log(user)
     console.log("userType: " + userType)
-    if (userType == 'Student') { return await api.user.createNewStudent(user) }
-    else if (userType == 'Instructor') { return await api.user.createNewInstructor(user) }
+
+    if (userType == 'Student') {
+        await api.user.createNewStudent(user).then(
+            resolve => {
+                outcome = true;
+            },
+
+            reject => {
+                console.log('failed to create new student')
+            }
+        )
+    } else if (userType == 'Instructor') {
+        await api.user.createNewInstructor(user).then( 
+            resolve => {
+                outcome = true;
+            },
+
+            reject => {
+                console.log('failed to create new instructor')
+            }
+        )
+    }
     // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
     // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    return outcome;
 }
 
 function getById(id) {
@@ -70,7 +105,10 @@ function getById(id) {
 function update(user) {
     const requestOptions = {
         method: 'PUT',
-        headers: { ...authHeader(), 'Content-Type': 'application/json' },
+        headers: {
+            ...authHeader(),
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(user)
     };
 
@@ -90,22 +128,22 @@ function _delete(id) {
 function handleResponse(response) {
     return response.data.then(text => {
         const data = text && JSON.parse(text);
-            if (response.status == 401 || response.status == 500) {
-                // auto logout if 401 response returned from api
-                logout();
-                location.reload(true);
+        if (response.status == 401 || response.status == 500) {
+            // auto logout if 401 response returned from api
+            logout();
+            location.reload(true);
 
             const error = response.status
             return Promise.reject(error);
-            }
+        }
         return data;
     });
 }
 
 // function handleResponse(response) {
 //     let responseStatus = response.status; 
-    
-    
+
+
 //             if (responseStatus === 401) {
 //                 // auto logout if 401 response returned from api
 //                 logout();

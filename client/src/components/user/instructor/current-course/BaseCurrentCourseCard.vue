@@ -21,7 +21,7 @@
                             <b-form>
                                 <b-form-group>
                                     <h2>Questions</h2>
-                                    <div>{{question}}</div>
+                                    <!-- <div>{{question}}</div>
                                     <label for="option1"><input name="answers" type="radio" :val="option1">
                                         {{option1}}</label>
                                     <label for="option2"><input name="answers" type="radio" :val="option2">
@@ -34,7 +34,7 @@
                                     <label for="option1">Option 1</label>
                                     <input type="text" v-model="option1">
                                     <label for="option2">Option 2</label>
-                                    <input type="text" v-model="option2">
+                                    <input type="text" v-model="option2"> -->
                                 </b-form-group>
                             </b-form>
                         </b-card-text>

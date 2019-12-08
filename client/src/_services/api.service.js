@@ -4,7 +4,7 @@ const SERVER_URL = 'http://localhost:9000';
 
 const instance = axios.create({
     baseURL: SERVER_URL,
-    timeout: 1000
+    timeout: 2000
 });
 
 //user
@@ -14,449 +14,234 @@ const instance = axios.create({
 //firstName
 //lastName
 const api = {
+    sendEmail: (information) => {
+
+    },
+
     user: { //(C)reate - POST
-        createNewStudent: async (user) =>
-            instance.post('/student/save', {
-                studentId: user.studentId,
+        createNewStudent: async (user) => {
+            return instance.post('/student/save', {
+                studentId: user.id,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
             })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            }),
+        },
 
-        createNewInstructor: async (user) =>
-            instance.post('/instructor/save', {
+        createNewInstructor: async (user) => {
+            return instance.post('/instructor/save', {
                 instructorId: user.id,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
             })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            }),
+        },
 
-        createNewAdministrator: async (user) =>
-            instance.post('/administrator/save', {
+        createNewAdministrator: async (user) => {
+            return instance.post('/administrator/save', {
                 administratorId: user.id,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
             })
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch(function (error) {
-                console.log(error)
-            }),
+        },
 
         //(R)ead - GET
         getStudents: async () => {
-            return instance.get('student/getAll').then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                    return error
-
-                })
+            return instance.get('student/getAll')
         },
 
         getStudentById: async (id) => {
-            try {
-                const response = await instance.get(`student/id/${id}`);
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get(`student/id/${id}`);
         },
 
         getStudentByUsername: async (username) => {
             return instance.get(`student/username/${username}`)
-                .then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
         },
 
         getInstructors: async () => {
-            try {
-                const response = await instance.get('instructor/getAll');
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get('instructor/getAll');
         },
 
         getInstructorById: async (id) => {
-            try {
-                const response = await instance.get(`instructor/id/${id}`);
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get(`instructor/id/${id}`);
         },
 
         getInstructorByUsername: async (username) => {
-            try {
-                const response = await instance.get(`instructor/username/${username}`);
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get(`instructor/username/${username}`);
         },
 
         getAdministrators: async () => {
-            try {
-                const response = await instance.get('administrator/getAll');
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get('administrator/getAll');
         },
 
         getAdministratorById: async (id) => {
-            try {
-                const response = await instance.get(`administrator/id/${id}`);
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get(`administrator/id/${id}`);
         },
 
         getAdministratorByUsername: async (username) => {
-            try {
-                const response = await instance.get(`administrator/username/${username}`);
-                console.log(response);
-                return response;
-            }
-            catch (error) {
-                console.log(error);
-            }
+            return instance.get(`administrator/username/${username}`);
         },
 
         // (U)pdate - PUT
-        updateCourse: async (id, text, completed) => instance.put('courses' + id, {
+        updateCourse: async (id, text, completed) => {
+            return instance.put('courses' + id, {
                 courseId: course.id,
                 courseName: course.name,
                 instructor_id: course.instructorId,
                 students: course.students,
                 quiz: course.quizzes,
                 grades: course.grades,
-            }).then(function (response) {
-                console.log(response)
-                return response;
-
             })
-            .catch(function (error) {
-                console.log(error)
-            }),
+        },
 
         updateStudent: async (user) => {
-            instance.put('student/update', {
-                    studentId: user.studentId,
-                    username: user.username,
-                    password: user.password,
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-
-        updateInstructor: async (user) => {
-            instance.put('instructor/update', {
-                    instructorId: user.id,
-                    username: user.username,
-                    password: user.password,
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-
-        updateAdministrator: async (user) => {
-            instance.put('administrator/update', {
-                    administratorId: user.id,
-                    username: user.username,
-                    password: user.password,
-                    firstName: user.firstName,
-                    lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
-        },
-
-        // (D)elete - DELETE
-        deleteStudent: async (user) => {
-            instance.delete('student/delete/', {
+            return instance.put('student/update', {
                 studentId: user.studentId,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
+            })
+        },
 
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+        updateInstructor: async (user) => {
+            return instance.put('instructor/update', {
+                instructorId: user.instructorId,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+        },
+
+        updateAdministrator: async (user) => {
+            return instance.put('administrator/update', {
+                administratorId: user.administratorId,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
+        },
+
+        // (D)elete - DELETE
+        deleteStudent: async (user) => {
+            return instance.delete('student/delete/', {
+                studentId: user.studentId,
+                username: user.username,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName
+            })
         },
 
         deleteInstructor: async (user) => {
-            instance.delete('instructor/delete/', {
+            return instance.delete('instructor/delete/', {
                 studentId: user.instructorId,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            })
         },
 
         deleteAdministrator: async (user) => {
-            instance.delete('administrator/delete', {
+            return instance.delete('administrator/delete', {
                 studentId: user.administratorId,
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            })
         }
     },
 
     course: {
         createCourse: async (course) => {
-            instance.post('course/save', {
-                    courseId: course.id,
-                    courseName: course.name,
-                    instructor_id: course.instructorId,
-                    students: course.students,
-                    quiz: course.quizzes,
-                    grades: course.grades,
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.post('course/save', {
+                courseId: course.courseId,
+                courseName: course.courseName,
+                instructorId: course.instructorId,
+                students: course.students,
+                quiz: course.quizzes,
+                grades: course.grades,
+            })
         },
 
         getCourses: async () => {
-            instance.get('course/getcourse').then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get('course/getcourse')
         },
 
         getCourseById: async (id) => {
-            instance.get(`course/get/${id}`).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get(`course/get/${id}`)
         },
 
         updateCourseById: async (course, id) => {
-            instance.put(`course/course/${id}`, {
-                    courseId: id,
-                    courseName: course.name,
-                    instructor_id: course.instructorId,
-                    students: course.students,
-                    quiz: course.quizzes,
-                    grades: course.grades,
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.put(`course/course/${id}`, {
+                courseId: id,
+                courseName: course.name,
+                instructor_id: course.instructorId,
+                students: course.students,
+                quiz: course.quizzes,
+                grades: course.grades,
+            })
         },
 
         deleteCourseById: async (id) => {
-            instance.delete(`course/delete/${id}`).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.delete(`course/delete/${id}`)
         },
 
         // grades
         getGrades: async () => {
-            instance.get('grade/getAll').then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get('grade/getAll')
         },
 
         getGradesById: async (id) => {
-            instance.get(`grade/get/${id}`).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get(`grade/get/${id}`)
         },
 
         createGrade: async (grade) => {
-            instance.post('grade/save', {
-                    quiz_id: grade.quizId,
-                    course_id: grade.courseId,
-                    instructor_id: grade.instructorId,
-                    student_id: grade.studentId,
-                    grade_points: grade.gradePoints,
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.post('grade/save', {
+                quiz_id: grade.quizId,
+                course_id: grade.courseId,
+                instructor_id: grade.instructorId,
+                student_id: grade.studentId,
+                grade_points: grade.gradePoints,
+            })
         },
 
         deleteCourse: async (id) => {
-            instance.delete(`grade/delete/${id}`).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.delete(`grade/delete/${id}`)
         },
 
         // quiz
         getQuizzes: async () => {
-            instance.get('quiz/getAll').then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get('quiz/getAll')
         },
 
         getQuizById: async (id) => {
-            instance.get(`quiz/get/${id}`).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.get(`quiz/get/${id}`)
         },
 
         createQuiz: async (quiz) => {
-            instance.post('quiz/save', {
-                    quizId: quiz.id,
-                    quiz_name: quiz.name,
-                    quiz_point: quiz.points,
-                    quiz_date: quiz.date,
-                    course_id: quiz.courseId,
+            return instance.post('quiz/save', {
+                quizId: quiz.id,
+                quiz_name: quiz.name,
+                quiz_point: quiz.points,
+                quiz_date: quiz.date,
+                course_id: quiz.courseId,
 
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            })
         },
 
         deleteQuiz: async (quiz) => {
-            instance.delete('quiz/delete', {
-                    quiz
-                }).then(function (response) {
-                    console.log(response)
-                    return response;
-
-                })
-                .catch(function (error) {
-                    console.log(error)
-                })
+            return instance.delete('quiz/delete', {
+                quizId: quiz.quizId,
+            })
         },
 
 
