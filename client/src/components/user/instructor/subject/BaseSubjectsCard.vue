@@ -7,38 +7,47 @@
                 </template>
                 <b-row>
                     <b-col>
-                        <form>
+                        <b-form @submit.prevent="handleAddSubject">
                             <b-form-group>
-                                <label htmlFor="createCourse.courseName">Course Name:</label>
-                                <input type="text" v-model="createCourse.courseName" name="createCourse.courseName"
-                                    class="form-control"
-                                    :class="{ 'is-invalid': submitted && errors.has('lastName') }" />
-                                <div v-if="submitted && errors.has('createCourse.courseName')" class="invalid-feedback">
-                                    {{ errors.first('createCourse.courseName') }}</div>
+                                <label htmlFor="newCourse.courseId">Course ID:</label>
+                                <input v-validate="'required'" type="text" v-model="newCourse.courseId" name="newCourse.courseId"
+                                    placeholder="e.g. CS:1200" class="form-control"
+                                    :class="{ 'is-invalid': submitted.addCourseButton && errors.has('lastName') }" />
+                                <div v-if="submitted && errors.has(`${newCourse.courseId}`)" class="invalid-feedback">
+                                    {{ errors.first('newCourse.courseId') }}</div>
                             </b-form-group>
                             <b-form-group>
-                                <label htmlFor="createCourse.courseDescription">Course
+                                <label htmlFor="newCourse.courseName">Course Name:</label>
+                                <input v-validate="'required'" type="text" v-model="newCourse.courseName" name="newCourse.courseName"
+                                    class="form-control"
+                                    :class="{ 'is-invalid': submitted && errors.has('lastName') }" />
+                                <div v-if="submitted && errors.has('newCourse.courseName')" class="invalid-feedback">
+                                    {{ errors.first('newCourse.courseName') }}</div>
+                            </b-form-group>
+                            <b-form-group>
+                                <label htmlFor="newCourse.courseDescription">Course
                                     Description:</label>
-                                <input type="text" v-model="createCourse.courseDescription"
-                                    name="createCourse.courseDescription" class="form-control"
-                                    :class="{ 'is-invalid': errors.has('createCourse.courseDescription') }" />
-                                <div v-if="submitted && errors.has('createCourse.courseDescription')"
+                                <input type="text" v-model="newCourse.courseDescription"
+                                    name="newCourse.courseDescription" class="form-control"
+                                    :class="{ 'is-invalid': errors.has('newCourse.courseDescription') }" />
+                                <div v-if="submitted && errors.has('newCourse.courseDescription')"
                                     class="invalid-feedback">
-                                    {{ errors.first('createCourse.courseDescription') }}</div>
+                                    {{ errors.first('newCourse.courseDescription') }}</div>
                             </b-form-group>
                             <b-form-group>
                                 <label>Course Files:</label>
-                                <b-form-file multiple v-model="createCourse.courseFiles"
-                                    :file-name-formatter="formatNames" drop-placeholder="Drop file here"
-                                    class="form-control"
+                                <b-form-file multiple v-model="newCourse.courseFiles" :file-name-formatter="formatNames"
+                                    drop-placeholder="Drop file here" class="form-control"
                                     :class="{ 'is-invalid': errors.has('createdCourseDescription') }">
                                 </b-form-file>
                                 <div v-if="submitted && errors.has('createdCourseDescription')"
                                     class="invalid-feedback">
                                     {{ errors.first('createdCourseDescription') }}</div>
                             </b-form-group>
-                            <b-button>Submit</b-button>
-                        </form>
+                            <b-form-group>
+                            <button>Submit</button>
+                            </b-form-group>
+                        </b-form>
                     </b-col>
                 </b-row>
             </b-tab>
@@ -47,12 +56,13 @@
                     &minus; Delete Subject
                 </template>
                 <b-card-text>
-                    <b-row v-for="course in currentCourseOptions" :key="course.id" align-v="center" align-h="center">
+                    <b-row v-for="course in currentCourseOptions" :key="course.courseId" align-v="center"
+                        align-h="center">
 
                         <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                             <b-list-group>
-                                <b-list-group-item href='#' variant="dark">
-                                    {{course.name}}
+                                <b-list-group-item disabled href='#' variant="dark">
+                                    {{course.courseName}}
                                 </b-list-group-item>
                             </b-list-group>
                         </b-col>
@@ -68,12 +78,12 @@
             </b-tab>
             <b-tab no-body title="Deprecate Subject">
                 <b-card-text>
-                    <b-row v-for="course in currentCourseOptions" :key="course.id" align-v="center">
+                    <b-row v-for="course in currentCourseOptions" :key="course.courseId" align-v="center">
 
                         <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                             <b-list-group>
-                                <b-list-group-item href='#' variant="dark">
-                                    {{course.name}}
+                                <b-list-group-item disabled href='#' variant="dark">
+                                    {{course.courseName}}
                                 </b-list-group-item>
                             </b-list-group>
                         </b-col>
@@ -92,55 +102,81 @@
 </template>
 
 <script>
+    import {
+        api
+    } from '../../../../_services/api.service'
+    import {
+        mapState,
+        mapActions
+    } from 'vuex'
     export default {
         data() {
             return {
                 submitted: false,
 
-                createCourse: {
+                newCourse: {
+                    courseId: '',
                     courseName: '',
+                    students: null,
+                    quiz: [],
+                    grades: [],
+                    instructorId: '',
                     courseDescription: '',
-                    courseFiles: [
-
-                    ],
+                    courseFiles: [],
                 },
 
-                currentCourseSelected: {
-                    id: 1,
-                    class: '',
-                    name: '',
-
+                submitted: {
+                    addCourseButton: false,
                 },
-                currentCourseOptions: [{
-                        id: 1,
-                        class: 'math',
-                        name: 'Math'
-                    },
-                    {
-                        id: 2,
-                        class: 'science',
-                        name: 'Science'
-                    },
-                    {
-                        id: 3,
-                        class: 'english',
-                        name: 'English'
-                    },
 
-                    {
-                        id: 4,
-                        class: 'calculus',
-                        name: 'Calculus'
-                    },
-
-                    {
-                        id: 5,
-                        class: 'physics',
-                        name: 'Physics'
-                    },
-                ],
+                currentCourseOptions: [],
             }
         },
+
+        created() {
+            api.course.getCourses().then(response => {
+                this.currentCourseOptions = response.data
+            })
+        },
+
+        computed: {
+                    ...mapState({
+                        account: state => state.account,
+                    })
+                },
+
+        methods: {
+            ...mapActions('courses', ['createCourse']),
+
+            formatNames(files) {
+                if (files.length === 1) {
+                    return files[0].name
+                } else {
+                    return `${files.length} files selected`
+                }
+            },
+
+            handleAddSubject() {
+                this.submitted.addCourseButton = true;
+                console.log('handling')
+                this.$validator.validate().then(valid => {
+                    if (valid) {
+                        console.log('valid')
+                        this.newCourse.instructorId = this.account.user.instructorId;
+                        console.log(this.newCourse)
+                        this.createCourse(this.newCourse).then(resolve => {
+                            console.log('yoooo');
+                            console.log(resolve)
+                        },
+                        
+                        reject => {
+                            console.log(reject)
+                        }).catch (error => { console.log(error)})
+                    }
+                }
+                );
+            }
+        }
     }
 </script>
 

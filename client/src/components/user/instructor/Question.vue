@@ -1,7 +1,7 @@
 <template>
     <div>
         <h5>{{question}}</h5>
-        <question-option v-for="option in options" :text="option.text" :correct="option.correct"></question-option>
+        <question-option v-for="option in options" :text="option.text" :key="option.correct"></question-option>
         <hr />
     </div>
 </template>
@@ -16,7 +16,11 @@
         },
 
         data() {
-            return {}
+            return {
+                options: [
+                    { text: doop, correct: 'no'}
+                ]
+            }
         }
     }
 </script>

@@ -125,7 +125,7 @@
                                                             account?</label></div>
                                                 </b-form-group>
                                                 <b-form-group>
-                                                    <button :click="handleDeleteAccountSubmit()" class="btn btn-danger">Delete Account</button>
+                                                    <button @click="handleDeleteAccountSubmit()" class="btn btn-danger">Delete Account</button>
                                                 </b-form-group>
                                             </b-form>
                                         </b-col>
@@ -184,8 +184,10 @@
                             console.log('success')
                         } else if (this.account.user.category == 'Instructor') {
                             api.user.updateInstructor(this.account.user)
+                            console.log('success')
                         } else if (this.account.user.category == 'Administrator') {
                             api.user.updateAdministrator(this.account.user)
+                            console.log('success')
                         }
                         let user = JSON.parse(localStorage.getItem('user'));
                         user[variableToUpdate] = this.account.user[variableToUpdate]

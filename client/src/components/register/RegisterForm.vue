@@ -29,7 +29,7 @@
 
         <b-form-group>
             <label for="email">Email (e.g. John.Smoth@gmail.com)</label>
-            <input type="email" v-model="user.studentId" v-validate="'required|email'" name="email" class="form-control"
+            <input type="email" v-model="user.id" v-validate="'required|email'" name="email" class="form-control"
                 :class="{ 'is-invalid': submitted && errors.has('email') }" />
             <div v-if="submitted && errors.has('email')" class="invalid-feedback">
                 {{ errors.first('email') }}
@@ -77,11 +77,12 @@
 
                 user: {
                     category: '',
-                    studentId: '',
+                    id: '',
                     username: '',
                     password: '',
                     firstName: '',
                     lastName: '',
+                    currentCourseSelected: '',
                 },
                 submitted: false
             }

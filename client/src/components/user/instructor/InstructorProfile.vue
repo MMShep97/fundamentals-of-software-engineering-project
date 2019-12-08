@@ -3,17 +3,17 @@
         <b-container fluid>
             <b-row align-h="center" align-v="start" class="row-margin">
                 <b-col>
-                    <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
+                    <h1>Hi {{account.user.category}} {{account.user.firstName}}!</h1>
                 </b-col>
             </b-row>
             <b-row align-h="center" align-v="start" class="row-margin">
                 <b-col md="4">
                     <h4>Select from your current classes:</h4>
-                    <b-form-select v-model="currentCourseSelected.name" :options="currentCourseOptions" class="mb-3"
+                    <b-form-select v-model="account.user.currentCourseSelected" :options="currentCourseOptions" class="mb-3"
                         value-field="class" text-field="name" disabled-field="notEnabled"></b-form-select>
                 </b-col>
             </b-row>
-            <b-row v-show="currentCourseSelected.name">
+            <b-row v-show="account.user.currentCourseSelected">
                 <b-col lg="5" md="12" sm="12">
                     <h5 class="task-header">Subjects</h5>
                     <BaseSubjectsCard />
@@ -21,7 +21,7 @@
                 <b-col lg="7" md="12" sm="12">
                     <h5 class="task-header">
                         Current Course |  
-                        <span v-show="currentCourseSelected.name">{{currentCourseSelected.name}}</span>
+                        <span v-show="account.user.currentCourseSelected">{{account.user.currentCourseSelected}}</span>
                     </h5>
                     <BaseCurrentCourseCard />
                 </b-col>
@@ -97,19 +97,13 @@
             computed: {
                     ...mapState({
                         account: state => state.account,
-                        users: state => state.users.all,
                     })
                 },
 
                 created() {
-                    this.getAllUsers();
                 },
 
                 methods: {
-                    ...mapActions('users', {
-                        getAllUsers: 'getAll',
-                        deleteUser: 'delete'
-                    }),
 
                     formatNames(files) {
                         if (files.length === 1) {
