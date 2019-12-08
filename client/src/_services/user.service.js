@@ -22,27 +22,27 @@ async function login(username, password) {
         let valid = false;
 
         await api.user.getStudentByUsername(username).then(resolve => {
-            foundUser = true;
-            console.log('nice')
-            console.log(resolve)
             user = resolve.data;
             user.category = 'Student'
+            foundUser = true;
+            console.log('nice')
             
         }, 
         reject => {
             valid = false;
-        })
+        }).catch(error => console.log('caught error'))
 
         if (foundUser == false) {
         await api.user.getInstructorByUsername(username).then(resolve => {
-            foundUser = true;
-            console.log('nice')
             user = resolve.data;
             user.category = 'Instructor'
+            foundUser = true;
+            console.log('nice')
+            
         },
         reject => {
             valid = false;
-        })
+        }).catch(error => console.log('caught error'))
     }
         //let administrator = await api.user.getAdministratorByUsername(username)
 
