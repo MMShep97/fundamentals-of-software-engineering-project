@@ -16,11 +16,11 @@ public class CourseService {
 	
 	@Autowired
 	private CourseRepository repo;
-			
-	private Course course;
 	
 	@Autowired
 	public EntityManager em;
+	
+    private Course course;
 	
 	/**
 	 * 

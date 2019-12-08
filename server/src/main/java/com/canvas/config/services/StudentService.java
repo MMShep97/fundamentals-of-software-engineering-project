@@ -25,9 +25,11 @@ public class StudentService {
 	EntityManager em;
 	
 	
-	/*
-	 * Getting list of courses for students from the database
-	 * */
+	/***
+	 * It returns the list of courses with student id
+	 * @param student_id
+	 * @return List<Course>
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Course> findCourse(String student_id){
 		List<Course> courses = em.createNativeQuery("SELECT c.course_id ,course_name, instructor_id FROM course c INNER JOIN student_course s ON c.course_id = s.course_id WHERE s.student_id =:student_id")
@@ -64,13 +66,14 @@ public class StudentService {
 	/***
 	 * This method is used to get a student by id
 	 * @param studentId
-	 * @return
+	 * @return it returns a student 
 	 */
 	public Student getById(String studentId) {
 		
-		Student student = repo.getOne(studentId);
+		Student student = repo.findById(studentId).get();
+		System.out.println(student);
 		student.setCourses(this.findCourse(studentId));
-		
+		System.out.println(student);
 		return  student;
 	}
 	/**

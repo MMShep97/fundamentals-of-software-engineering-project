@@ -26,11 +26,11 @@ public class GradeService {
 		return grades;
 	}
 	
-//	public Grade getById(Double id) {
-//		Grade currentGrade = this.getAll().stream().filter(s -> s.getId().equals(id)).findFirst().get();
-//		return currentGrade;
-//	}
-//	
+	/***
+	 * saving the grade in the database
+	 * @param grade
+	 * @return it returns true if the grade is saved properly
+	 */
 	public boolean save(Grade grade) {
 		if(repo.save(grade) != null) {
 			return true;
