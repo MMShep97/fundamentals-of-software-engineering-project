@@ -53,12 +53,12 @@ public class StudentService {
 	 * @return true if the student is saved
 	 */
 	public boolean save(Student student) {
-		if(repo.existsById(student.getStudentId()) == false)
+		if(repo.existsById(student.getStudentId()) == true)
 			return false;
 		 if(repo.save(student) != null) {
 			 return true;
 		 }
-		return false;
+		return true;
 	}
 	
 	/***

@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 @Table(name = "course")
@@ -20,7 +19,6 @@ public class Course implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message="course name cannot be empty")
-	@NotNull
 	@Id
 	@Column(name ="course_id")
 	private String courseId;
@@ -28,7 +26,7 @@ public class Course implements Serializable{
 	@NotEmpty(message="course name cannot be empty")
 	@Column(name ="course_name")
 	private String courseName;
-	@NotEmpty(message="course name cannot be empty")
+	@NotEmpty(message="instructor id cannot be empty")
 	@Column(name = "instructor_id")
 	private String instructor_id;
 	
