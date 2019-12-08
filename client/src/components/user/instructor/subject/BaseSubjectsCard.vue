@@ -12,7 +12,7 @@
                                 <label htmlFor="newCourse.courseId">Course ID:</label>
                                 <input v-validate="'required'" type="text" v-model="newCourse.courseId" name="newCourse.courseId"
                                     placeholder="e.g. CS:1200" class="form-control"
-                                    :class="{ 'is-invalid': submitted.addCourseButton && errors.has('lastName') }" />
+                                    :class="{ 'is-invalid': submitted.addInstructorCourseButton && errors.has('lastName') }" />
                                 <div v-if="submitted && errors.has(`${newCourse.courseId}`)" class="invalid-feedback">
                                     {{ errors.first('newCourse.courseId') }}</div>
                             </b-form-group>
@@ -68,7 +68,7 @@
                         </b-col>
                         <b-col xl="4" lg="6" md="6" sm="6" cols="6">
                             <b-list-group>
-                                <b-list-group-item href="#" class="text-danger" variant="danger">
+                                <b-list-group-item @click="deleteSubject(course.courseId)" href="#" class="text-danger" variant="danger">
                                     Delete
                                 </b-list-group-item>
                             </b-list-group>
@@ -126,7 +126,7 @@
                 },
 
                 submitted: {
-                    addCourseButton: false,
+                    addInstructorCourseButton: false,
                 },
 
                 currentCourseOptions: [],
@@ -146,7 +146,7 @@
                 },
 
         methods: {
-            ...mapActions('courses', ['createCourse']),
+            ...mapActions('courses', ['createCourse', 'deleteCourse']),
 
             formatNames(files) {
                 if (files.length === 1) {
@@ -156,8 +156,8 @@
                 }
             },
 
-            handleAddSubject() {
-                this.submitted.addCourseButton = true;
+            handleAddInstructorSubject() {
+                this.submitted.addInstructorCourseButton = true;
                 console.log('handling')
                 this.$validator.validate().then(valid => {
                     if (valid) {
@@ -175,7 +175,11 @@
                     }
                 }
                 );
-            }
+            },
+
+            deleteSubject(courseId) {
+                this.deleteCourse(courseId)
+            },
         }
     }
 </script>

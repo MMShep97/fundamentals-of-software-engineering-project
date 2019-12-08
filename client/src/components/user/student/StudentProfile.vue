@@ -7,9 +7,25 @@
                     <h4>Select from your current classes:</h4>
                     <b-form-select v-model="account.user.courses.currentCourseSelected" :options="account.user.courses"
                         class="mb-3" value-field="title" text-field="title" disabled-field="notEnabled"></b-form-select>
+                    <b-button :pressed.sync="addCourseButtonToggle" size="sm" variant="info" class="btn">
+                        <div class="text-center mt-0">Or add courses...</div>
+                    </b-button>
+                    <div v-show="addCourseButtonToggle">
+                        <b-form-group>
+                            <b-form-select v-model="selectedCourseToAdd" :options="addCourseOptions" class="mt-3">
+                            </b-form-select>
+                            <div v-show="selectedCourseToAdd">
+                                <b-button @click="updateStudentsCurrentCoursePool(selectedCourseToAdd)"
+                                class="btn mt-3" size="sm" variant="primary">Add Course
+                                </b-button>
+                            </div>
+
+                        </b-form-group>
+                    </div>
+
                 </b-col>
             </b-row>
-            <b-row v-show="currentCourseSelected.title">
+            <b-row v-show="account.user.courses.curentCourseSelected">
                 <b-col sm="12" md="4" class="my-courses-col">
                     <h5 class="task-header">My Courses</h5>
                     <BaseMyCoursesCard />
@@ -31,6 +47,10 @@
         mapActions
     } from 'vuex'
 
+    import {
+        api
+    } from '../../../_services/api.service'
+
     export default {
         components: {
             BaseCurrentCourseCard,
@@ -38,7 +58,10 @@
         },
         data() {
             return {
-                account: null,
+                addCourseButtonToggle: false,
+                allAvailableCourses: [],
+                selectedCourseToAdd: '',
+
                 courseList: {
                     activeCourses: [{
                             id: 1,
@@ -62,17 +85,43 @@
         },
 
         computed: {
-            
+            ...mapState({
+                account: state => state.account
+            }),
+
+            addCourseOptions: function () {
+                let options = [];
+            console.log(this.allAvailableCourses.length)
+            for (let i = 0; i < this.allAvailableCourses.length; i++) {
+                options.push({
+                    value: this.allAvailableCourses[i],
+                    text: this.allAvailableCourses[i].courseName
+                })
+            }
+            console.log(options)
+            return options;
+            }
         },
 
-        async created() {
-            if (this.$store.state.account === null) {
-                await this.$store.dispatch('null')
-            }
-            this.account = this.$store.getters.state.account
+        created() {
+            api.course.getCourses().then(response => {
+                this.allAvailableCourses = response.data;
+                console.log(response.data)
+            })
         },
-        methods: {
-        },
+
+        mounted() {
+            
+    },
+
+    methods: {
+        ...mapActions('account', ['addStudentCourse']),
+        
+        updateStudentsCurrentCoursePool: function(course) {
+            let id = this.account.user.studentId;
+            this.addStudentCourse( {course, id } )
+        }
+    },
     }
 </script>
 
@@ -86,6 +135,4 @@
     .select-course-col {
         margin: 20px 0;
     }
-
-    
 </style>

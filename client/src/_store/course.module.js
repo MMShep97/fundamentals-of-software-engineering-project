@@ -8,6 +8,9 @@ const state = {
 };
 
 const actions = {
+    
+
+    //instructor
     createCourse({dispatch}, course) {
         courseService.createCourse(course).then(response => {
             console.log(response)
@@ -19,22 +22,22 @@ const actions = {
             console.log(reject);
             dispatch('alert/error', 'Failed to create a new course.', { root: true })
         })
+    },
+
+    deleteCourse({dispatch}, courseId) {
+        courseService.deleteCourse(courseId).then(resolve => {
+            console.log('in delete course success');
+            dispatch('alert/success', `Successfully deleted the course: ${courseId}`)
+        },
+        reject => {
+            console.log(reject);
+            dispatch('alert/error', `Failed to delete course: ${courseId}`, { root: true })
+        })
     }
 };
 
 const mutations = {
-    loginRequest(state, user) {
-        state.status = { loggingIn: true };
-        state.user = user;
-    },
-    loginSuccess(state, user) {
-        state.status = { loggedIn: true };
-        state.user = user;
-    },
-    loginFailure(state) {
-        state.status = {};
-        state.user = null;
-    },
+    
     logout(state) {
         state.status = {};
         state.user = null;

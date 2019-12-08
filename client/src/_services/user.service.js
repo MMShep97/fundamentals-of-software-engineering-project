@@ -10,6 +10,7 @@ export const userService = {
     login,
     logout,
     register,
+    addStudentCourse,
     getById,
     update,
     delete: _delete
@@ -23,6 +24,8 @@ async function login(username, password) {
 
         await api.user.getStudentByUsername(username).then(resolve => {
             user = resolve.data;
+
+            if (resolve.data == null) { return }
             user.category = 'Student'
             foundUser = true;
             console.log('nice')
@@ -35,6 +38,8 @@ async function login(username, password) {
         if (foundUser == false) {
         await api.user.getInstructorByUsername(username).then(resolve => {
             user = resolve.data;
+
+            if (resolve.data == null) { return }
             user.category = 'Instructor'
             foundUser = true;
             console.log('nice')
@@ -61,36 +66,24 @@ function logout() {
 }
 
 async function register(user) {
-    let outcome = false;
-    let userType = user.category;
-
     console.log(user)
+    let userType = user.category;
     console.log("userType: " + userType)
-
-    if (userType == 'Student') {
-        await api.user.createNewStudent(user).then(
-            resolve => {
-                outcome = true;
-            },
-
-            reject => {
-                console.log('failed to create new student')
-            }
-        )
-    } else if (userType == 'Instructor') {
-        await api.user.createNewInstructor(user).then( 
-            resolve => {
-                outcome = true;
-            },
-
-            reject => {
-                console.log('failed to create new instructor')
-            }
-        )
-    }
+    if (userType == 'Student') { 
+        console.log("in register service student")
+        return await api.user.createNewStudent(user) }
+    else if (userType == 'Instructor') { 
+        console.log("in register service instructor") 
+        return await api.user.createNewInstructor(user) }
     // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
     // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
-    return outcome;
+}
+
+async function addStudentCourse(course, id) {
+    let student = await api.user.getStudentById(id)
+    student = student.data;
+    student.courses.push(course)
+    return api.user.updateStudent(student)
 }
 
 function getById(id) {

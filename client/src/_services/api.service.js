@@ -19,6 +19,10 @@ const api = {
     },
 
     user: { //(C)reate - POST
+        sendEmail: async (email) => {
+            return instance.get(`/email/${email}`)
+        },
+
         createNewStudent: async (user) => {
             return instance.post('/student/save', {
                 studentId: user.id,
@@ -104,7 +108,9 @@ const api = {
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                courses: user.courses,
+                grades: user.grades
             })
         },
 
@@ -114,7 +120,9 @@ const api = {
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                courses: user.courses,
+                grades: user.grades
             })
         },
 

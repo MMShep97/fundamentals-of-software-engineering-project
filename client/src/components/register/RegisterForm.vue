@@ -101,7 +101,9 @@
                 this.submitted = true;
                 this.$validator.validate().then(valid => {
                     if (valid) {
-                        this.register(this.user);
+                        let user = this.user;
+                        let userId = this.user.id;
+                        this.register( user );
                     }
                 });
             }

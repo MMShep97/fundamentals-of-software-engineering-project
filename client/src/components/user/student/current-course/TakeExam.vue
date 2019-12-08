@@ -1,10 +1,10 @@
 <template>
     <div class="take-exam-container">
-        <h2 class="text-center">Quiz</h2>
+        <!-- <h2 class="text-center">Quiz</h2>
         <form>
             <Question v-for="question in questions" :question="question.text" :options="question.options" :key="question.text">
             </Question>
-        </form>
+        </form> -->
     </div>
 </template>
 

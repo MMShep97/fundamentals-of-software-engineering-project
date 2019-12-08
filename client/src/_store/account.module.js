@@ -16,15 +16,8 @@ const SUBJECT = 'Welcome to Educadia!';
 const BODY = "Why don't you stay awhile?"
 
 const user = JSON.parse(localStorage.getItem('user'));
-const state = user ? {
-    status: {
-        loggedIn: true
-    },
-    user
-} : {
-    status: {},
-    user: null
-};
+const state = user ? { status: {loggedIn: true }, user } : { status: {}, user: null };
+state.status.addedCourse = false;
 
 const actions = {
     async login({ dispatch, commit }, { username, password }) {
@@ -34,7 +27,8 @@ const actions = {
 
             if (valid == true) {
                 commit('loginSuccess', user);
-                router.push('/')
+                dispatch('alert/success', 'Successfully Logged In. Sending you to the Home Screen!', { root: true } )
+                setTimeout(function() { router.push('/') }, 1000)
                 }
 
                 else {
@@ -52,16 +46,21 @@ const actions = {
     async register({
         dispatch,
         commit
-    }, user) {
+    }, user ) {
         commit('registerRequest', user);
-
-        userService.register(user).then(resolve => {
+        console.log('username' + user.username)
+        console.log('testing: ' + user)
+        // console.log('testing: ' + userId)
+        await userService.register(user).then(resolve => {
+            console.log(resolve)
                 commit('registerSuccess', user);
                 // display success message after route change completes
                 dispatch('alert/success', 'Registration successful', {
                     root: true
                 });
-                //router.push('/login');
+                // console.log("USER ID: " + userId)
+                // api.sendEmail(userId)
+                setTimeout(function() {router.push('/login')}, 1000) 
             },
 
             reject => {
@@ -71,7 +70,23 @@ const actions = {
                 });
             }
         );
-    }
+    },
+
+    //student
+    addStudentCourse( {commit, dispatch}, { course, id } ) {
+        commit('addStudentCourseRequest', course)
+        userService.addStudentCourse(course, id).then(response => {
+            commit('addStudentCourseSuccess', course)
+            console.log(response)
+            console.log('in add student course success')
+            dispatch('alert/success', 'Successfully added a new course to your pool!', { root: true })
+        },
+        
+        reject => {
+            console.log(reject);
+            dispatch('alert/error', 'Failed to add a new course to your pool.', { root: true })
+        })
+    },
 
     // sendEmail(user.studentId, user.firstName, FROM_EMAIL, SUBJECT, BODY)
 };
@@ -111,7 +126,19 @@ const mutations = {
         state.status = {
             registerSuccess: false
         };
-    }
+    },
+
+    addStudentCourseRequest(state, course) {
+        state.status.addingCourse = true;
+        state.user.courses.push(course)
+    },
+    addStudentCourseSuccess(state, course) {
+        state.status.addedCourse = true;
+        state.user.courses.push(course)
+    },
+    addStudentCourseFailure(state) {
+        state.status = {};
+    },
 };
 
 export const account = {
