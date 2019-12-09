@@ -5,7 +5,7 @@
       <b-container>
         <b-row align-h="center">
           <b-col cols="6" sm="6">
-            <div v-if="alert.message" :class="`alert ${alert.type} center-alert`">{{alert.message}}</div>
+            <div v-if="alert.message" :class="`alert ${alert.type} center-alert mb-5`">{{alert.message}}</div>
           </b-col>
         </b-row>
       </b-container>

@@ -11,11 +11,9 @@ import {
     sendEmail
 } from '../_services/utility.service'
 
-const FROM_EMAIL = 'MMShep97@gmail.com'
-const SUBJECT = 'Welcome to Educadia!';
-const BODY = "Why don't you stay awhile?"
 
 const user = JSON.parse(localStorage.getItem('user'));
+console.log('in account module')
 const state = user ? { status: {loggedIn: true }, user } : { status: {}, user: null };
 state.status.addedCourse = false;
 

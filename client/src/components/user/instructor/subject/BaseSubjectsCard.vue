@@ -1,5 +1,5 @@
 <template>
-    <b-card no-body>
+    <b-card no-body :key="addInstructorKey">
         <b-tabs content-class="mt-1" card pills justified align="center">
             <b-tab no-body>
                 <template v-slot:title>
@@ -7,7 +7,7 @@
                 </template>
                 <b-row>
                     <b-col>
-                        <b-form @submit.prevent="handleAddSubject">
+                        <b-form @submit.prevent="handleAddInstructorSubject">
                             <b-form-group>
                                 <label htmlFor="newCourse.courseId">Course ID:</label>
                                 <input v-validate="'required'" type="text" v-model="newCourse.courseId" name="newCourse.courseId"
@@ -56,7 +56,7 @@
                     &minus; Delete Subject
                 </template>
                 <b-card-text>
-                    <b-row v-for="course in currentCourseOptions" :key="course.courseId" align-v="center"
+                    <b-row v-for="course in courses.allCourses" :key="course.courseId" align-v="center"
                         align-h="center">
 
                         <b-col xl="8" lg="6" md="6" sm="6" cols="6">
@@ -68,7 +68,7 @@
                         </b-col>
                         <b-col xl="4" lg="6" md="6" sm="6" cols="6">
                             <b-list-group>
-                                <b-list-group-item @click="deleteSubject(course.courseId)" href="#" class="text-danger" variant="danger">
+                                <b-list-group-item @click="deleteSubject(course, course.courseId)" href="#" class="text-danger" variant="danger">
                                     Delete
                                 </b-list-group-item>
                             </b-list-group>
@@ -78,7 +78,7 @@
             </b-tab>
             <b-tab no-body title="Deprecate Subject">
                 <b-card-text>
-                    <b-row v-for="course in currentCourseOptions" :key="course.courseId" align-v="center">
+                    <b-row v-for="course in courses.allCourses" :key="course.courseId" align-v="center">
 
                         <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                             <b-list-group>
@@ -129,20 +129,18 @@
                     addInstructorCourseButton: false,
                 },
 
-                currentCourseOptions: [],
+                addInstructorKey: 1,
             }
         },
 
         created() {
-            api.course.getCourses().then(response => {
-                this.currentCourseOptions = response.data
-            })
         },
 
         computed: {
                     ...mapState({
                         account: state => state.account,
-                    })
+                        courses: state => state.courses
+                    }),
                 },
 
         methods: {
@@ -164,21 +162,15 @@
                         console.log('valid')
                         this.newCourse.instructorId = this.account.user.instructorId;
                         console.log(this.newCourse)
-                        this.createCourse(this.newCourse).then(resolve => {
-                            console.log('yoooo');
-                            console.log(resolve)
-                        },
-                        
-                        reject => {
-                            console.log(reject)
-                        }).catch (error => { console.log(error)})
+                        this.createCourse(this.newCourse)
+                        this.addInstructorKey += 1;
                     }
                 }
                 );
             },
 
-            deleteSubject(courseId) {
-                this.deleteCourse(courseId)
+            deleteSubject( course, courseId ) {
+                this.deleteCourse( {course, courseId} )
             },
         }
     }

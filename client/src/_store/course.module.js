@@ -3,16 +3,19 @@ import { router } from '../_helpers';
 import { api } from '../_services/api.service';
 import { sendEmail } from '../_services/utility.service'
 
-const state = {
+api.course.getCourses().then(response => { localStorage.setItem('courses', JSON.stringify(response.data)) })
 
-};
+const allCourses = JSON.parse(localStorage.getItem('courses'));
+
+const state = allCourses.length > 0 ? { status: {coursesAvailable: true }, allCourses } : { status: {coursesAvailable: false}, allCourses: [] }
+
+console.log('all courses: ' + allCourses)
 
 const actions = {
-    
-
     //instructor
-    createCourse({dispatch}, course) {
+    createCourse({commit, dispatch}, course) {
         courseService.createCourse(course).then(response => {
+            commit('addInstructorCourseSuccess', course)
             console.log(response)
             console.log('in create course module success');
             dispatch('alert/success', 'Successfully created a new course!', { root: true })
@@ -24,10 +27,12 @@ const actions = {
         })
     },
 
-    deleteCourse({dispatch}, courseId) {
+    deleteCourse({commit, dispatch}, { course, courseId } ) {
         courseService.deleteCourse(courseId).then(resolve => {
+            commit('deleteInstructorCourseSuccess', course)
+            console.log(resolve)
             console.log('in delete course success');
-            dispatch('alert/success', `Successfully deleted the course: ${courseId}`)
+            dispatch('alert/success', `Successfully deleted the course: ${courseId}`, { root: true})
         },
         reject => {
             console.log(reject);
@@ -37,7 +42,23 @@ const actions = {
 };
 
 const mutations = {
-    
+    addInstructorCourseSuccess(state, course) {
+        state.allCourses.push(course)
+        // let allCourses = state.allCourses;
+        // localStorage.setItem('courses', JSON.stringify(allCourses))
+    },
+
+    deleteInstructorCourseSuccess(state, course) {
+        state.allCourses.pop(course);
+        // let allCourses = state.allCourses
+        // localStorage.setItem('courses', JSON.stringify(allCourses))
+        if (state.allCourses.length == 0) {
+            state.status = {
+                coursesAvailable: false,
+            }
+        }
+    },
+
     logout(state) {
         state.status = {};
         state.user = null;

@@ -127,7 +127,7 @@
             })
         },
         created() {
-            api.user.getStudents().then(response => (this.allStudents = response.data))
+            
         },
 
         mounted() {

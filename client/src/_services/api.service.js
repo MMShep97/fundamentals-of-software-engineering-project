@@ -53,13 +53,20 @@ const api = {
             })
         },
 
+        registerForCourse: async (studentCourse) => {
+            return instance.post('register/course', {
+                student_id: studentCourse.studentId,
+                course_id: studentCourse.courseId,
+            })
+        },
+
         //(R)ead - GET
         getStudents: async () => {
             return instance.get('student/getAll')
         },
 
         getStudentById: async (id) => {
-            return instance.get(`student/id/${id}`);
+            return instance.get(`student/id/${id}/`);
         },
 
         getStudentByUsername: async (username) => {
@@ -88,6 +95,14 @@ const api = {
 
         getAdministratorByUsername: async (username) => {
             return instance.get(`administrator/username/${username}`);
+        },
+
+        getAllRegisteredStudents: async () => {
+            return instance.get('register/course/getAll')
+        },
+
+        studentCourseExists: async () => {
+            return instance.get('register/course/exist')
         },
 
         // (U)pdate - PUT
@@ -165,7 +180,15 @@ const api = {
                 firstName: user.firstName,
                 lastName: user.lastName
             })
+        },
+
+        deleteStudent: async (studentCourse) => {
+            return instance.delete('register/course/delete', {
+                student_id: studentCourse.studentId,
+                course_id: studentCourse.courseId,
+            })
         }
+
     },
 
     course: {
@@ -223,7 +246,7 @@ const api = {
         },
 
         deleteCourse: async (id) => {
-            return instance.delete(`grade/delete/${id}`)
+            return instance.delete(`course/delete/${id}`)
         },
 
         // quiz
