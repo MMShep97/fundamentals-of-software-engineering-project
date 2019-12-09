@@ -18,7 +18,10 @@ public class GradeService {
 	GradeRepository repo;
 	
 	List<Grade> grades = new ArrayList<>();
-	
+	/***
+	 * 
+	 * @return
+	 */
 	public List<Grade> getAll(){
 		grades = repo.findAll();
 		if(grades == null)

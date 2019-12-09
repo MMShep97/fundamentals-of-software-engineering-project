@@ -29,10 +29,21 @@ public class GradeController {
 	}
 	
 	@GetMapping("get/course_id/{course_id}")
-	public List<Grade> getGradesByQuiz(@PathVariable("id") String course_id) {
+	public List<Grade> getGradesByCourse(@PathVariable("id") String course_id) {
 		List<Grade> listAll = service.getByCourseId(course_id);
 		return listAll;
 	}
+	@GetMapping("get/student_id/{student_id}")
+	public List<Grade> getGradesByStudentId(@PathVariable("id") String student_id) {
+		List<Grade> listAll = service.getByCourseId(student_id);
+		return listAll;
+	}
+	@GetMapping("get/quiz_id/{quiz_id}")
+	public List<Grade> getGradesByQuiz(@PathVariable("id") String quiz_id) {
+		List<Grade> listAll = service.getByCourseId(quiz_id);
+		return listAll;
+	}
+	
 	@DeleteMapping(value="delete/{id}")
 	public void deleteCourse(@PathVariable Integer id) {
 		service.delete(id);

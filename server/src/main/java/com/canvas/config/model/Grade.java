@@ -2,6 +2,7 @@ package com.canvas.config.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,9 +26,10 @@ public class Grade {
 	@Column
 	private Double grade_points;
 	@Id
-	@NotNull
+	@GeneratedValue
 	@Column
 	private Integer id;
+	
 	public Grade() {
 		
 	}
@@ -70,5 +72,11 @@ public class Grade {
 	}
 	public void setGrade_points(double grade_points) {
 		this.grade_points = grade_points;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

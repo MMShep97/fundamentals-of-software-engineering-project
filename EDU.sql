@@ -39,7 +39,8 @@ grade_points int4,
 foreign key (instructor_id) references instructor(instructor_id) on update cascade on delete cascade,
 foreign key (course_id) references course(course_id) on update cascade on delete cascade,
 foreign key (student_id) references student(student_id) on update cascade on delete cascade,
-foreign key (quiz_id) references quiz(quiz_id) on update cascade on delete cascade
+foreign key (quiz_id) references quiz(quiz_id) on update cascade on delete cascade,
+primary key(quiz_id , course_id , instructor_id , student_id)
 );
 create table EDU.studentCourse(
 course_id varchar(100),
@@ -77,7 +78,11 @@ SELECT
     WHERE
         s.student_id = "12xyz";
         
+DROP table grade;
 insert into student_course values('cs120','12xyz' );
 Alter table grade DROP COLUMN student_id;
 ALTER TABLE grade
 ADD FOREIGN KEY (student_id) REFERENCES student_course(student_id);
+desc student;
+
+
