@@ -36,8 +36,10 @@
             })
         },
         created() {
+            this.getCourses();
         },
         methods: {
+        ...mapActions('courses', ['getCourses']),
         }
     }
 </script>
