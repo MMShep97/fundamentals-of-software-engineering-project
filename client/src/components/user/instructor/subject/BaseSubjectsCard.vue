@@ -1,5 +1,5 @@
 <template>
-    <b-card no-body :key="addInstructorKey">
+    <b-card no-body>
         <b-tabs content-class="mt-1" card pills justified align="center">
             <b-tab no-body>
                 <template v-slot:title>
@@ -128,8 +128,6 @@
                 submitted: {
                     addInstructorCourseButton: false,
                 },
-
-                addInstructorKey: 1,
             }
         },
 
@@ -163,7 +161,6 @@
                         this.newCourse.instructorId = this.account.user.instructorId;
                         console.log(this.newCourse)
                         this.createCourse(this.newCourse)
-                        this.addInstructorKey += 1;
                     }
                 }
                 );

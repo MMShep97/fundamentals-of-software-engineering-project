@@ -3,7 +3,9 @@ import { router } from '../_helpers';
 import { api } from '../_services/api.service';
 import { sendEmail } from '../_services/utility.service'
 
-api.course.getCourses().then(response => { localStorage.setItem('courses', JSON.stringify(response.data)) })
+api.course.getCourses().then(response => { 
+    localStorage.setItem('courses', JSON.stringify(response.data)) 
+})
 
 const allCourses = JSON.parse(localStorage.getItem('courses'));
 
@@ -15,7 +17,12 @@ const actions = {
     //instructor
     createCourse({commit, dispatch}, course) {
         courseService.createCourse(course).then(response => {
-            commit('addInstructorCourseSuccess', course)
+
+            // WORKED 
+            let target = {};
+            const newCourse = Object.assign(target, course)
+            // console.log(newCourse)
+            commit('addInstructorCourseSuccess', newCourse)
             console.log(response)
             console.log('in create course module success');
             dispatch('alert/success', 'Successfully created a new course!', { root: true })
@@ -42,14 +49,14 @@ const actions = {
 };
 
 const mutations = {
-    addInstructorCourseSuccess(state, course) {
-        state.allCourses.push(course)
+    async addInstructorCourseSuccess(state, newCourse) {
+        await state.allCourses.push(newCourse)
         // let allCourses = state.allCourses;
         // localStorage.setItem('courses', JSON.stringify(allCourses))
     },
 
-    deleteInstructorCourseSuccess(state, course) {
-        state.allCourses.pop(course);
+    async deleteInstructorCourseSuccess(state, newCourse) {
+        await state.allCourses.pop(newCourse);
         // let allCourses = state.allCourses
         // localStorage.setItem('courses', JSON.stringify(allCourses))
         if (state.allCourses.length == 0) {
