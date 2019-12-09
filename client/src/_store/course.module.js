@@ -3,60 +3,63 @@ import { router } from '../_helpers';
 import { api } from '../_services/api.service';
 import { sendEmail } from '../_services/utility.service'
 
-api.course.getCourses().then(response => { 
-    localStorage.setItem('courses', JSON.stringify(response.data)) 
-})
 
-const allCourses = JSON.parse(localStorage.getItem('courses'));
+const state = { status: {coursesAvailable: false}, allCourses: [] }
 
-const state = allCourses.length > 0 ? { status: {coursesAvailable: true }, allCourses } : { status: {coursesAvailable: false}, allCourses: [] }
-
-console.log('all courses: ' + allCourses)
 
 const actions = {
+    async getCourses({commit}) {
+        let response = await api.course.getCourses();
+        commit('getCoursesSuccess', response.data)
+    },
     //instructor
-    createCourse({commit, dispatch}, course) {
-        courseService.createCourse(course).then(response => {
+    async createCourse({commit, dispatch}, course) {
+        let response = await courseService.createCourse(course)
 
-            // WORKED 
-            let target = {};
-            const newCourse = Object.assign(target, course)
-            // console.log(newCourse)
-            commit('addInstructorCourseSuccess', newCourse)
-            console.log(response)
-            console.log('in create course module success');
-            dispatch('alert/success', 'Successfully created a new course!', { root: true })
-        },
-        
-        reject => {
-            console.log(reject);
+        if (response.status == 200) {
+        const newCourse = await JSON.parse(JSON.stringify(course))
+        commit('addInstructorCourseSuccess', newCourse)
+        dispatch('alert/success', 'Successfully created a new course!', { root: true })
+        }
+        else {
             dispatch('alert/error', 'Failed to create a new course.', { root: true })
-        })
+        }
     },
 
-    deleteCourse({commit, dispatch}, { course, courseId } ) {
-        courseService.deleteCourse(courseId).then(resolve => {
-            commit('deleteInstructorCourseSuccess', course)
-            console.log(resolve)
-            console.log('in delete course success');
+    async deleteCourse({commit, dispatch}, { course, courseId } ) {
+        let response = await courseService.deleteCourse(courseId);
+        if (response.status == 200) {
+            const newCourse = await JSON.parse(JSON.stringify(course))
+            commit('deleteInstructorCourseSuccess', newCourse)
             dispatch('alert/success', `Successfully deleted the course: ${courseId}`, { root: true})
-        },
-        reject => {
-            console.log(reject);
+        }
+        else {
             dispatch('alert/error', `Failed to delete course: ${courseId}`, { root: true })
-        })
+        }
     }
 };
 
 const mutations = {
-    async addInstructorCourseSuccess(state, newCourse) {
-        await state.allCourses.push(newCourse)
+    getCoursesSuccess(state, courses) {
+        state.allCourses = courses;
+        state.status.coursesAvailable = true;
+        localStorage.setItem('courses', JSON.stringify(courses)) 
+    },
+
+    addInstructorCourseSuccess(state, newCourse) {
+        state.allCourses.push(newCourse)
         // let allCourses = state.allCourses;
         // localStorage.setItem('courses', JSON.stringify(allCourses))
     },
 
     async deleteInstructorCourseSuccess(state, newCourse) {
-        await state.allCourses.pop(newCourse);
+        const courses = state.allCourses;
+        const deleteIndex = await courses.findIndex(x => x.courseId == newCourse.courseId)
+        console.log('delete index' + deleteIndex)
+        console.log(JSON.parse(JSON.stringify(courses)))
+        state.allCourses = courses.filter(function(course) { return course.courseId != newCourse.courseId})
+        console.log(JSON.parse(JSON.stringify(state.allCourses)))
+
         // let allCourses = state.allCourses
         // localStorage.setItem('courses', JSON.stringify(allCourses))
         if (state.allCourses.length == 0) {

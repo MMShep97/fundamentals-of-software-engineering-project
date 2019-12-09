@@ -203,7 +203,7 @@ const api = {
             })
         },
 
-        getCourses: async () => {
+        getCourses: () => {
             return instance.get('course/getcourse')
         },
 
@@ -245,7 +245,7 @@ const api = {
             })
         },
 
-        deleteCourse: async (id) => {
+        deleteCourse: (id) => {
             return instance.delete(`course/delete/${id}`)
         },
 

@@ -101,9 +101,11 @@
                 },
 
                 created() {
+                    this.getCourses()
                 },
 
                 methods: {
+                    ...mapActions('courses', ['getCourses']),
 
                     formatNames(files) {
                         if (files.length === 1) {

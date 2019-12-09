@@ -13,10 +13,10 @@ export const courseService = {
 
 
 
-async function createCourse(course) {
-    return await api.course.createCourse(course)
+function createCourse(course) {
+    return api.course.createCourse(course)
 }
 
-async function deleteCourse(courseId) {
-    return await api.course.deleteCourse(courseId)
+function deleteCourse(courseId) {
+    return api.course.deleteCourse(courseId)
 }
