@@ -97,15 +97,14 @@
             computed: {
                     ...mapState({
                         account: state => state.account,
+                        courses: state => state.courses
                     })
                 },
 
                 created() {
-                    this.getCourses()
                 },
 
                 methods: {
-                    ...mapActions('courses', ['getCourses']),
 
                     formatNames(files) {
                         if (files.length === 1) {

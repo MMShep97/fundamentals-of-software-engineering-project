@@ -86,16 +86,17 @@
 
         computed: {
             ...mapState({
-                account: state => state.account
+                account: state => state.account,
+                courses: state => state.courses
             }),
 
             addCourseOptions: function () {
                 let options = [];
-            console.log(this.allAvailableCourses.length)
-            for (let i = 0; i < this.allAvailableCourses.length; i++) {
+            console.log(this.courses.allCourses.length)
+            for (let i = 0; i < this.courses.allCourses.length; i++) {
                 options.push({
-                    value: this.allAvailableCourses[i],
-                    text: this.allAvailableCourses[i].courseName
+                    value: this.courses.allCourses[i],
+                    text: this.courses.allCourses[i].courseName
                 })
             }
             console.log(options)
@@ -104,10 +105,6 @@
         },
 
         created() {
-            api.course.getCourses().then(response => {
-                this.allAvailableCourses = response.data;
-                console.log(response.data)
-            })
         },
 
         mounted() {
@@ -116,6 +113,7 @@
 
     methods: {
         ...mapActions('account', ['addStudentCourse']),
+        
         
         updateStudentsCurrentCoursePool: function(course) {
             let id = this.account.user.studentId;

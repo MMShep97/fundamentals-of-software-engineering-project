@@ -18,45 +18,55 @@ export const userService = {
 
 async function login(username, password) {
 
-        let user;
-        let foundUser = false;
-        let valid = false;
+    let user;
+    let foundUser = false;
+    let valid = false;
 
-        await api.user.getStudentByUsername(username).then(resolve => {
+    await api.user.getStudentByUsername(username).then(resolve => {
             user = resolve.data;
 
-            if (resolve.data == null) { return }
+            if (resolve.data == null) {
+                return
+            }
             user.category = 'Student'
             foundUser = true;
             console.log('nice')
-            
-        }, 
-        reject => {
-            valid = false;
-        }).catch(error => console.log('caught error'))
 
-        if (foundUser == false) {
-        await api.user.getInstructorByUsername(username).then(resolve => {
-            user = resolve.data;
-
-            if (resolve.data == null) { return }
-            user.category = 'Instructor'
-            foundUser = true;
-            console.log('nice')
-            
         },
         reject => {
             valid = false;
         }).catch(error => console.log('caught error'))
-    }
-        //let administrator = await api.user.getAdministratorByUsername(username)
 
-        // else if (administrator != null) user = administrator.data;
-        if (foundUser == false) return { user: null, valid}
-        else {
-            user.password == password ? valid = true: valid = false
-            if (valid == true) localStorage.setItem('user', JSON.stringify(user));
-            return {user, valid};
+    if (foundUser == false) {
+        await api.user.getInstructorByUsername(username).then(resolve => {
+                user = resolve.data;
+
+                if (resolve.data == null) {
+                    return
+                }
+                user.category = 'Instructor'
+                foundUser = true;
+                console.log('nice')
+
+            },
+            reject => {
+                valid = false;
+            }).catch(error => console.log('caught error'))
+    }
+    //let administrator = await api.user.getAdministratorByUsername(username)
+
+    // else if (administrator != null) user = administrator.data;
+    if (foundUser == false) return {
+        user: null,
+        valid
+    }
+    else {
+        user.password == password ? valid = true : valid = false
+        if (valid == true) localStorage.setItem('user', JSON.stringify(user));
+        return {
+            user,
+            valid
+        };
     }
 }
 
@@ -69,21 +79,31 @@ async function register(user) {
     console.log(user)
     let userType = user.category;
     console.log("userType: " + userType)
-    if (userType == 'Student') { 
+    if (userType == 'Student') {
         console.log("in register service student")
-        return await api.user.createNewStudent(user) }
-    else if (userType == 'Instructor') { 
-        console.log("in register service instructor") 
-        return await api.user.createNewInstructor(user) }
+        return await api.user.createNewStudent(user)
+    } else if (userType == 'Instructor') {
+        console.log("in register service instructor")
+        return await api.user.createNewInstructor(user)
+    }
     // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
     // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
 }
 
 async function addStudentCourse(course, id) {
-    let student = await api.user.getStudentById(id)
-    student = student.data;
-    student.courses.push(course)
-    return api.user.updateStudent(student)
+    let response = await api.user.getStudentById(id)
+    if (response.status == 200) {
+        const student = response.data
+        const student_id = student.studentId;
+        const course_id = course.courseId;
+        return api.user.registerForCourse({
+            student_id,
+            course_id
+        })
+    } else {
+        return Promise.reject();
+    }
+
 }
 
 function getById(id) {

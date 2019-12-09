@@ -53,10 +53,10 @@ const api = {
             })
         },
 
-        registerForCourse: async (studentCourse) => {
+        registerForCourse: async ( { student_id, course_id}) => {
             return instance.post('register/course', {
-                student_id: studentCourse.studentId,
-                course_id: studentCourse.courseId,
+                student_id: student_id,
+                course_id: course_id,
             })
         },
 
