@@ -2,6 +2,7 @@ package com.canvas.config.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 
@@ -60,6 +61,16 @@ public class CourseService {
 			return null;
 		return course;
 	}
+	/***
+	 * This method lets you get courses for a particular instructor
+	 * @param instructor_id
+	 * @return list of courses for a instructor
+	 */
+	public List<Course> getByInstructorId(String instructor_id){
+		List<Course> courses = this.getCourses().stream().filter(c -> c.getInstructorId().equalsIgnoreCase(instructor_id))
+								.collect(Collectors.toList());
+		return courses;
+	}	
 	/***
 	 *
 	 * It is used to save the the course or make a new course.

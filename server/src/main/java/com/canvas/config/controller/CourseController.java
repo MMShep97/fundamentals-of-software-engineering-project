@@ -20,8 +20,8 @@ public class CourseController {
 	private	CourseService courseServ;
   
 	/***
-	 * 
-	 * @return
+	 * It brings everything from course and displays it.
+	 * @return List of Course
 	 */
 	@GetMapping(value= "getcourse")  
 	public List<Course> getAllcourses(){
@@ -40,9 +40,9 @@ public class CourseController {
 		return result;
 	}
 	/***
-	 * 
+	 * it gets course by id
 	 * @param id
-	 * @return
+	 * @return Instance of Course
 	 */
 	@GetMapping("get/{id}")
 	public Course getCoursebyID(@PathVariable("id") String id){
@@ -53,9 +53,9 @@ public class CourseController {
 	}
 	
 	/***
-	 * 
+	 * updates the course 
 	 * @param course
-	 * @return
+	 * @return boolean
 	 */
 	@PutMapping(value="/course/{id}")
 	public boolean udpdateCourse(@RequestBody Course course) {
@@ -69,7 +69,7 @@ public class CourseController {
 	/***
 	 * 
 	 * @param id
-	 * @return
+	 * @return boolean 
 	 */
 	@DeleteMapping(value="delete/{id}")
 	public boolean deleteCourse(@PathVariable String id) {
@@ -79,5 +79,18 @@ public class CourseController {
 		if(result == false)
 			return false;
 		return true;
+	}
+	/***
+	 * 
+	 * @param instructor_id
+	 * @return List of course instance
+	 */
+	@GetMapping(value="course/instructor_id/{id}")
+	public List<Course> listCoursesForInstructor(@PathVariable("id") String instructor_id){
+		if(instructor_id == null) {
+			return null;
+		}
+		List<Course> courses = courseServ.getByInstructorId(instructor_id);
+		return courses;
 	}
 }
