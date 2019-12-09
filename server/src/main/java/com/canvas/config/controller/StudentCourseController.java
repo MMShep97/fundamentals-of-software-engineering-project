@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.canvas.config.model.StudentCourse;
 import com.canvas.config.services.StudentCourseService;
 
-@RequestMapping("register/course")
+@RequestMapping("register/course/")
 @RestController
 public class StudentCourseController {
 	
@@ -43,7 +43,7 @@ public class StudentCourseController {
 		return false;
 	}
 	
-	@GetMapping(value="exist")
+	@PostMapping(value="exist")
 	public boolean isExist(@RequestBody StudentCourse studentCourse) {
 		boolean result = studentCourseService.isExist(studentCourse);
 		if(result)

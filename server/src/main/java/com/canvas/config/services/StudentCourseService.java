@@ -54,10 +54,11 @@ public class StudentCourseService {
 	 * @return : returns true if the object gets deleted else false.
 	 * 
 	 */
+	@Transactional
 	public boolean isDropped(StudentCourse studentCourse) {
 		try {
 			if(isExist(studentCourse)) {
-				em.createNativeQuery("DELETE from student_course WHERE student_id =:id, course_id = :c_id")
+				em.createNativeQuery("DELETE from student_course WHERE student_id =:id AND course_id = :c_id")
 				.setParameter("id", studentCourse.getStudent_id())
 				.setParameter("c_id", studentCourse.getCourse_id())
 				.executeUpdate();
@@ -76,13 +77,14 @@ public class StudentCourseService {
 	 */
 	public boolean isExist(StudentCourse sc) {
 		@SuppressWarnings("unchecked")
-		List<StudentCourse> list = em.createNativeQuery("SELECT course_id FROM student_course WHERE student_id =:id")
+		List<String> list = em.createNativeQuery("SELECT course_id FROM student_course WHERE student_id =:id")
 													.setParameter("id", sc.getStudent_id())
 													.getResultList();
-		for(StudentCourse c : list) {
-			if(c.getCourse_id().equalsIgnoreCase(sc.getCourse_id()))
+		for(String c : list) {
+			if(c.equalsIgnoreCase(sc.getCourse_id()))
 				return true;
 		}
 		return false;
+		
 	}
 }
