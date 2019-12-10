@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.canvas.config.model.Course;
 import com.canvas.config.model.Student;
+import com.canvas.config.model.StudentCourse;
 import com.canvas.config.repo.CourseRepository;
 import com.canvas.config.repo.StudentRepository;
 
@@ -23,6 +24,8 @@ public class StudentService {
 	CourseRepository courseRepository;
 	@Autowired
 	EntityManager em;
+	@Autowired
+	StudentCourseService service;
 	
 	
 	/***
@@ -45,8 +48,12 @@ public class StudentService {
 	 * */
 	
 	public List<Student> listAll(){
-		return repo.findAll();
+		List<Student> students = repo.findAll();
 		
+		for(Student s : students) {
+			s.setCourses(this.findCourse(s.getStudentId()));
+		}
+		return students;
 	}
 	
 	/***
@@ -58,6 +65,19 @@ public class StudentService {
 		if(repo.existsById(student.getStudentId()) == true)
 			return false;
 		 if(repo.save(student) != null) {
+			 List<Course> courses = student.getCourses();
+			 StudentCourse sc = new StudentCourse();
+			 Boolean result = true;
+			 for(Course c : courses) {
+				 sc.setCourse_id(c.getCourseId());
+				 sc.setStudent_id(student.getStudentId());
+				//check if s has already registered for course c
+				 result = service.isExist(sc);
+				 if(result == false) {
+					 //registers for the course
+					 service.isRegisteredForCourse(sc);
+				 }
+			 }
 			 return true;
 		 }
 		return true;
@@ -85,7 +105,8 @@ public class StudentService {
 		student.setCourses(this.findCourse(userName));
 		
 		return student;
-	}
+		}
+
 	
 	/***
 	 * delete a student by his student id
@@ -115,6 +136,19 @@ public class StudentService {
 		if (student.getLastName() != null) before.setLastName(student.getLastName());
 		if (student.getPassword() != null) before.setPassword(student.getPassword());
 		if (student.getUsername() != null) before.setUsername(student.getUsername());
+		List<Course> courses = student.getCourses();
+		 StudentCourse sc = new StudentCourse();
+		 Boolean result = true;
+		 for(Course c : courses) {
+			 sc.setCourse_id(c.getCourseId());
+			 sc.setStudent_id(student.getStudentId());
+			//check if s has already registered for course c
+			 result = service.isExist(sc);
+			 if(result == false) {
+				 //registers for the course
+				 service.isRegisteredForCourse(sc);
+			 }
+		 }
 		repo.save(before);
 		return true;
 	}
