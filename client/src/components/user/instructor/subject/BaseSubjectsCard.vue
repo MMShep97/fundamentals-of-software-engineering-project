@@ -9,12 +9,12 @@
                     <b-col>
                         <b-form @submit.prevent="handleAddInstructorSubject">
                             <b-form-group>
-                                <label htmlFor="newCourse.courseId">Course ID:</label>
-                                <input v-validate="'required'" type="text" v-model="newCourse.courseId" name="newCourse.courseId"
+                                <label htmlFor="courseId">Course ID:</label>
+                                <input v-validate="'required'" type="text" v-model="newCourse.courseId" name="courseId"
                                     placeholder="e.g. CS:1200" class="form-control"
-                                    :class="{ 'is-invalid': submitted.addInstructorCourseButton && errors.has('lastName') }" />
-                                <div v-if="submitted && errors.has(`${newCourse.courseId}`)" class="invalid-feedback">
-                                    {{ errors.first('newCourse.courseId') }}</div>
+                                    :class="{ 'is-invalid': errors.has('courseId') }" />
+                                <div v-if="submitted && errors.has('courseId')" class="invalid-feedback">
+                                    {{ errors.first('courseId') }}</div>
                             </b-form-group>
                             <b-form-group>
                                 <label htmlFor="newCourse.courseName">Course Name:</label>
@@ -33,6 +33,14 @@
                                 <div v-if="submitted && errors.has('newCourse.courseDescription')"
                                     class="invalid-feedback">
                                     {{ errors.first('newCourse.courseDescription') }}</div>
+                            </b-form-group>
+                            <b-form-group>
+                                <label htmlFor="newCourse.courseId">Cost to Enroll:</label>
+                                <input v-validate="'required'" type="number" v-model.number="newCourse.cost" name="newCourse.cost"
+                                     class="form-control"
+                                    :class="{ 'is-invalid': submitted.addInstructorCourseButton && errors.has('lastName') }" />
+                                <div v-if="submitted && errors.has(``)" class="invalid-feedback">
+                                    {{ errors.first('newCourse.courseId') }}</div>
                             </b-form-group>
                             <b-form-group>
                                 <label>Course Files:</label>
@@ -115,14 +123,15 @@
                 submitted: false,
 
                 newCourse: {
-                    courseId: '',
-                    courseName: '',
+                    courseId: 'CS:5800',
+                    courseName: 'Fundamentals of Software Engineering',
                     students: null,
                     quiz: [],
                     grades: [],
                     instructorId: '',
-                    courseDescription: '',
+                    courseDescription: 'Default Course Description...',
                     courseFiles: [],
+                    cost: 0,
                 },
 
                 submitted: {
