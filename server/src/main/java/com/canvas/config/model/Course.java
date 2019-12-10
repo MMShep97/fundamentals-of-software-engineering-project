@@ -22,7 +22,7 @@ public class Course implements Serializable{
 	@Id
 	@Column(name ="course_id")
 	private String courseId;
-	
+
 	@NotEmpty(message="course name cannot be empty")
 	@Column(name ="course_name")
 	private String courseName;
@@ -90,6 +90,66 @@ public class Course implements Serializable{
 
 	public void setQuiz(Set<Quiz> quiz) {
 		this.quiz = quiz;
+	}
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", instructor_id=" + instructor_id
+				+ ", students=" + students + ", quiz=" + quiz + ", grades=" + grades + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
+		result = prime * result + ((courseName == null) ? 0 : courseName.hashCode());
+		result = prime * result + ((grades == null) ? 0 : grades.hashCode());
+		result = prime * result + ((instructor_id == null) ? 0 : instructor_id.hashCode());
+		result = prime * result + ((quiz == null) ? 0 : quiz.hashCode());
+		result = prime * result + ((students == null) ? 0 : students.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Course other = (Course) obj;
+		if (courseId == null) {
+			if (other.courseId != null)
+				return false;
+		} else if (!courseId.equals(other.courseId))
+			return false;
+		if (courseName == null) {
+			if (other.courseName != null)
+				return false;
+		} else if (!courseName.equals(other.courseName))
+			return false;
+		if (grades == null) {
+			if (other.grades != null)
+				return false;
+		} else if (!grades.equals(other.grades))
+			return false;
+		if (instructor_id == null) {
+			if (other.instructor_id != null)
+				return false;
+		} else if (!instructor_id.equals(other.instructor_id))
+			return false;
+		if (quiz == null) {
+			if (other.quiz != null)
+				return false;
+		} else if (!quiz.equals(other.quiz))
+			return false;
+		if (students == null) {
+			if (other.students != null)
+				return false;
+		} else if (!students.equals(other.students))
+			return false;
+		return true;
 	}
 
 	

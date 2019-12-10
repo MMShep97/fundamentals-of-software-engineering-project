@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.canvas.config.model.Course;
 import com.canvas.config.model.Student;
+import com.canvas.config.model.StudentCourse;
 import com.canvas.config.repo.CourseRepository;
 
 @Service
@@ -20,6 +21,8 @@ public class CourseService {
 	
 	@Autowired
 	public EntityManager em;
+	@Autowired
+	public StudentCourseService serv;
 	
     private Course course;
 	
@@ -30,6 +33,9 @@ public class CourseService {
 	 * */
 	public List<Course> getCourses(){
 		List<Course> list = repo.findAll();
+		for(Course c : list) {
+			c.setStudents(this.getStudentsForCourse(c.getCourseId()));
+		}
 		if(list == null) {
 			return new ArrayList<>();
 		}
@@ -44,7 +50,7 @@ public class CourseService {
 	 * */
 	@SuppressWarnings("unchecked")
 	public List<Student> getStudentsForCourse(String courseId){
-		List<Student> students= em.createNativeQuery("SELECT s.student_id FROM student s INNER JOIN student_course sc ON s.student_id = sc.student_id WHERE sc.course_id =:courseId")
+		List<Student> students= em.createNativeQuery("SELECT s.student_id, s.first , s.last, s.username, s.password FROM student s INNER JOIN student_course sc ON s.student_id = sc.student_id WHERE sc.course_id =:courseId", Student.class)
 								.setParameter("courseId", courseId)
 								.getResultList();
 		return students;
@@ -57,8 +63,10 @@ public class CourseService {
 	public Course getById(String course_id) {
 		course = repo.findById(course_id).get();
 		course.setStudents(this.getStudentsForCourse(course_id));
-		if(course == null)
+		if(course == null) {
 			return null;
+		}
+			
 		return course;
 	}
 	/***
@@ -78,10 +86,30 @@ public class CourseService {
 	 * @return it returns true if the saved is true and false if the save fails
 	 */
 	public boolean save(Course course) {
+		if(course.getCourseId() == null)
+			return false;
 		course = repo.save(course);
-		if(course != null)
-			return true;
-		return false;
+		List<Student> students = course.getStudents();
+		 StudentCourse sc = new StudentCourse();
+		 Boolean result = true;
+		 if(students != null) {
+			 for(Student s : students) {
+					
+				 sc.setCourse_id(course.getCourseId());
+				 sc.setStudent_id(s.getStudentId());
+				 //check if course already has the student registered
+				 result = serv.isExist(sc);
+				 
+				 if(result == false) {
+					 //registers for the course
+					 serv.isRegisteredForCourse(sc);
+				 }
+			 
+			 
+		 }
+		 }
+		 
+		return true;
 	}
 	/***
 	 * It is used to update a course and it takes in the course object.
@@ -96,6 +124,24 @@ public class CourseService {
 		before.setCourseName(course.getCourseName());
 		before.setInstructorId(course.getInstructorId());
 		Course after = repo.save(before);
+		List<Student> students = course.getStudents();
+		 StudentCourse sc = new StudentCourse();
+		 Boolean result = true;
+		 if(students != null) {
+			 for(Student s : students) {
+				 
+				 sc.setCourse_id(course.getCourseId());
+				 sc.setStudent_id(s.getStudentId());
+				 //check if course already has the student registered
+				 result = serv.isExist(sc);
+				 
+				 if(result == false) {
+					 //registers for the course
+					 serv.isRegisteredForCourse(sc);
+				 }
+			 }
+		 }
+		
 		if(after == null)
 			return false;
 		return true;
