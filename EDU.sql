@@ -84,5 +84,7 @@ Alter table grade DROP COLUMN student_id;
 ALTER TABLE grade
 ADD FOREIGN KEY (student_id) REFERENCES student_course(student_id);
 desc student;
-
+select * from administrator;
+insert into grade values('quiz1','cs12','agco','12xyz','7','1');
+insert into administrator values('abc','abc','abc','abc','abc');
 
