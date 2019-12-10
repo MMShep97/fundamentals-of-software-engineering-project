@@ -14,7 +14,7 @@ import {
 
 const user = JSON.parse(localStorage.getItem('user'));
 console.log('in account module')
-const state = user ? { status: {loggedIn: true, fetchingUsers: false, fetchedUsers: false }, allUsers: null, currentCourseSelected: null, user } : { status: {}, allUsers, currentCourseSelected: null, cost: 0, user: null };
+const state = user ? { status: {loggedIn: true, fetchingUsers: false, fetchedUsers: false }, allUsers: null, currentCourseSelected: null, user } : { status: {}, allUsers: null, currentCourseSelected: null, cost: 0, user: null };
 state.status.addedCourse = false;
 
 const actions = {
@@ -44,7 +44,7 @@ const actions = {
     async register({
         dispatch,
         commit
-    }, user ) {
+    }, { user, userId } ) {
         commit('registerRequest', user);
         console.log('username' + user.username)
         console.log('testing: ' + user)
@@ -57,7 +57,7 @@ const actions = {
                     root: true
                 });
                 // console.log("USER ID: " + userId)
-                // api.sendEmail(userId)
+                api.sendEmail(userId)
                 setTimeout(function() {router.push('/login')}, 1000) 
             },
 

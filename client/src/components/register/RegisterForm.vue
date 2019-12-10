@@ -106,7 +106,7 @@
                     if (valid) {
                         let user = this.user;
                         let userId = this.user.id;
-                        this.register( user );
+                        this.register( { user, userId} );
                     }
                 });
             }
