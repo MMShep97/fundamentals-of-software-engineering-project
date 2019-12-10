@@ -8,7 +8,7 @@
                     </b-col>
                 </b-card-text>
             </b-tab>
-            <b-tab no-body>
+            <b-tab disabled no-body>
                 <template v-slot:title>
                     &plus; Add Course
                 </template>
@@ -18,18 +18,18 @@
                 <template v-slot:title>
                     &minus; Delete Course
                 </template>
-                <b-row v-for="course in account.user.courses" :key="course.id" align-v="center" align-h="center">
+                <b-row v-for="course in account.user.courses" :key="course.courseId" align-v="center" align-h="center">
 
                     <b-col xl="8" lg="6" md="6" sm="6" cols="6">
                         <b-list-group>
-                            <b-list-group-item href='#' variant="dark">
-                                {{course.courseName}}
+                            <b-list-group-item disabled href='#' variant="dark">
+                                {{course.courseId}} - {{course.courseName}}
                             </b-list-group-item>
                         </b-list-group>
                     </b-col>
                     <b-col xl="4" lg="6" md="6" sm="6" cols="6">
                         <b-list-group>
-                            <b-list-group-item href="#" class="text-danger" variant="danger">
+                            <b-list-group-item @click="deleteStudentSubject(course)" href="#" class="text-danger" variant="danger">
                                 Delete
                             </b-list-group-item>
                         </b-list-group>
@@ -57,25 +57,6 @@
                 currentCourseSelected: {
                     title: '',
                 },
-                courseList: {
-                    activeCourses: [{
-                            id: 1,
-                            title: 'English',
-                            text: 'Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry  richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.'
-                        },
-                        {
-                            id: 2,
-                            title: 'Math',
-                            text: 'Animdfpariatur cliche reprehenderit, enim eiusmod high life accusamus terry  richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.'
-                        }
-                    ],
-                    pastCourses: {
-                        math: {
-                            title: 'Math',
-                            text: 'noice.'
-                        }
-                    },
-                }
             }
         },
 computed: {
@@ -85,6 +66,15 @@ computed: {
 
             
         },
+
+        methods: {
+            ...mapActions('account', ['deleteStudentCourse']),
+            deleteStudentSubject( course ) {
+                const studentId = this.account.user.studentId
+                console.log('student id in my courses' + studentId)
+                this.deleteStudentCourse( {course, studentId } )
+            },
+        }
 
         
 

@@ -11,6 +11,7 @@ export const userService = {
     logout,
     register,
     addStudentCourse,
+    deleteStudentCourse,
     getById,
     update,
     delete: _delete
@@ -94,16 +95,25 @@ async function addStudentCourse(course, id) {
     let response = await api.user.getStudentById(id)
     if (response.status == 200) {
         const student = response.data
-        const student_id = student.studentId;
-        const course_id = course.courseId;
-        return api.user.registerForCourse({
-            student_id,
-            course_id
-        })
+        student.courses.push(course);
+        console.log(JSON.parse(JSON.stringify(student)))
+        return api.user.updateStudent(student)
     } else {
         return Promise.reject();
     }
 
+}
+
+async function deleteStudentCourse(id, courseToDelete) {
+    let response = await api.user.getStudentById(id)
+    if (response.status == 200) {
+        const student = response.data
+        student.courses = student.courses.filter(function(course) { return course.courseId != courseToDelete.courseId})
+        console.log(JSON.parse(JSON.stringify(student)))
+        return api.user.updateStudent(student)
+    } else {
+        return Promise.reject();
+    }
 }
 
 function getById(id) {

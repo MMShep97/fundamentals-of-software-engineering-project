@@ -25,6 +25,7 @@
                     <b-nav-item-dropdown v-if="account.status.loggedIn" right>
                         <!-- Using 'button-content' slot -->
                         <template v-slot:button-content>
+                            <span style="font-size: 8px" v-if="account.user.cost">Debt: ${{account.user.cost}} | </span>
                             <em>{{account.user.firstName}} {{account.user.lastName}}</em>
                         </template>
                         <b-dropdown-item to='/user-profile'>Profile</b-dropdown-item>
@@ -53,7 +54,6 @@
         computed: {
             ...mapState({
                 account: state => state.account,
-                users: state => state.users.all
             }, 'account', ['status']),
         },
         methods: {
