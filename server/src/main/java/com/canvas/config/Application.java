@@ -19,11 +19,7 @@ public class Application {
 	}
 
 	 // Fix the CORS errors
-<<<<<<< HEAD
 	 @Bean
-=======
-	 /*@Bean
->>>>>>> 2e322c137960227c904736f3a846863ea61479f7
 	 public FilterRegistrationBean simpleCorsFilter() {  
 		 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();  
 		 CorsConfiguration config = new CorsConfiguration();  
@@ -36,11 +32,7 @@ public class Application {
 		 FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		 bean.setOrder(Ordered.HIGHEST_PRECEDENCE);  
 		 return bean;  
-<<<<<<< HEAD
 	 }
-=======
-	 }*/
->>>>>>> 2e322c137960227c904736f3a846863ea61479f7
 	 
 	
 }

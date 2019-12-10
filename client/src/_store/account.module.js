@@ -86,6 +86,20 @@ const actions = {
         })
     },
 
+    deleteStudentCourse({commit, dispatch}, { course, studentId } ) {
+        userService.deleteStudentCourse(studentId, course.courseId).then(async response => {
+            const newCourse = await JSON.parse(JSON.stringify(course))
+            commit('deleteStudentCourseSuccess', newCourse)
+            console.log(response)
+            dispatch('alert/success', `Successfully deleted course: ${course.courseId}`, { root: true })
+        },
+        
+        reject => {
+            console.log(reject);
+            dispatch('alert/error', `Failed to delete course '${course.courseId}' from your course pool`, { root: true })
+        })
+    }
+
     // sendEmail(user.studentId, user.firstName, FROM_EMAIL, SUBJECT, BODY)
 };
 
@@ -133,11 +147,22 @@ const mutations = {
     addStudentCourseSuccess(state, course) {
         state.status.addedCourse = true;
         state.user.courses.push(course)
-        state.user.courses.currentCourseSelected = course
+        state.user.currentCourseSelected = course
+        state.user.cost += course.cost
+        localStorage.setItem('user', JSON.stringify(state.user)) 
     },
     addStudentCourseFailure(state) {
         state.status = {};
     },
+
+    deleteStudentCourseSuccess(state, courseToDelete) {
+        let studentCourses = state.user.courses;
+        state.user.currentCourseSelected = null
+        state.user.courses = studentCourses.filter(function(course) { return course.courseId != courseToDelete.courseId})
+        console.log(JSON.parse(JSON.stringify(state.user.courses)))
+        localStorage.setItem('user', JSON.stringify(state.user)) 
+
+    }
 };
 
 export const account = {

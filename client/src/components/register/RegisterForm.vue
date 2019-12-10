@@ -82,6 +82,9 @@
                     password: '',
                     firstName: '',
                     lastName: '',
+                    courses: [],
+                    grades: [],
+                    fees: 0,
                     currentCourseSelected: '',
                 },
                 submitted: false
