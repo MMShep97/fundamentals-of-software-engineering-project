@@ -26,10 +26,20 @@ public class Course implements Serializable{
 	@NotEmpty(message="course name cannot be empty")
 	@Column(name ="course_name")
 	private String courseName;
+	
+
 	@NotEmpty(message="instructor id cannot be empty")
 	@Column(name = "instructor_id")
 	private String instructor_id;
+	@Column
+	private Double cost;
 	
+
+	@Column
+	private String courseDescription;
+	
+	
+
 	@Transient
 	private List<Student> students;
     
@@ -51,10 +61,12 @@ public class Course implements Serializable{
 		super();
 	}
 
-	public Course(String courseName, String instructor_id) {
+	public Course(String courseName, String instructor_id, Double cost, String courseDescription) {
 		super();
 		this.courseName = courseName;
 		this.instructor_id = instructor_id;
+		this.cost = cost;
+		this.courseDescription = courseDescription;
 		
 	}
 
@@ -91,16 +103,44 @@ public class Course implements Serializable{
 	public void setQuiz(Set<Quiz> quiz) {
 		this.quiz = quiz;
 	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
+	}public String getInstructor_id() {
+		return instructor_id;
+	}
+
+	public void setInstructor_id(String instructor_id) {
+		this.instructor_id = instructor_id;
+	}
+
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
+
+	public String getCourseDescription() {
+		return courseDescription;
+	}
+
+	public void setCourseDescription(String courseDescription) {
+		this.courseDescription = courseDescription;
+	}
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", instructor_id=" + instructor_id
-				+ ", students=" + students + ", quiz=" + quiz + ", grades=" + grades + "]";
+				+ ", cost=" + cost + ", courseDescription=" + courseDescription + ", students=" + students + ", quiz="
+				+ quiz + ", grades=" + grades + "]";
 	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cost == null) ? 0 : cost.hashCode());
+		result = prime * result + ((courseDescription == null) ? 0 : courseDescription.hashCode());
 		result = prime * result + ((courseId == null) ? 0 : courseId.hashCode());
 		result = prime * result + ((courseName == null) ? 0 : courseName.hashCode());
 		result = prime * result + ((grades == null) ? 0 : grades.hashCode());
@@ -119,6 +159,16 @@ public class Course implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Course other = (Course) obj;
+		if (cost == null) {
+			if (other.cost != null)
+				return false;
+		} else if (!cost.equals(other.cost))
+			return false;
+		if (courseDescription == null) {
+			if (other.courseDescription != null)
+				return false;
+		} else if (!courseDescription.equals(other.courseDescription))
+			return false;
 		if (courseId == null) {
 			if (other.courseId != null)
 				return false;

@@ -123,6 +123,8 @@ public class CourseService {
 		Course before = repo.findById(course.getCourseId()).get();
 		before.setCourseName(course.getCourseName());
 		before.setInstructorId(course.getInstructorId());
+		before.setCost(course.getCost());
+		before.setCourseDescription(course.getCourseDescription());
 		Course after = repo.save(before);
 		List<Student> students = course.getStudents();
 		 StudentCourse sc = new StudentCourse();
