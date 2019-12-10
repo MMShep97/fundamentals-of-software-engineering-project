@@ -60,7 +60,18 @@
 		
     		Administrator administrator = repo.findById(administratorId).get();
     		return  administrator;
-    	}
+		}
+		
+		/**
+	 * @param user name
+	 * @return administrator object is returned if the administrator the administrator is found.
+	 */
+	public Administrator getByUsername(String userName) {
+		List<Administrator> administrators = this.listAll();
+
+		Administrator administrator = administrators.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).findFirst().get();
+		return administrator;
+	}
     	
 	
     	/***

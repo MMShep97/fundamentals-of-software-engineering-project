@@ -1,0 +1,25 @@
+
+matrix:
+ include:
+language: node_js
+node_js:
+  - "stable"
+before_script:
+  - cd client
+script:
+  - npm install
+  
+language: java
+addons:
+  sonarcloud:
+    organization: "educadia-github"
+    token:
+      secure: "65af7d8b2ab2ac1977119f0d7b05cb29084d4d39" # encrypted value of your token
+    jdk:
+       -oraclejdk8
+before_script:
+  - cd server
+script:
+  - mvn clean install
+  # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis
+ # - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=educadia-sonar
