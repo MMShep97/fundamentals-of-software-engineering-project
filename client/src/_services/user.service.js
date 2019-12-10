@@ -12,6 +12,7 @@ export const userService = {
     register,
     addStudentCourse,
     deleteStudentCourse,
+    viewAllUsers,
     getById,
     update,
     delete: _delete
@@ -54,9 +55,24 @@ async function login(username, password) {
                 valid = false;
             }).catch(error => console.log('caught error'))
     }
-    //let administrator = await api.user.getAdministratorByUsername(username)
 
-    // else if (administrator != null) user = administrator.data;
+    if (foundUser == false) {
+        await api.user.getAdministratorByUsername(username).then(resolve => {
+                user = resolve.data;
+
+                if (resolve.data == null) {
+                    return
+                }
+                user.category = 'Administrator'
+                foundUser = true;
+                console.log('nice')
+
+            },
+            reject => {
+                valid = false;
+            }).catch(error => console.log('caught error'))
+    }
+
     if (foundUser == false) return {
         user: null,
         valid
@@ -87,8 +103,10 @@ async function register(user) {
         console.log("in register service instructor")
         return await api.user.createNewInstructor(user)
     }
-    // else if (userType == 'Administrator') { api.user.createNewAdministrator(user) }
-    // return fetch(`${config.apiUrl}/users/register`, requestOptions).then(handleResponse);
+    else if (userType == 'Administrator') {
+        console.log("in register service admin")
+        return await api.user.createNewAdministrator(user)
+    }
 }
 
 async function addStudentCourse(course, id) {
@@ -114,6 +132,31 @@ async function deleteStudentCourse(id, courseToDelete) {
     } else {
         return Promise.reject();
     }
+}
+
+async function viewAllUsers() {
+    const studentResponse = await api.user.getStudents();
+    const students = studentResponse.data
+    for (let i = 0; i < students.length; i++) {
+        students[i].category = 'Student'
+    }
+    console.log(students)
+    const instructorResponse = await api.user.getInstructors();
+    const instructors = instructorResponse.data;
+    for (let i = 0; i < instructors.length; i++) {
+        instructors[i].category = 'Instructor'
+    }
+    console.log(instructors)
+
+    const adminResponse = await api.user.getAdministrators();
+    const administrators = adminResponse.data
+    for (let i = 0; i < administrators.length; i++) {
+        administrators[i].category = 'Administrator'
+    }
+    console.log(administrators)
+
+    const users = await students.concat(instructors, administrators)
+    return users
 }
 
 function getById(id) {

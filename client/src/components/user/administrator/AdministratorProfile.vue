@@ -1,6 +1,6 @@
 <template>
     <div class="admin-profile-container">
-        <h1>Hi {{account.user.userType}} {{account.user.firstName}}!</h1>
+        <h1>Hi {{account.user.category}} {{account.user.firstName}}!</h1>
         <b-container fluid class="admin-profile-container">
             <b-row>
                 <!-- Delete / View Users -->
@@ -39,17 +39,11 @@
         computed: {
             ...mapState({
                 account: state => state.account,
-                users: state => state.users.all
             })
         },
         created() {
-            this.getAllUsers();
         },
         methods: {
-            ...mapActions('users', {
-                getAllUsers: 'getAll',
-                deleteUser: 'delete'
-            })
         }
     };
 </script>

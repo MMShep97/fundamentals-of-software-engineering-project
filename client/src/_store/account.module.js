@@ -98,6 +98,20 @@ const actions = {
             console.log(reject);
             dispatch('alert/error', `Failed to delete course '${course.courseId}' from your course pool`, { root: true })
         })
+    },
+
+    //administrator
+    viewAllUsers({commit, dispatch}) {
+        userService.viewAllUsers().then(response => {
+            console.log(response)
+            // dispatch('alert/success', ``, { root: true })
+            commit('viewAllUsersSuccess', response)
+        },
+        
+        reject => {
+            console.log(reject);
+            // dispatch('alert/error', `Failed to delete course '${course.courseId}' from your course pool`, { root: true })
+        })
     }
 
     // sendEmail(user.studentId, user.firstName, FROM_EMAIL, SUBJECT, BODY)
@@ -162,7 +176,11 @@ const mutations = {
         console.log(JSON.parse(JSON.stringify(state.user.courses)))
         localStorage.setItem('user', JSON.stringify(state.user)) 
 
-    }
+    },
+
+    viewAllUsersSuccess(state, users) {
+        state.allUsers = users
+    },
 };
 
 export const account = {

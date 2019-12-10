@@ -42,16 +42,16 @@
  		Administrator administrator = service.getById(administratorId);
  		return administrator;
  	}
-// 	/***
-// 	 * This function gets a administrator by his user name 
-// 	 * @param userName
-// 	 * @return it returns the administrator object if the user is found else null
-// 	 */
-// 	@GetMapping(value = "username/{administrator_id}")
-// 	public Administrator getByUsername(@PathVariable("administrator_id") String administrator_id) {
-// 		Administrator administrator = service.getById(administrator_id);
-// 		return administrator;
-// 	}
+	/***
+	 * This function gets a administrator by his user name 
+	 * @param userName
+	 * @return it returns the administrator object if the user is found else null
+	 */
+	@GetMapping(value = "username/{userName}")
+	public Administrator getByUsername(@PathVariable("userName") String userName) {
+		Administrator administrator = service.getByUsername(userName);
+		return administrator;
+	}
  	/***
  	 * This function saves a administrator by taking in the administrator object as
  	 * a parameter

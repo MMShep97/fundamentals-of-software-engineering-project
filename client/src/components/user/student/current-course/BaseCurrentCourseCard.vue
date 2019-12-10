@@ -1,6 +1,6 @@
 <template>
                     <b-card no-body>
-                        <b-tabs content-class="mt-1" card pills justified align="center">
+                        <b-tabs content-class="mt-3" card pills justified align="center">
                             <b-tab no-body title="Home">
                                 <div>
                                     <p>{{account.user.currentCourseSelected.courseDescription}}</p>
