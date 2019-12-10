@@ -128,11 +128,12 @@ const mutations = {
 
     addStudentCourseRequest(state, course) {
         state.status.addingCourse = true;
-        state.user.courses.push(course)
+        // state.user.courses.push(course)
     },
     addStudentCourseSuccess(state, course) {
         state.status.addedCourse = true;
         state.user.courses.push(course)
+        state.user.courses.currentCourseSelected = course
     },
     addStudentCourseFailure(state) {
         state.status = {};

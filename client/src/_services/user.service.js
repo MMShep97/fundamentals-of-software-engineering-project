@@ -94,12 +94,8 @@ async function addStudentCourse(course, id) {
     let response = await api.user.getStudentById(id)
     if (response.status == 200) {
         const student = response.data
-        const student_id = student.studentId;
-        const course_id = course.courseId;
-        return api.user.registerForCourse({
-            student_id,
-            course_id
-        })
+        student.courses.push(course);
+        return api.user.updateStudent(student)
     } else {
         return Promise.reject();
     }

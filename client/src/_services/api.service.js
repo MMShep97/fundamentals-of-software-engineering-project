@@ -29,7 +29,9 @@ const api = {
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                courses: user.courses,
+                grades: user.grades,
             })
         },
 
@@ -39,7 +41,9 @@ const api = {
                 username: user.username,
                 password: user.password,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                courses: user.courses,
+                grades: user.grades,
             })
         },
 

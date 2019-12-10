@@ -6,7 +6,7 @@
                 <b-col md="4" class="select-course-col">
                     <h4>Select from your current classes:</h4>
                     <b-form-select v-model="account.user.courses.currentCourseSelected" :options="account.user.courses"
-                        class="mb-3" value-field="title" text-field="title" disabled-field="notEnabled"></b-form-select>
+                        class="mb-3" text-field="courseName" disabled-field="notEnabled"></b-form-select>
                     <b-button :pressed.sync="addCourseButtonToggle" size="sm" variant="info" class="btn">
                         <div class="text-center mt-0">Or add courses...</div>
                     </b-button>
