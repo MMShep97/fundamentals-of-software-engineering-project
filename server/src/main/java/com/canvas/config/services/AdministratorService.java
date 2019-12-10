@@ -59,7 +59,6 @@
     	public Administrator getById(String administratorId) {
 		
     		Administrator administrator = repo.findById(administratorId).get();
-    		
     		return  administrator;
     	}
     	
