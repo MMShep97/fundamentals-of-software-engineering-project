@@ -204,6 +204,8 @@ const api = {
                 students: course.students,
                 quiz: course.quizzes,
                 grades: course.grades,
+                cost: course.cost,
+                courseDescription: course.courseDescription
             })
         },
 

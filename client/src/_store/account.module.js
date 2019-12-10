@@ -14,7 +14,7 @@ import {
 
 const user = JSON.parse(localStorage.getItem('user'));
 console.log('in account module')
-const state = user ? { status: {loggedIn: true }, user } : { status: {}, user: null };
+const state = user ? { status: {loggedIn: true }, user } : { status: {}, cost: 0, user: null };
 state.status.addedCourse = false;
 
 const actions = {

@@ -34,7 +34,7 @@
                     <BaseMyCoursesCard />
                 </b-col>
                 <b-col sm="12" md="8" class="current-course-col">
-                    <h5 class="task-header">Currently Selected Course | {{account.user.currentCourseSelected.courseName}}</h5>
+                    <h5 class="task-header">Currently Selected Course | {{currentCourseName}}</h5>
                     <BaseCurrentCourseCard />
                 </b-col>
             </b-row>
@@ -72,6 +72,12 @@
                 account: state => state.account,
                 courses: state => state.courses
             }),
+            
+            currentCourseName: function() {
+                if (this.account.user.currentCourseSelected != null) {
+                    return this.account.user.currentCourseSelected.courseName
+                }
+            },
 
             currentCourseOptions: function () {
                 let options = []

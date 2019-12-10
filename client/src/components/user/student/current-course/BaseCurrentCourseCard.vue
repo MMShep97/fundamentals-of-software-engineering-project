@@ -2,11 +2,11 @@
                     <b-card no-body>
                         <b-tabs content-class="mt-1" card pills justified align="center">
                             <b-tab no-body title="Home">
-                                <div v-for="content in course" :key="content.id">
-                                    <p>{{content}}</p>
+                                <div>
+                                    <p>{{account.user.currentCourseSelected.courseDescription}}</p>
                                 </div>
                             </b-tab>
-                            <b-tab no-body title="Announcements">
+                            <b-tab disabled no-body title="Announcements">
                                 <b-card-text>
                                     <div v-for="announcement in announcements" :key="announcement.id">
                                         <p>{{announcement}}</p>
@@ -27,7 +27,7 @@
                             <b-tab no-body title="Modules">
                                 <b-card-text></b-card-text>
                             </b-tab>
-                            <b-tab no-body title="Feedback">
+                            <b-tab disabled no-body title="Feedback">
                                 <b-card-text></b-card-text>
                             </b-tab>
                         </b-tabs>
@@ -37,6 +37,10 @@
 
 <script>
 import TakeExam from './TakeExam'
+ import {
+        mapState,
+        mapActions
+    } from 'vuex'
 export default {
     components: {
         TakeExam,
@@ -47,6 +51,12 @@ export default {
             course: ['boop'],
             announcements: ['boop']
         }
+    },
+
+    computed: {
+        ...mapState({
+            account: state => state.account,
+        })
     }
 }
 </script>

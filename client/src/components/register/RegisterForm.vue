@@ -84,8 +84,8 @@
                     lastName: '',
                     courses: [],
                     grades: [],
-                    fees: 0,
-                    currentCourseSelected: '',
+                    cost: 0,
+                    currentCourseSelected: null,
                 },
                 submitted: false
             }
