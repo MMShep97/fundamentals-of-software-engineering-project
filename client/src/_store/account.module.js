@@ -14,14 +14,14 @@ import {
 
 const user = JSON.parse(localStorage.getItem('user'));
 console.log('in account module')
-const state = user ? { status: {loggedIn: true }, user } : { status: {}, cost: 0, user: null };
+const state = user ? { status: {loggedIn: true, fetchingUsers: false, fetchedUsers: false }, allUsers: null, currentCourseSelected: null, user } : { status: {}, allUsers, currentCourseSelected: null, cost: 0, user: null };
 state.status.addedCourse = false;
 
 const actions = {
     async login({ dispatch, commit }, { username, password }) {
         commit('loginRequest', { username });
     
-        let {user, valid } = await userService.login(username, password)
+        let { user, valid } = await userService.login(username, password)
 
             if (valid == true) {
                 commit('loginSuccess', user);
@@ -102,6 +102,7 @@ const actions = {
 
     //administrator
     viewAllUsers({commit, dispatch}) {
+        commit('viewAllUsersRequest')
         userService.viewAllUsers().then(response => {
             console.log(response)
             // dispatch('alert/success', ``, { root: true })
@@ -161,7 +162,7 @@ const mutations = {
     addStudentCourseSuccess(state, course) {
         state.status.addedCourse = true;
         state.user.courses.push(course)
-        state.user.currentCourseSelected = course
+        state.currentCourseSelected = course
         state.user.cost += course.cost
         localStorage.setItem('user', JSON.stringify(state.user)) 
     },
@@ -171,14 +172,19 @@ const mutations = {
 
     deleteStudentCourseSuccess(state, courseToDelete) {
         let studentCourses = state.user.courses;
-        state.user.currentCourseSelected = null
         state.user.courses = studentCourses.filter(function(course) { return course.courseId != courseToDelete.courseId})
         console.log(JSON.parse(JSON.stringify(state.user.courses)))
         localStorage.setItem('user', JSON.stringify(state.user)) 
 
     },
 
+    viewAllUsersRequest(state) {
+        state.status.fetchingUsers = true
+    },
+
     viewAllUsersSuccess(state, users) {
+        state.status.fetchingUsers = false,
+        state.status.fetchedUsers = true
         state.allUsers = users
     },
 };

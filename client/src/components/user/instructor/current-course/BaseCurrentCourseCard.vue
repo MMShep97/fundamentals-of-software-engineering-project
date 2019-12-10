@@ -5,11 +5,12 @@
                 <b-card-text>
                     <div class="">
                     </div>
-
+                No grades available...
                 </b-card-text>
             </b-tab>
-            <b-tab no-body title="Update Grades">2</b-tab>
+            <b-tab no-body title="Update Grades">No grades available...</b-tab>
             <b-tab no-body title="Publish Grades">
+                No grades available...
             </b-tab>
             <b-tab no-body>
                 <template v-slot:title>
@@ -20,7 +21,7 @@
                         <b-card-text>
                             <b-form>
                                 <b-form-group>
-                                    <h2>Questions</h2>
+                                    <h2>No templates available</h2>
                                     <!-- <div>{{question}}</div>
                                     <label for="option1"><input name="answers" type="radio" :val="option1">
                                         {{option1}}</label>

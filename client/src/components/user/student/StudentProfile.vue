@@ -5,7 +5,7 @@
             <b-row align-h="center" class="row-margin">
                 <b-col md="4" class="select-course-col">
                     <h4>Select from your current classes:</h4>
-                    <b-form-select v-model="account.user.currentCourseSelected" :options="currentCourseOptions"
+                    <b-form-select v-model="account.currentCourseSelected" :options="currentCourseOptions"
                         class="mb-3" placeholder="Add courses below"></b-form-select>
                     <div>
                     <b-button :pressed.sync="addCourseButtonToggle" size="sm" variant="info" class="btn">
@@ -74,8 +74,8 @@
             }),
             
             currentCourseName: function() {
-                if (this.account.user.currentCourseSelected != null) {
-                    return this.account.user.currentCourseSelected.courseName
+                if (this.account.currentCourseSelected != null) {
+                    return this.account.currentCourseSelected.courseName
                 }
             },
 

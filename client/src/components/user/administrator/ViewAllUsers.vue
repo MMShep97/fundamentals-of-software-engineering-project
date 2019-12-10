@@ -2,9 +2,9 @@
     <div class="view-users-container">
         <h5 class="task-header"><span>Showing current registered users...</span></h5>
         <b-card class="card-style delete-users-card">
-            <!-- <em v-if="users.loading">Loading users...</em> -->
+            <span v-if="account.status.fetchingUsers"><em>Loading users...</em></span>
             <!-- <span v-if="users.error" class="text-danger">ERROR: {{users.error}}</span> -->
-            <b-container>
+            <b-container v-if="account.status.fetchedUsers">
                 <div>
                     <b-row>
                         <b-col><em>Name</em></b-col>
@@ -13,6 +13,8 @@
                     </b-row>
                     <b-row>
                         <b-col><div class="line-separator"></div></b-col></b-row>
+            </span>
+
                     <b-row v-for="user in account.allUsers" :key="user.username">
                         <b-col>{{user.firstName + ' ' + user.lastName}}</b-col>
                         <b-col>{{user.category}}</b-col>
