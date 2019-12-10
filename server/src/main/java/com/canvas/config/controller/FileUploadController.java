@@ -27,7 +27,7 @@ public class FileUploadController {
 	@Autowired
     private FileStorageService fileStorageService;
 	
-	@PostMapping("/uploadFile")
+	@PostMapping(value = "/uploadFile")
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 		String fileName = fileStorageService.storeFile(file);
 
@@ -40,14 +40,14 @@ public class FileUploadController {
                 file.getContentType(), file.getSize());
 	}
 	
-	@PostMapping("/uploadMultipleFiles")
+	@PostMapping(value ="/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
                 .stream()
                 .map(file -> uploadFile(file))
                 .collect(Collectors.toList());
     }
-	@GetMapping("/downloadFile/{fileName:.+}")
+	@GetMapping(value = "/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
         Resource resource = fileStorageService.loadFileAsResource(fileName);

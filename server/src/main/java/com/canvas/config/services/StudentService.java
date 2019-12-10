@@ -36,7 +36,7 @@ public class StudentService {
 	@SuppressWarnings("unchecked")
 	public List<Course> findCourse(String student_id) {
 		List<Course> courses = em.createNativeQuery(
-				"SELECT c.course_id ,course_name, instructor_id FROM course c INNER JOIN student_course s ON c.course_id = s.course_id WHERE s.student_id =:student_id", Course.class)
+				"SELECT c.course_id ,course_name, instructor_id, cost, course_description FROM course c INNER JOIN student_course s ON c.course_id = s.course_id WHERE s.student_id =:student_id", Course.class)
 				.setParameter("student_id", student_id).getResultList();
 		return courses;
 	}
