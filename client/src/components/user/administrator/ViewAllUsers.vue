@@ -13,8 +13,6 @@
                     </b-row>
                     <b-row>
                         <b-col><div class="line-separator"></div></b-col></b-row>
-            </span>
-
                     <b-row v-for="user in account.allUsers" :key="user.username">
                         <b-col>{{user.firstName + ' ' + user.lastName}}</b-col>
                         <b-col>{{user.category}}</b-col>
